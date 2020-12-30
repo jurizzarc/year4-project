@@ -1,6 +1,7 @@
 // Creates a router
 const router = require("express").Router();
 const bycrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 // Execute this function when we make a HTTP request to /test on our server
@@ -85,6 +86,15 @@ router.post("/login", async (req, res) => {
                 .json({msg: "Invalid credentials."});
         }
 
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                displayName: user.displayName,
+                email: user.email
+            }
+        });
     } catch (err) {
         res.status(500).json({error: err.message});
     }
