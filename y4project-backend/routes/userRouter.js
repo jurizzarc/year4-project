@@ -1,5 +1,6 @@
 // Creates a router
 const router = require("express").Router();
+const bycrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
 // Execute this function when we make a HTTP request to /test on our server
@@ -31,7 +32,7 @@ router.post("/register", async (req, res) => {
                 .json({msg: "Enter the same password twice for verification."});
         }
 
-        const existingUser = await User.find({email: email});
+        const existingUser = await User.findOne({email: email});
         if (existingUser) {
             return res
                 .status(400)
@@ -41,6 +42,9 @@ router.post("/register", async (req, res) => {
         if (!displayName) {
             displayName = email;
         }
+
+        const salt = await bycrypt.genSalt();
+        const passwordHash = await bycrypt.hash(password, salt);
     } catch (err) {
         res.status(500).json(err);
     }
