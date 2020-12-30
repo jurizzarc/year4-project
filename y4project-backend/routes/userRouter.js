@@ -45,6 +45,16 @@ router.post("/register", async (req, res) => {
 
         const salt = await bycrypt.genSalt();
         const passwordHash = await bycrypt.hash(password, salt);
+
+        // Save user to database
+        const newUser = new User({
+            email,
+            password: passwordHash,
+            displayName
+        });
+
+        const savedUser = await newUser.save();
+        res.json(savedUser);
     } catch (err) {
         res.status(500).json(err);
     }
