@@ -60,4 +60,28 @@ router.post("/register", async (req, res) => {
     }
 });
 
+router.post("/login", async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        // Validate
+        if (!email || !password) {
+            return res
+                .status(400)
+                .json({msg: "Not all fields have been filled in."});
+        }
+
+        const user = await User.findOne({email: email});
+        if (!user) {
+            return res
+                .status(400)
+                .json({msg: "No account with this e-mail address has been registered."});
+        }
+
+        
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+});
+
 module.exports = router;
