@@ -4,11 +4,11 @@ import AuthOptions from "../auth/AuthOptions";
 
 export default function Header() {
     return (
-        <div>
+        <header id="header">
             <Link to="/">
-                <h1>Year 4 Project</h1>
+                <h1 className="title">Year 4 Project</h1>
             </Link>
             <AuthOptions />
-        </div>
+        </header>
     );
 }

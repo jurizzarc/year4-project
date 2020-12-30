@@ -8,9 +8,9 @@ export default function AuthOptions() {
     const login = () => history.push("/login");
 
     return (
-        <div>
+        <nav className="auth-options">
             <button onClick={register}>Register</button>
             <button onClick={login}>Log In</button>
-        </div>
+        </nav>
     );
 }
