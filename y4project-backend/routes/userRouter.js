@@ -11,7 +11,7 @@ router.get("/test", (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const {email, password, passwordCheck, displayName} = req.body;
+        let {email, password, passwordCheck, displayName} = req.body;
 
         // Validate
         if (!email || !password || !passwordCheck) {
@@ -56,7 +56,7 @@ router.post("/register", async (req, res) => {
         const savedUser = await newUser.save();
         res.json(savedUser);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({error: err.message});
     }
 });
 
