@@ -78,7 +78,13 @@ router.post("/login", async (req, res) => {
                 .json({msg: "No account with this e-mail address has been registered."});
         }
 
-        
+        const isMatching = await bycrypt.compare(password, user.password);
+        if (!isMatching) {
+            return res
+                .status(400)
+                .json({msg: "Invalid credentials."});
+        }
+
     } catch (err) {
         res.status(500).json({error: err.message});
     }
