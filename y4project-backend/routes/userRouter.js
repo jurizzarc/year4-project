@@ -134,4 +134,10 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 });
 
+// endpoint for getting user information
+router.get("/", auth, async (req, res) => {
+    const user = await User.findById(req.user);
+    res.json(user);
+});
+
 module.exports = router;

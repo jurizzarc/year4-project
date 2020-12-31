@@ -30,7 +30,12 @@ export default function App() {
                 {headers: {"x-auth-token": token}}
             );
             
-            
+            if (tokenRes.data) {
+                const userRes = await Axios.get(
+                    "http://localhost:8888/users/",
+                    {headers: {"x-auth-token": token}}
+                );
+            }
         };
 
         checkLoggedIn();
