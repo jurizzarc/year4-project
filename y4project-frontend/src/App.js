@@ -35,6 +35,11 @@ export default function App() {
                     "http://localhost:8888/users/",
                     {headers: {"x-auth-token": token}}
                 );
+
+                setUserData({
+                    token,
+                    user: userRes.data
+                });
             }
         };
 
