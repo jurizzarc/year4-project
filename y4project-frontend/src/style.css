@@ -35,6 +35,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.page {
+    padding: 1rem;
+}
+
 /* Header */
 #header {
     background-color: #e02525;
