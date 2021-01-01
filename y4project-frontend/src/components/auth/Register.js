@@ -1,4 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import {useHistory} from "react-router-dom";
+import Axios from "axios";
+import UserContext from "../../context/UserContext";
 
 export default function Register() {
     const [email, setEmail] = useState();
@@ -6,10 +9,33 @@ export default function Register() {
     const [passwordCheck, setPasswordCheck] = useState();
     const [displayName, setDisplayName] = useState();
 
+    const {setUserData} = useContext(UserContext);
+    const history = useHistory();
+
+    const submit = async (e) => {
+        e.preventDefault();
+        const newUser = {email, password, passwordCheck, displayName};
+        await Axios.post(
+            "http://localhost:8888/users/register",
+            newUser
+        );
+        
+        const loginRes = await Axios.post(
+            "http://localhost:8888/users/login",
+            {email,password}
+        );
+        setUserData({
+            token: loginRes.data.token,
+            user: loginRes.data.user
+        });
+        localStorage.setItem("auth-token", loginRes.data.token);
+        history.push("/");
+    };
+
     return (
         <div className="page">
             <h2>Register</h2>
-            <form>
+            <form onSubmit={submit}>
                 <label htmlFor="register-email">E-mail Address</label>
                 <input 
                     id="register-email" 
