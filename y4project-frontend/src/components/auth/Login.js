@@ -29,7 +29,7 @@ export default function Login() {
     return (
         <div className="page">
             <h2>Log In</h2>
-            <form onSubmit={submit}>
+            <form className="form" onSubmit={submit}>
                 <label htmlFor="login-email">E-mail Address</label>
                 <input 
                     id="login-email" 
