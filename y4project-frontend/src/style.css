@@ -111,6 +111,26 @@ body {
     border-radius: 8px;
 }
 
+/*  Error Notice */
+.error-notice {
+    border: 1px solid #e07c7c;
+    background-color: #f8d6d6;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error-notice button {
+    background-color: #df4343;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+}
+
 /* Media Queries */
 @media screen and (max-width: 550px) {
     #header .title {
