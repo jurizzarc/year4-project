@@ -16,6 +16,7 @@ export default function AuthOptions() {
         });
 
         localStorage.setItem("auth-token", "");
+        history.push("/");
     };
 
     return (

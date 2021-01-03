@@ -6,6 +6,7 @@ import Header from "./components/layout/Header";
 import Home from "./components/pages/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Dashboard from "./components/pages/Dashboard";
 import UserContext from "./context/UserContext";
 
 import "./style.css";
@@ -56,6 +57,7 @@ export default function App() {
                             <Route exact path="/" component={Home} />
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
+                            <Route path="/dashboard" component={Dashboard} />
                         </Switch>
                     </div>
                 </UserContext.Provider>
