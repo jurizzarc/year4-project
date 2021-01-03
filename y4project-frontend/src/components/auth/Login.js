@@ -19,7 +19,7 @@ export default function Login() {
             const currentUser = {email, password};
         
             const loginRes = await Axios.post(
-                "http://localhost:8888/users/login",
+                "http://localhost:4000/users/login",
                 currentUser
             );
             setUserData({

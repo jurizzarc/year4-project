@@ -20,12 +20,12 @@ export default function Register() {
         try {
             const newUser = {email, password, passwordCheck, displayName};
             await Axios.post(
-                "http://localhost:8888/users/register",
+                "http://localhost:4000/users/register",
                 newUser
             );
             
             const loginRes = await Axios.post(
-                "http://localhost:8888/users/login",
+                "http://localhost:4000/users/login",
                 {email,password}
             );
             setUserData({
