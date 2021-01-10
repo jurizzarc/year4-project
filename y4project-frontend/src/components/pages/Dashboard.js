@@ -1,8 +1,10 @@
-import React, {useCallback} from "react";
+import React, {useEffect, useContext, useCallback} from "react";
+import {useHistory} from "react-router-dom";
+import UserContext from "../../context/UserContext";
 import {useDropzone} from "react-dropzone";
 import gql from "graphql-tag";
 import {useMutation} from "@apollo/react-hooks";
-import {filesQuery} from "./Files";
+import {Files, filesQuery} from "./Files";
 
 const uploadFileMutation = gql`
     mutation UploadFile($file: Upload!) {
@@ -11,6 +13,13 @@ const uploadFileMutation = gql`
 `;
 
 export const Dashboard = () => {
+    const {userData} = useContext(UserContext);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (!userData.user) history.push("/login");
+    });
+
     const [uploadFile] = useMutation(uploadFileMutation, {
         refetchQueries: [{query: filesQuery}]
     });
@@ -32,6 +41,8 @@ export const Dashboard = () => {
             ) : (
                 <p>Drag and drop some files here, or click to select files</p>
             )}
+
+            <Files />
         </div>
     );
 }
