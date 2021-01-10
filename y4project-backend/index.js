@@ -28,7 +28,7 @@ const resolvers = {
 
             await new Promise(res =>
                 createReadStream()
-                    .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
+                    .pipe(createWriteStream(path.join(__dirname, "./images", filename)))
                     .on("close", res)
             );
 
@@ -39,7 +39,7 @@ const resolvers = {
     }
 };
 
-existsSync(path.join(__dirname, "../images")) || mkdirSync(path.join(__dirname, "../images"));
+existsSync(path.join(__dirname, "./images")) || mkdirSync(path.join(__dirname, "./images"));
 
 // Create Apollo server
 const server = new ApolloServer({typeDefs, resolvers});
@@ -47,7 +47,7 @@ const server = new ApolloServer({typeDefs, resolvers});
 const app = express();
 app.use(express.json()); // Set up middleware
 app.use(cors());
-app.use("/images", express.static(path.join(__dirname, "../images")));
+app.use("/images", express.static(path.join(__dirname, "./images")));
 server.applyMiddleware({app});
 
 // Start up the server
