@@ -20,7 +20,7 @@ const typeDefs = gql`
 `;
 
 const gc = new Storage({
-    keyFilename: path.join(__dirname, "./year-4-project-301322-018fde286833.json"),
+    keyFilename: path.join(__dirname, "../year-4-project-301322-018fde286833.json"),
     projectId: "year-4-project-301322"
 });
 
@@ -52,15 +52,13 @@ const resolvers = {
     }
 };
 
-existsSync(path.join(__dirname, "./images")) || mkdirSync(path.join(__dirname, "./images"));
-
 // Create Apollo server
 const server = new ApolloServer({typeDefs, resolvers});
 // Set up express
 const app = express();
 app.use(express.json()); // Set up middleware
 app.use(cors());
-app.use("/images", express.static(path.join(__dirname, "./images")));
+app.use("/images", express.static(path.join(__dirname, "../images")));
 server.applyMiddleware({app});
 
 // Start up the server
@@ -78,4 +76,4 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 });
 
 // Set up routes
-app.use("/users", require("./routes/userRouter"));
+app.use("/users", require("../routes/userRouter"));

@@ -1,3 +1,4 @@
-node_modules
+/node_modules
 .env
+package_lock.json
 year-4-project-301322-018fde286833.json
