@@ -80,3 +80,4 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 
 // Set up routes
 app.use("/users", require("../routes/userRouter"));
+app.use("/files", require("../routes/userFileRouter"));
