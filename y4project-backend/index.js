@@ -2,6 +2,7 @@ const {ApolloServer, gql} = require("apollo-server-express");
 const {createWriteStream, existsSync, mkdirSync} = require("fs");
 const path = require("path");
 const express = require("express"); 
+const {Storage} = require("@google-cloud/storage");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
@@ -18,6 +19,13 @@ const typeDefs = gql`
     }
 `;
 
+const gc = new Storage({
+    keyFilename: path.join(__dirname, "./year-4-project-301322-018fde286833.json"),
+    projectId: "year-4-project-301322"
+});
+
+const filesToReadBucket = gc.bucket("files-to-read");
+
 const resolvers = {
     Query: {
         files: () => files
@@ -28,8 +36,13 @@ const resolvers = {
 
             await new Promise(res =>
                 createReadStream()
-                    .pipe(createWriteStream(path.join(__dirname, "./images", filename)))
-                    .on("close", res)
+                    .pipe(
+                        filesToReadBucket.file(filename).createWriteStream({
+                            resumable: false,
+                            gzip: true
+                        })
+                    )
+                    .on("finish", res)
             );
 
             files.push(filename);
