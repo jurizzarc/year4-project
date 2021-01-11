@@ -53,7 +53,10 @@ const resolvers = {
 };
 
 // Create Apollo server
-const server = new ApolloServer({typeDefs, resolvers});
+const server = new ApolloServer({
+    typeDefs, 
+    resolvers
+});
 // Set up express
 const app = express();
 app.use(express.json()); // Set up middleware
