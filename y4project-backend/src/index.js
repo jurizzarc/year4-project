@@ -71,8 +71,18 @@ const resolvers = {
             const {ext} = path.parse(filename);
             const randomFileName = generateFileName(6) + ext;
             const stream = createReadStream();
-            const pathName = path.join(__dirname, `../images/${randomFileName}`);
-            await stream.pipe(fs.createWriteStream(pathName));
+            //const pathName = path.join(__dirname, `../images/${randomFileName}`);
+            //await stream.pipe(fs.createWriteStream(pathName));
+
+            await new Promise(res =>
+                stream.pipe(
+                    filesToReadBucket.file(randomFileName).createWriteStream({
+                        resumable: false,
+                        gzip: true
+                    })
+                )
+                .on("finish", res)
+            );
 
             files.push(randomFileName);
 

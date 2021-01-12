@@ -9,11 +9,7 @@ export const filesQuery = gql`
 `;
 
 export const Files = () => {
-    const {data, loading} = useQuery(filesQuery);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    const {data} = useQuery(filesQuery);
 
     return (
         <div>
@@ -21,7 +17,7 @@ export const Files = () => {
                 <img 
                     style={{width: 200}}
                     key={x}
-                    src={`http://localhost:4000/images/${x}`}
+                    src={`https://storage.cloud.google.com/files-to-read/${x}`}
                     alt={x}
                 />
             ))}
