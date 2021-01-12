@@ -7,6 +7,18 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+function generateFileName(length) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+ }
+
 const files = [];
 
 const typeDefs = gql`
@@ -56,11 +68,13 @@ const resolvers = {
 
         uploadFile: async (parent, {file}) => {
             const {createReadStream, filename, mimetype, encoding} = await file;
+            const {ext} = path.parse(filename);
+            const randomFileName = generateFileName(6) + ext;
             const stream = createReadStream();
-            const pathName = path.join(__dirname, `../images/${filename}`);
+            const pathName = path.join(__dirname, `../images/${randomFileName}`);
             await stream.pipe(fs.createWriteStream(pathName));
 
-            files.push(filename);
+            files.push(randomFileName);
 
             return true;
         }
