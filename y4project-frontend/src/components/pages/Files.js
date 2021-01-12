@@ -21,7 +21,7 @@ export const Files = () => {
                 <img 
                     style={{width: 200}}
                     key={x}
-                    src={`https://storage.cloud.google.com/files-to-read/${x}`}
+                    src={`http://localhost:4000/images/${x}`}
                     alt={x}
                 />
             ))}

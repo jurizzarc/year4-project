@@ -1,5 +1,5 @@
 const {ApolloServer, gql} = require("apollo-server-express");
-const {createWriteStream, existsSync, mkdirSync} = require("fs");
+const fs = require("fs");
 const path = require("path");
 const express = require("express"); 
 const {Storage} = require("@google-cloud/storage");
@@ -10,6 +10,10 @@ require("dotenv").config();
 const files = [];
 
 const typeDefs = gql`
+    type File {
+        url: String!
+    }
+
     type Query {
         files: [String]
     }
@@ -31,19 +35,30 @@ const resolvers = {
         files: () => files
     },
     Mutation: {
-        uploadFile: async (_, {file}) => {
-            const {createReadStream, filename} = await file;
+        // uploadFile: async (_, {file}) => {
+        //     const {createReadStream, filename} = await file;
 
-            await new Promise(res =>
-                createReadStream()
-                    .pipe(
-                        filesToReadBucket.file(filename).createWriteStream({
-                            resumable: false,
-                            gzip: true
-                        })
-                    )
-                    .on("finish", res)
-            );
+        //     await new Promise(res =>
+        //         createReadStream()
+        //             .pipe(
+        //                 filesToReadBucket.file(filename).createWriteStream({
+        //                     resumable: false,
+        //                     gzip: true
+        //                 })
+        //             )
+        //             .on("finish", res)
+        //     );
+
+        //     files.push(filename);
+
+        //     return true;
+        // }
+
+        uploadFile: async (parent, {file}) => {
+            const {createReadStream, filename, mimetype, encoding} = await file;
+            const stream = createReadStream();
+            const pathName = path.join(__dirname, `../images/${filename}`);
+            await stream.pipe(fs.createWriteStream(pathName));
 
             files.push(filename);
 
@@ -57,6 +72,7 @@ const server = new ApolloServer({
     typeDefs, 
     resolvers
 });
+
 // Set up express
 const app = express();
 app.use(express.json()); // Set up middleware
