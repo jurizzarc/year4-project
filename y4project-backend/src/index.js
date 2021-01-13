@@ -47,25 +47,6 @@ const resolvers = {
         files: () => files
     },
     Mutation: {
-        // uploadFile: async (_, {file}) => {
-        //     const {createReadStream, filename} = await file;
-
-        //     await new Promise(res =>
-        //         createReadStream()
-        //             .pipe(
-        //                 filesToReadBucket.file(filename).createWriteStream({
-        //                     resumable: false,
-        //                     gzip: true
-        //                 })
-        //             )
-        //             .on("finish", res)
-        //     );
-
-        //     files.push(filename);
-
-        //     return true;
-        // }
-
         uploadFile: async (parent, {file}) => {
             const {createReadStream, filename, mimetype, encoding} = await file;
             const {ext} = path.parse(filename);
@@ -74,6 +55,7 @@ const resolvers = {
             //const pathName = path.join(__dirname, `../images/${randomFileName}`);
             //await stream.pipe(fs.createWriteStream(pathName));
 
+            // Upload file to cloud storage bucket
             await new Promise(res =>
                 stream.pipe(
                     filesToReadBucket.file(randomFileName).createWriteStream({
