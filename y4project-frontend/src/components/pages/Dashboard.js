@@ -1,63 +1,39 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import gql from "graphql-tag";
-import {useMutation} from "@apollo/react-hooks";
-import {filesQuery} from "./Files";
 import Axios from "axios";
-
-const uploadFileMutation = gql`
-    mutation UploadFile($file: Upload!) {
-        uploadFile(file: $file)
-    }
-`;
 
 export default function Dashboard() {
     const {userData} = useContext(UserContext);
+    const [userUpload, setUserUpload] = useState('');
 
-    const [uploadFile] = useMutation(uploadFileMutation, {
-        refetchQueries: [{
-            query: filesQuery
-        }]
-    });
+    const onFileChange = e => {
+        setUserUpload(e.target.files[0]);
+    }
 
-    const onFileChange = (e) => {
-        // Get file uploaded by the user
-        const file = e.target.files[0];
-        const fileName = file.name;
-        const userId = userData.user.id;
-        const token = localStorage.getItem("auth-token");
+    const submit = async (e) => {
+        e.preventDefault();
 
-        const newFile = {
-            fileName,
-            userId
-        };
+        const formData = new FormData();
+        formData.append('file', userUpload);
+        //console.log(formData.get('file'));
 
+        const token = localStorage.getItem('auth-token');
         const headers = {
+            'Content-Type': 'multipart/form-data',
             'x-auth-token': token
         }
+        //console.log(headers);
 
-        // console.log(newFile);
-        console.log(headers);
-
-        Axios.post("http://localhost:4000/files/new", newFile, { headers })
-             .then((res) => {
-                 console.log(res.data);
-                 console.log("File stored in the db");
-             })
-             .catch((error) => {
-                 console.error(error)
-             });
-
-        console.log("File stored in cloud storage");
-
-        if (!file) return;
-        // Call mutation to upload file to the server
-        uploadFile({
-            variables: {
-                file
-            }
-        });
+        await Axios.post(
+            'http://localhost:4000/files/new',
+            formData,
+            { headers }
+        ).then((res) => {
+            console.log("File stored in bucket and db");
+        }).catch((error) => {
+            console.error(error);
+        });  
     }
     
     return (
@@ -65,7 +41,19 @@ export default function Dashboard() {
             {userData.user ? (
                 <div className="page">
                     <h1>Upload File</h1>
-                    <input type="file" onChange={onFileChange} />
+                    <form 
+                        className="form" 
+                        encType="multipart/form-data" 
+                        method="POST" 
+                        onSubmit={submit}
+                    >
+                        <input 
+                            name="user-upload" 
+                            type="file" 
+                            onChange={onFileChange}
+                        />
+                        <input type="submit" value="Upload" />
+                    </form>
                     {/* <Files /> */}
                 </div>
             ) : (
