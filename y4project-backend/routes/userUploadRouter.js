@@ -26,21 +26,27 @@ router.post("/new", [auth, multer.single('file')], async(req, res) => {
     const blob = filesToReadBucket.file(newFileName);
     const blobStream = blob.createWriteStream();
 
-    blobStream.on("error", err => console.log(err));
+    try {
+        blobStream.on("error", err => console.log(err));
 
-    blobStream.on("finish", () => {
-        const publicUrl = `https://storage.googleapis.com/files-to-read/${blob.name}`;
+        blobStream.on("finish", () => {
+            const publicUrl = `https://storage.googleapis.com/files-to-read/${blob.name}`;
 
-        const newUserUpload = new UserUpload({
-            fileName: newFileName,
-            publicUrl: publicUrl,
-            userId: userId
+            const newUserUpload = new UserUpload({
+                fileName: newFileName,
+                publicUrl: publicUrl,
+                userId: userId
+            });
+
+            newUserUpload.save();
         });
 
-        newUserUpload.save();
-    });
+        blobStream.end(req.file.buffer);
 
-    blobStream.end(req.file.buffer);
+        res.json(newUserUpload);
+    } catch (err) {
+        res.json(err);
+    }
 });
 
 router.get("/all", auth, async(req, res) => {
