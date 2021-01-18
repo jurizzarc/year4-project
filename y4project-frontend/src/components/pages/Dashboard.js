@@ -26,14 +26,13 @@ export default function Dashboard() {
         //console.log(headers);
 
         try {
-            const newFile = await Axios.post(
+            await Axios.post(
                 'http://localhost:4000/files/new',
                 formData,
-                { headers }
-            )
-                .then(response => response.json())
-                .then(json => console.log(json));
-            console.warn(newFile.data);
+                { headers: headers }
+            ).then((res) => {
+                console.log(res);
+            });
         } catch (error) {
             console.error(error);
         }
