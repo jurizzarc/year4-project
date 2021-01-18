@@ -25,15 +25,18 @@ export default function Dashboard() {
         }
         //console.log(headers);
 
-        await Axios.post(
-            'http://localhost:4000/files/new',
-            formData,
-            { headers }
-        ).then((res) => {
-            console.log("File stored in bucket and db");
-        }).catch((error) => {
+        try {
+            const newFile = await Axios.post(
+                'http://localhost:4000/files/new',
+                formData,
+                { headers }
+            )
+                .then(response => response.json())
+                .then(json => console.log(json));
+            console.warn(newFile.data);
+        } catch (error) {
             console.error(error);
-        });  
+        }
     }
     
     return (
