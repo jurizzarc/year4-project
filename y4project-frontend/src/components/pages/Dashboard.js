@@ -6,32 +6,44 @@ import Axios from "axios";
 export default function Dashboard() {
     const {userData} = useContext(UserContext);
     const [userUpload, setUserUpload] = useState('');
+    const [textDetection, setTextDetection] = useState('');
+    const [selOptions] = useState([
+        { label: "Digital Text in Image", value: "digi-text-img" },
+        { label: "Handwriting in Image", value: "hndwrtng-img" },
+        { label: "Digital Text in PDF", value: "digi-text-pdf" }
+    ]);
 
     const onFileChange = e => {
         setUserUpload(e.target.files[0]);
     }
 
+    const onSelectChange = (e) => {
+        setTextDetection(e.target.value);
+    }
+
     const submit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
+        let formData = new FormData();
+        formData.append('textDetection', textDetection);
         formData.append('file', userUpload);
-        //console.log(formData.get('file'));
+        console.log(formData.get('file'));
+        console.log(formData.get('textDetection'));
 
         const token = localStorage.getItem('auth-token');
-        const headers = {
-            'Content-Type': 'multipart/form-data',
-            'x-auth-token': token
-        }
-        //console.log(headers);
 
         try {
-            await Axios.post(
-                'http://localhost:4000/files/new',
-                formData,
-                { headers: headers }
-            ).then((res) => {
-                console.log(res);
+            await Axios({
+                method: 'post',
+                url: 'http://localhost:4000/files/new',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'x-auth-token': token
+                }
+            })
+            .then((response) => {
+                console.log(response);
             });
         } catch (error) {
             console.error(error);
@@ -54,6 +66,25 @@ export default function Dashboard() {
                             type="file" 
                             onChange={onFileChange}
                         />
+
+                        <label htmlFor="textDetection">Text Detection Type</label>
+                        <select 
+                            name="textDetection" 
+                            id="textDetection"
+                            value={textDetection}
+                            onChange={onSelectChange}
+                        >
+                            <option></option>
+                            {selOptions.map(selOption => (
+                                <option
+                                    key={selOption.value}
+                                    value={selOption.value}
+                                >
+                                    {selOption.label}
+                                </option>
+                            ))}
+                        </select>
+
                         <input type="submit" value="Upload" />
                     </form>
                     {/* <Files /> */}
