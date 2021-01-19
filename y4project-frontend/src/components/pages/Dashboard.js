@@ -1,7 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import Files from "./Files";
 
 export default function Dashboard() {
     const {userData} = useContext(UserContext);
@@ -12,9 +13,12 @@ export default function Dashboard() {
         { label: "Handwriting in Image", value: "hndwrtng-img" },
         { label: "Digital Text in PDF", value: "digi-text-pdf" }
     ]);
+    const [uploads, getUploads] = useState('');
+    const apiUrl = "http://localhost:4000/files";
 
     const onFileChange = e => {
         setUserUpload(e.target.files[0]);
+        console.log(userUpload);
     }
 
     const onSelectChange = (e) => {
@@ -29,13 +33,12 @@ export default function Dashboard() {
         formData.append('file', userUpload);
         console.log(formData.get('file'));
         console.log(formData.get('textDetection'));
-
         const token = localStorage.getItem('auth-token');
 
         try {
             await Axios({
                 method: 'post',
-                url: 'http://localhost:4000/files/new',
+                url: `${apiUrl}/new`,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -49,6 +52,23 @@ export default function Dashboard() {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem('auth-token');
+        
+        const getAllUploads = () => {
+            Axios.get(`${apiUrl}/all`, {
+                headers: {
+                    'x-auth-token': token
+                }
+            }).then((response) => {
+                const allUploads = response.data;
+                getUploads(allUploads);
+            }).catch(error => console.error(`Error: ${error}`));
+        };
+
+        getAllUploads();
+    }, []);
     
     return (
         <>
@@ -87,7 +107,7 @@ export default function Dashboard() {
 
                         <input type="submit" value="Upload" />
                     </form>
-                    {/* <Files /> */}
+                    <Files uploads={uploads} />
                 </div>
             ) : (
                 <div className="page">
