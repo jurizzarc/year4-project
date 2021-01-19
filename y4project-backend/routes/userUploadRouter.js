@@ -21,12 +21,14 @@ const multer = Multer({
 router.post("/new", [auth, multer.single('file')], async(req, res) => {
     //console.log(req.file);
     //console.log(req.user);
-    const newFileName = uuidv1() + "_" + req.file.originalname;
-    const userId = req.user;
-    const blob = filesToReadBucket.file(newFileName);
-    const blobStream = blob.createWriteStream();
 
     try {
+        const newFileName = uuidv1() + "_" + req.file.originalname;
+        const textDetection = req.body.textDetection;
+        const userId = req.user;
+        const blob = filesToReadBucket.file(newFileName);
+        const blobStream = blob.createWriteStream();
+
         blobStream.on("error", err => console.log(err));
 
         blobStream.on("finish", () => {
@@ -35,6 +37,7 @@ router.post("/new", [auth, multer.single('file')], async(req, res) => {
             const newUserUpload = new UserUpload({
                 fileName: newFileName,
                 publicUrl: publicUrl,
+                textDetection: textDetection,
                 userId: userId
             });
 

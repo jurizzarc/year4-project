@@ -1,12 +1,18 @@
 const express = require("express"); 
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 // Set up express
 const app = express();
 app.use(express.json()); // Set up middleware
 app.use(cors());
+// Allow body parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // Start up the server
 const PORT = process.env.PORT || 4000;
