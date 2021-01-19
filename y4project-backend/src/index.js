@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Start up the server
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}.`));
 
 // Connect to mongodb database

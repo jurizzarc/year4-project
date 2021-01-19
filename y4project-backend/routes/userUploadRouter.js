@@ -6,17 +6,21 @@ const auth = require("../middleware/auth");
 const uuid = require("uuid");
 const uuidv1 = uuid.v1;
 const UserUpload = require("../models/userUploadModel");
+require("dotenv").config();
 
-const gc = new Storage({
-    keyFilename: path.join(__dirname, "../year-4-project-301322-a41a4f2c2c40.json"),
-    projectId: "year-4-project-301322"
+const storage = new Storage({
+    projectId: process.env.GCLOUD_PROJECT_ID,
+    credentials: {
+        client_email: process.env.GCLOUD_CLIENT_EMAIL,
+        private_key: process.env.GCLOUD_PRIVATE_KEY
+    }
 });
-
-const filesToReadBucket = gc.bucket("files-to-read");
 
 const multer = Multer({
     storage: Multer.memoryStorage()
 });
+
+const bucket = storage.bucket(process.env.GCS_BUCKET);
 
 router.post("/new", [auth, multer.single('file')], async(req, res) => {
     //console.log(req.file);
@@ -26,7 +30,7 @@ router.post("/new", [auth, multer.single('file')], async(req, res) => {
         const newFileName = uuidv1() + "_" + req.file.originalname;
         const textDetection = req.body.textDetection;
         const userId = req.user;
-        const blob = filesToReadBucket.file(newFileName);
+        const blob = bucket.file(newFileName);
         const blobStream = blob.createWriteStream();
 
         blobStream.on("error", err => console.log(err));
