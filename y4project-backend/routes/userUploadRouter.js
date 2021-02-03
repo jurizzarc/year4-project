@@ -63,6 +63,11 @@ router.get("/all", auth, async(req, res) => {
     res.json(userUploads);
 });
 
+router.get("/read/:id", auth, async(req, res) => {
+    const userUpload = await UserUpload.findById(req.params.id);
+    res.json(userUpload);
+});
+
 router.delete("/delete/:id", auth, async(req, res) => {
     const userUpload = await UserUpload.findOne({
         userId: req.user, 
