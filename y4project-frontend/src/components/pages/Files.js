@@ -1,39 +1,38 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Files(props) {
-    const displayFiles = (props) => {
-        const uploads = props.uploads;
-        
-        if (uploads.length > 0) {
-            return (
-                <table>
+    const uploads = props.uploads;
+    
+    return (
+        <>
+            <h2>Library</h2>
+            {uploads.length > 0 ? 
+                <table className="user-uploads">
                     <thead>
                         <tr>
                             <th>File Name</th>
                             <th>Detection Type</th>
                         </tr>
                     </thead>
-                    {uploads.map((upload) => (
-                        <tbody>
+                    <tbody>
+                        {uploads.map((upload) => (
                             <tr key={upload._id}>
-                                <td>{upload.fileName}</td>
+                                <td>
+                                    <Link to={{
+                                        pathname: `/read/${upload._id}`
+                                    }}>
+                                        {upload.fileName}
+                                    </Link>
+                                </td>
                                 <td>{upload.textDetection}</td>
                             </tr>
-                        </tbody>
-                    ))}
+                        ))}
+                    </tbody>
                 </table>
-            )
-        } else {
-            return (
-                <p>No uploads yet.</p>
-            )
-        }
-    }
-
-    return (
-        <div>
-            <h2>Library</h2>
-            {displayFiles(props)}
-        </div>
-    );
+            : (
+                <p>You have not uploaded any files.</p>
+            )}
+        </>
+    )
 }
