@@ -59,7 +59,7 @@ export default function App() {
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
                             <Route path="/dashboard" component={Dashboard} />
-                            <Route path="/read" component={Read} />
+                            <Route path="/read/:userUploadId" component={Read} />
                         </Switch>
                     </div>
                 </UserContext.Provider>
