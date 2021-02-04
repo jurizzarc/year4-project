@@ -39,13 +39,16 @@ router.post("/new", [auth, multer.single('file')], async(req, res) => {
             const publicUrl = `https://storage.googleapis.com/files-to-read/${blob.name}`;
 
             const newUserUpload = new UserUpload({
-                fileName: newFileName,
+                fileName: blob.name,
                 publicUrl: publicUrl,
                 textDetection: textDetection,
                 userId: userId
             });
 
             newUserUpload.save();
+
+            console.log(blob);
+            console.log(newUserUpload);
         });
 
         blobStream.end(req.file.buffer);
