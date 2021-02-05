@@ -5,7 +5,7 @@ import UserContext from '../../context/UserContext';
 export default function Read(props) {
     const { userData } = useContext(UserContext);
     const [ userUpload, setUserUpload ] = useState();
-    const apiUrl = 'http://localhost:4000/files';
+    const apiUrl = 'http://localhost:4000/uploads';
     const userUploadId = props.match.params.userUploadId;
     const token = localStorage.getItem('auth-token');
 
