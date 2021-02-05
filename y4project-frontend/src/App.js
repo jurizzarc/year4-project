@@ -34,7 +34,7 @@ export default function App() {
             
             if (tokenRes.data) {
                 const userRes = await Axios.get(
-                    "http://localhost:4000/users/",
+                    "http://localhost:4000/users/userInfo",
                     {headers: {"x-auth-token": token}}
                 );
 
