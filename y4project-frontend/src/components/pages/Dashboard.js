@@ -14,11 +14,10 @@ export default function Dashboard() {
         { label: "Digital Text in PDF", value: "digi-text-pdf" }
     ]);
     const [uploads, getUploads] = useState('');
-    const apiUrl = "http://localhost:4000/files";
+    const apiUrl = "http://localhost:4000/uploads";
 
     const onFileChange = e => {
         setUserUpload(e.target.files[0]);
-        console.log(userUpload);
     }
 
     const onSelectChange = (e) => {
