@@ -28,44 +28,57 @@ const upload_new = async (req, res) => {
 
         blobStream.on('error', err => console.log(err));
 
+        blobStream.on('finish', () => {
+            const publicUrl = `https://storage.googleapis.com/${bucketName}/${blob.name}`;
+            const newUpload = new Upload({
+                fileName: blob.name,
+                publicUrl: publicUrl,
+                textDetection: textDetection,
+                userId: userId
+            });
+            newUpload.save();
+            // console.log(blob);
+            // console.log(newUpload);
+        });
+
         blobStream.end(req.file.buffer);
 
-        blobStream.on('finish', async () => {
-            // PDF file within bucket
-            const fileName = blob.name;
-            // The folder to store the results
-            const outputPrefix = 'results';
+        // PDF file within bucket
+        const fileName = blob.name;
+        // The folder to store the results
+        const outputPrefix = 'results';
 
-            const gcsSourceUri = `gs://${bucketName}/${fileName}`;
-            const gcsDestinationUri = `gs://${bucketName}/${outputPrefix}/`;
+        const gcsSourceUri = `gs://${bucketName}/${fileName}`;
+        const gcsDestinationUri = `gs://${bucketName}/${outputPrefix}/`;
 
-            const inputConfig = {
-                mimeType: 'application/pdf',
-                gcsSource: {
-                    uri: gcsSourceUri
+        const inputConfig = {
+            mimeType: 'application/pdf',
+            gcsSource: {
+                uri: gcsSourceUri
+            },
+        };
+        const outputConfig = {
+            gcsDestination: {
+                uri: gcsDestinationUri
+            },
+        };
+        const features = [{ type: 'DOCUMENT_TEXT_DETECTION' }];
+        const request = {
+            requests: [
+                {
+                    inputConfig: inputConfig,
+                    features: features,
+                    outputConfig: outputConfig,
                 },
-            };
-            const outputConfig = {
-                gcsDestination: {
-                    uri: gcsDestinationUri
-                },
-            };
-            const features = [{ type: 'DOCUMENT_TEXT_DETECTION' }];
-            const request = {
-                requests: [
-                    {
-                        inputConfig: inputConfig,
-                        features: features,
-                        outputConfig: outputConfig,
-                    },
-                ],
-            };
+            ],
+        };
 
-            const [operation] = await client.asyncBatchAnnotateFiles(request);
-            const [filesResponse] = await operation.promise();
-            const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
-            console.log(`JSON saved to: ${destinationUri}`);
-        });
+        const [operation] = client.asyncBatchAnnotateFiles(request).catch(e => { console.log(e) });
+        const [filesResponse] = operation.promise().catch(e => { console.log(e) });
+        const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
+        // console.log(`JSON saved to: ${destinationUri}`);
+
+        res.json(newUpload);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
