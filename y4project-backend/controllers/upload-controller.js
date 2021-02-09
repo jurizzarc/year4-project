@@ -7,12 +7,33 @@ const uuidv1 = uuid.v1;
 const Upload = require('../models/upload');
 require('dotenv').config();
 
-const storage = new Storage();
+const storage = new Storage({
+    keyFilename: path.join(__dirname, '../credentials.json'),
+    projectId: 'year-4-project-301322'
+});
 // Bucket where the uploads reside
 const bucketName = process.env.GCS_BUCKET;
 const bucket = storage.bucket(bucketName);
 // Create a Client
-const client = new vision.ImageAnnotatorClient();
+const client = new vision.ImageAnnotatorClient({
+    keyFilename: path.join(__dirname, '../credentials.json'),
+    projectId: 'year-4-project-301322'
+});
+
+// Google Cloud Test
+async function listBuckets() {
+    try {
+        const results = await storage.getBuckets();
+        const [buckets] = results;
+        console.log('Buckets:');
+        buckets.forEach(bucket => {
+            console.log(bucket.name);
+        });
+    } catch (err) {
+        console.error('ERROR:', err);
+    }
+}
+// listBuckets();
 
 const upload_test = async (req, res) => {
     res.send(`Hello, it's working.`);
@@ -60,7 +81,6 @@ const upload_new = async (req, res) => {
                     },
                 ],
             };
-
             const [operation] = await client.asyncBatchAnnotateFiles(request);
             const [filesResponse] = await operation.promise();
             const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
