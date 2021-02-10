@@ -48,43 +48,77 @@ const upload_new = async (req, res) => {
         const blobStream = blob.createWriteStream();
 
         blobStream.on('error', err => console.log(err));
-
+        // End the stream
         blobStream.end(req.file.buffer);
-
+        // Emit after all data has been flushed to Cloud Storage
         blobStream.on('finish', async () => {
-            // PDF file within bucket
+            // File within bucket
             const fileName = blob.name;
-            // The folder to store the results
+            // The folder in the bucket where results are stored
             const outputPrefix = 'results';
-
+            // Path to uploaded file
             const gcsSourceUri = `gs://${bucketName}/${fileName}`;
-            const gcsDestinationUri = `gs://${bucketName}/${outputPrefix}/`;
+            // Path to JSON response
+            // const gcsDestinationUri = `gs://${bucketName}/${outputPrefix}/`;
 
-            const inputConfig = {
-                mimeType: 'application/pdf',
-                gcsSource: {
-                    uri: gcsSourceUri
-                },
-            };
-            const outputConfig = {
-                gcsDestination: {
-                    uri: gcsDestinationUri
-                },
-            };
-            const features = [{ type: 'DOCUMENT_TEXT_DETECTION' }];
-            const request = {
-                requests: [
-                    {
-                        inputConfig: inputConfig,
-                        features: features,
-                        outputConfig: outputConfig,
+            // Run if the uploaded file is PDF
+            if (textDetection == 'digi-text-pdf') {
+                // File type and PDF's path 
+                const inputConfig = {
+                    mimeType: 'application/pdf',
+                    gcsSource: {
+                        uri: gcsSourceUri
                     },
-                ],
-            };
-            const [operation] = await client.asyncBatchAnnotateFiles(request);
-            const [filesResponse] = await operation.promise();
-            const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
-            console.log(`JSON saved to: ${destinationUri}`);
+                };
+
+                // Response JSON's path
+                // const outputConfig = {
+                //     gcsDestination: {
+                //         uri: gcsDestinationUri
+                //     },
+                // };
+
+                // Type of annotation to be performed on the file
+                const features = [{ type: 'DOCUMENT_TEXT_DETECTION' }];
+                // Build the fileRequest object for the uploaded file
+                const fileRequest = {
+                    inputConfig: inputConfig,
+                    features: features,
+                    // Annotate the first two pages and the last one (max 5 pages)
+                    // First page starts at 1, and not 0. Last page is -1
+                    pages: [1, 2, -1]
+                    //outputConfig: outputConfig
+                }
+                // Add each `AnnotateFileRequest` object to the batch request
+                const request = {
+                    requests: [fileRequest]
+                };
+                
+                // const [result] = await client.asyncBatchAnnotateFiles(request);
+                // const [filesResponse] = await result.promise();
+                // const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
+                // console.log(`JSON saved to: ${destinationUri}`);
+
+                // Small batch file annotation
+                const [result] = await client.batchAnnotateFiles(request);
+                // Process the result. Get first results since only one file was sent
+                const responses = result.responses[0].responses;
+                for (const response of responses) {
+                    console.log(`Full text: ${response.fullTextAnnotation.text}`);
+                }
+            }
+            // Run if the uploaded file is an image
+            if (textDetection == 'digi-text-img') {
+                const [result] = await client.textDetection(`gs://${bucketName}/${fileName}`);
+                const detections = result.textAnnotations[0].description;
+                console.log(`Full Text: ${detections}`);
+            }
+            // Run if the uploaded file is a handwritten text
+            if (textDetection == 'hndwrtng-img') {
+                const [result] = await client.documentTextDetection(`gs://${bucketName}/${fileName}`);
+                const fullTextAnnotation = result.fullTextAnnotation;
+                console.log(`Full Text: ${fullTextAnnotation.text}`);
+            }
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
