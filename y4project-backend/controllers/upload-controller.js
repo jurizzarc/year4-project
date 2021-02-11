@@ -4,7 +4,7 @@ const { Storage } = require('@google-cloud/storage');
 const vision = require('@google-cloud/vision').v1; 
 const uuid = require('uuid');
 const uuidv1 = uuid.v1;
-const pdfjsLib = require('pdfjs-dist');
+const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js');
 const Upload = require('../models/upload');
 require('dotenv').config();
 
@@ -67,22 +67,26 @@ const upload_new = async (req, res) => {
         // End the stream
         blobStream.end(req.file.buffer);
 
-        // Object or uploaded file in the bucket
-        const objectName = blob.name;
-        // Public URL to object
-        const objectURL = `http://storage.googleapis.com/${bucketName}/${objectName}`;
-        // Get page count of PDF file
-        // pdfjsLib.getDocument(objectURL).promise.then(function (doc) {
-        //     numPages = doc.numPages;
-        //     console.log(`Num of pages: ${numPages}`);
-        // });
-
         // Emit after all data has been flushed to Storage
         blobStream.on('finish', async () => {
+            // Object or uploaded file in the bucket
+            const objectName = blob.name;
+            // Public URL to object
+            const objectURL = `https://storage.googleapis.com/${bucketName}/${objectName}`;
+            // Get page count of PDF file
+            let loadingTask = pdfjsLib.getDocument(objectURL);
+            loadingTask.promise
+                .then(function (pdf) {
+                    numPages = pdf.numPages;
+                    console.log(`Number of pages: ${numPages}`);
+                })
+                .catch(function (err) {
+                    console.error(`Error: ${err}`);
+                });
+
             // Create new Upload or object to be stored in the database
             const newUpload = new Upload({
                 fileName: objectName,
-                publicUrl: objectURL,
                 textDetection: textDetection,
                 userId: userId
             });
