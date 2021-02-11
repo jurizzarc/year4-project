@@ -37,24 +37,6 @@ async function listBuckets() {
 }
 // listBuckets();
 
-// Directly read the content of a JSON file stored in a Cloud Storage bucket
-// const remoteFile = bucket.file('results/LoremIpsum_aa906040-6c89-11eb-83a2-21cdeb2981fb_output-1-to-1.json');
-// let buffer = '';
-// remoteFile.createReadStream()
-//     .on('error', function(err) {console.error(err)})
-//     .on('data', function(response) {
-//         buffer += response;
-//     })
-//     .on('end', function() {
-//         let output = JSON.parse(buffer);
-//         let responses = output.responses;
-//         for (const response of responses) {
-//             let text = JSON.stringify(response.fullTextAnnotation.text);
-//             console.log(text);
-//         }
-//     });
-
-
 const upload_test = async (req, res) => {
     res.send(`Hello, it's working.`);
 }
