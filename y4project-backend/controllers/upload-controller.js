@@ -37,6 +37,24 @@ async function listBuckets() {
 }
 // listBuckets();
 
+// Directly read the content of a JSON file stored in a Cloud Storage bucket
+// const remoteFile = bucket.file('results/LoremIpsum_aa906040-6c89-11eb-83a2-21cdeb2981fb_output-1-to-1.json');
+// let buffer = '';
+// remoteFile.createReadStream()
+//     .on('error', function(err) {console.error(err)})
+//     .on('data', function(response) {
+//         buffer += response;
+//     })
+//     .on('end', function() {
+//         let output = JSON.parse(buffer);
+//         let responses = output.responses;
+//         for (const response of responses) {
+//             let text = JSON.stringify(response.fullTextAnnotation.text);
+//             console.log(text);
+//         }
+//     });
+
+
 const upload_test = async (req, res) => {
     res.send(`Hello, it's working.`);
 }
@@ -123,10 +141,7 @@ const upload_new = async (req, res) => {
                 const fileRequest = {
                     inputConfig: inputConfig,
                     features: features,
-                    // outputConfig: outputConfig,
-                    // Annotate the first two pages and the last one (max 5 pages)
-                    // First page starts at 1, and not 0. Last page is -1
-                    pages: [1, 2, -1]
+                    outputConfig: outputConfig
                 }
                 // Add each `AnnotateFileRequest` object to the batch request
                 const request = {
@@ -134,22 +149,32 @@ const upload_new = async (req, res) => {
                 };
                 
                 // Offline asynchronous request. Can process up to 2000 pages
-                // const [result] = await client.asyncBatchAnnotateFiles(request);
-                // const [filesResponse] = await result.promise();
-                // const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
-                // console.log(`JSON saved to: ${destinationUri}`);
-
-                // Small batch file annotation. Can only process a maximum of 5 pages
-                const [result] = await client.batchAnnotateFiles(request);
-                // Process the result. Get first results since only one file was sent
-                const responses = result.responses[0].responses;
-                for (const response of responses) {
-                    const textFromFile = JSON.stringify(response.fullTextAnnotation.text);
-                    console.log(`Full text: ${textFromFile}`);
-                    // Push extracted text to detections array of newUpload object
-                    const text = { text: textFromFile };
-                    newUpload.detections.push(text);
-                }
+                const [result] = await client.asyncBatchAnnotateFiles(request);
+                const [filesResponse] = await result.promise();
+                const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
+                console.log(`JSON saved to: ${destinationUri}`);
+                const jsonOutputFileName = 'output-1-to-' + numPages + '.json';
+                
+                // Get JSON response file
+                const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
+                let buffer = '';
+                // Directly read the content of a JSON file stored in the bucket
+                jsonOutputFile.createReadStream()
+                    .on('error', err => console.log(err))
+                    .on('data', response => {
+                        buffer += response;
+                    })
+                    .on('end', () => {
+                        // Parse the buffer
+                        const output = JSON.parse(buffer);
+                        // Process the response
+                        const responses = output.responses;
+                        for (const response of responses) {
+                            const textFromFile = JSON.stringify(response.fullTextAnnotation.text);
+                            // Push extracted text to detections array of newUpload object
+                            const text = { text: textFromFile };
+                        }
+                    });
             }
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
