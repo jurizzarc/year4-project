@@ -140,7 +140,7 @@ const upload_new = async (req, res) => {
                 // Process the result. Get first results since only one file was sent
                 const responses = result.responses[0].responses;
                 for (const response of responses) {
-                    const textFromFile = response.fullTextAnnotation.text;
+                    const textFromFile = JSON.stringify(response.fullTextAnnotation.text);
                     console.log(`Full text: ${textFromFile}`);
                     // Push extracted text to detections array of newUpload object
                     const text = { text: textFromFile };
@@ -150,7 +150,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
                 const [result] = await client.textDetection(gcsSourceUri);
-                const textFromFile = result.textAnnotations[0].description;
+                const textFromFile = JSON.stringify(result.textAnnotations[0].description);
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
@@ -159,7 +159,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is a handwritten text
             if (textDetection == 'hndwrtng-img') {
                 const [result] = await client.documentTextDetection(gcsSourceUri);
-                const textFromFile = result.fullTextAnnotation.text;
+                const textFromFile = JSON.stringify(result.fullTextAnnotation.text);
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
