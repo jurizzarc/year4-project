@@ -57,6 +57,8 @@ const upload_new = async (req, res) => {
         const userId = req.user;
         // Where the number of pages of a PDF file is stored
         let numPages;
+        // Where the text extracted from the file is stored
+        let textFromFile;
         // Create object to be stored in the bucket
         const blob = bucket.file(fullFileName);
         // Create writable stream
@@ -136,10 +138,14 @@ const upload_new = async (req, res) => {
                 const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
                 console.log(`JSON saved to: ${destinationUri}`);
                 const jsonOutputFileName = 'output-1-to-' + numPages + '.json';
+                console.log(jsonOutputFileName);
                 
                 // Get JSON response file
                 const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
                 let buffer = '';
+                // Where buffer is stored
+                let output;
+                let responses;
                 // Directly read the content of a JSON file stored in the bucket
                 jsonOutputFile.createReadStream()
                     .on('error', err => console.log(err))
@@ -148,20 +154,24 @@ const upload_new = async (req, res) => {
                     })
                     .on('end', () => {
                         // Parse the buffer
-                        const output = JSON.parse(buffer);
-                        // Process the response
-                        const responses = output.responses;
-                        for (const response of responses) {
-                            const textFromFile = JSON.stringify(response.fullTextAnnotation.text);
-                            // Push extracted text to detections array of newUpload object
-                            const text = { text: textFromFile };
-                        }
+                        output = JSON.parse(buffer);
+                    })
+                    .on('close', () => {
+                        responses = output.responses;
                     });
+
+                    console.log(responses);
+
+                    // for (const response of responses) {
+                    //     textFromFile = JSON.stringify(response.fullTextAnnotation.text);
+                    //     const text = { text: textFromFile };
+                    //     newUpload.detections.push(text);
+                    // }
             }
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
                 const [result] = await client.textDetection(gcsSourceUri);
-                const textFromFile = JSON.stringify(result.textAnnotations[0].description);
+                textFromFile = JSON.stringify(result.textAnnotations[0].description);
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
@@ -170,7 +180,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is a handwritten text
             if (textDetection == 'hndwrtng-img') {
                 const [result] = await client.documentTextDetection(gcsSourceUri);
-                const textFromFile = JSON.stringify(result.fullTextAnnotation.text);
+                textFromFile = JSON.stringify(result.fullTextAnnotation.text);
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
