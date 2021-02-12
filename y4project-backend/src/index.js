@@ -12,19 +12,18 @@ const app = express();
 // Set up middleware
 app.use(express.json()); 
 app.use(cors());
-// Allow body parsing
+// Transpile the request into something that mongo will understand
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
 
 // Start up the server
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}.`));
 
 // Connect to MongoDB
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
-    useNewUrlParser: true, 
+    useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
 }, (err) => {
