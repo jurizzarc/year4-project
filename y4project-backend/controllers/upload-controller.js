@@ -11,7 +11,7 @@ require('dotenv').config();
 // Create a Storage
 const storage = new Storage({
     keyFilename: path.join(__dirname, '../credentials.json'),
-    projectId: 'year-4-project-301322'
+    projectId: process.env.GCLOUD_PROJECT_ID
 });
 // Bucket where the uploads reside
 const bucketName = process.env.GCS_BUCKET;
@@ -20,7 +20,7 @@ const bucket = storage.bucket(bucketName);
 // Create a Client
 const client = new vision.ImageAnnotatorClient({
     keyFilename: path.join(__dirname, '../credentials.json'),
-    projectId: 'year-4-project-301322'
+    projectId: process.env.GCLOUD_PROJECT_ID
 });
 // Google Cloud Test
 async function listBuckets() {
@@ -59,6 +59,9 @@ const upload_new = async (req, res) => {
         let numPages;
         // Where the text extracted from the file is stored
         let textFromFile;
+        let outputFolder;
+        let outputFilePrefix;
+        let jsonOutputFileName;
         // Create object to be stored in the bucket
         const blob = bucket.file(fullFileName);
         // Create writable stream
@@ -68,7 +71,6 @@ const upload_new = async (req, res) => {
         blobStream.on('error', err => console.log(err));
         // End the stream
         blobStream.end(req.file.buffer);
-
         // Emit after all data has been flushed to Storage
         blobStream.on('finish', async () => {
             // Object or uploaded file in the bucket
@@ -93,11 +95,11 @@ const upload_new = async (req, res) => {
                 userId: userId
             });
 
-            // The folder in the bucker where JSON output is stored
-            const outputFolder = 'results';
+            // The folder in the bucket where JSON output is stored
+            outputFolder = 'results';
             // JSON output file prefix. So that the prefix of JSON output
             // is the same as the name of the uploaded file where text is extracted 
-            const outputFilePrefix = newFileName + '_';
+            outputFilePrefix = newFileName + '_';
             // Path to object or upload
             const gcsSourceUri = `gs://${bucketName}/${objectName}`;
             // Path to output folder
@@ -137,36 +139,7 @@ const upload_new = async (req, res) => {
                 const [filesResponse] = await result.promise();
                 const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
                 console.log(`JSON saved to: ${destinationUri}`);
-                const jsonOutputFileName = 'output-1-to-' + numPages + '.json';
-                console.log(jsonOutputFileName);
-                
-                // Get JSON response file
-                const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
-                let buffer = '';
-                // Where buffer is stored
-                let output;
-                let responses;
-                // Directly read the content of a JSON file stored in the bucket
-                jsonOutputFile.createReadStream()
-                    .on('error', err => console.log(err))
-                    .on('data', response => {
-                        buffer += response;
-                    })
-                    .on('end', () => {
-                        // Parse the buffer
-                        output = JSON.parse(buffer);
-                    })
-                    .on('close', () => {
-                        responses = output.responses;
-                    });
-
-                    console.log(responses);
-
-                    // for (const response of responses) {
-                    //     textFromFile = JSON.stringify(response.fullTextAnnotation.text);
-                    //     const text = { text: textFromFile };
-                    //     newUpload.detections.push(text);
-                    // }
+                jsonOutputFileName = 'output-1-to-' + numPages + '.json';
             }
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
@@ -185,6 +158,24 @@ const upload_new = async (req, res) => {
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
                 newUpload.detections.push(text);
+            }
+
+            if (textDetection == 'digi-text-pdf') {
+                await new Promise(res => {
+                    jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
+                    let buffer = '';
+                    let output;
+                    let responses;
+                    // Directly read the content of the JSON file stored in the bucket
+                    jsonOutputFile.createReadStream()
+                        .on('error', err => console.log(err))
+                        .on('data', data => {
+                            buffer += data;
+                        })
+                        .on('end', () => {
+                            console.log(buffer);
+                        });
+                });
             }
 
             // Insert newUpload to the database
