@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const { Storage } = require('@google-cloud/storage');
 // Import Google Cloud client libraries
 const vision = require('@google-cloud/vision').v1; 
@@ -36,6 +37,24 @@ async function listBuckets() {
     }
 }
 // listBuckets();
+
+async function readJsonOutput(_jsonOutputFile) {
+    return new Promise((resolve, reject) => {
+        const readableStream = _jsonOutputFile.createReadStream();
+        let buffer = '';
+        readableStream.on('data', data => {
+            buffer += data;
+        });
+        readableStream.on('error', err => {
+            reject(err);
+        });
+        return readableStream.on('end', () => {
+            const output = JSON.parse(buffer);
+            const responses = output.responses;
+            resolve(responses);
+        });
+    });
+}
 
 const upload_test = async (req, res) => {
     res.send(`Hello, it's working.`);
@@ -77,17 +96,6 @@ const upload_new = async (req, res) => {
             const objectName = blob.name;
             // Public URL to object
             const objectURL = `https://storage.googleapis.com/${bucketName}/${objectName}`;
-            // Get page count of PDF file
-            let loadingTask = pdfjsLib.getDocument(objectURL);
-            loadingTask.promise
-                .then(function (pdf) {
-                    numPages = pdf.numPages;
-                    console.log(`Number of pages: ${numPages}`);
-                })
-                .catch(function (err) {
-                    console.error(`Error: ${err}`);
-                });
-
             // Create new Upload or object to be stored in the database
             const newUpload = new Upload({
                 fileName: objectName,
@@ -107,6 +115,17 @@ const upload_new = async (req, res) => {
 
             // Run if uploaded file is a PDF document
             if (textDetection == 'digi-text-pdf') {
+                // Get page count of PDF file
+                let loadingTask = pdfjsLib.getDocument(objectURL);
+                loadingTask.promise
+                    .then(function (pdf) {
+                        numPages = pdf.numPages;
+                        console.log(`Number of pages: ${numPages}`);
+                    })
+                    .catch(function (err) {
+                        console.error(`Error: ${err}`);
+                    });
+
                 // File type and PDF's path 
                 const inputConfig = {
                     mimeType: 'application/pdf',
@@ -120,7 +139,6 @@ const upload_new = async (req, res) => {
                         uri: gcsDestinationUri
                     },
                 };
-
                 // Type of annotation to be performed on the file
                 const features = [{ type: 'DOCUMENT_TEXT_DETECTION' }];
                 // Build the fileRequest object for the uploaded file
@@ -140,6 +158,15 @@ const upload_new = async (req, res) => {
                 const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
                 console.log(`JSON saved to: ${destinationUri}`);
                 jsonOutputFileName = 'output-1-to-' + numPages + '.json';
+
+                // Get JSON response file
+                const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
+                const detections = await readJsonOutput(jsonOutputFile);
+                for (const detection of detections) {
+                    textFromFile = JSON.stringify(detection.fullTextAnnotation.text);
+                    const text = { text: textFromFile };
+                    newUpload.detections.push(text);
+                }
             }
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
@@ -160,26 +187,9 @@ const upload_new = async (req, res) => {
                 newUpload.detections.push(text);
             }
 
-            if (textDetection == 'digi-text-pdf') {
-                await new Promise(res => {
-                    jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
-                    let buffer = '';
-                    let output;
-                    let responses;
-                    // Directly read the content of the JSON file stored in the bucket
-                    jsonOutputFile.createReadStream()
-                        .on('error', err => console.log(err))
-                        .on('data', data => {
-                            buffer += data;
-                        })
-                        .on('end', () => {
-                            console.log(buffer);
-                        });
-                });
-            }
-
             // Insert newUpload to the database
             newUpload.save();
+            console.log('New file stored in the database.');
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
