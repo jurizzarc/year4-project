@@ -161,9 +161,9 @@ const upload_new = async (req, res) => {
 
                 // Get JSON response file
                 const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
-                const detections = await readJsonOutput(jsonOutputFile);
+                const detections = await readJsonOutput(jsonOutputFile).catch(e => { console.log(e) });
                 for (const detection of detections) {
-                    textFromFile = JSON.stringify(detection.fullTextAnnotation.text);
+                    textFromFile = detection.fullTextAnnotation.text;
                     const text = { text: textFromFile };
                     newUpload.detections.push(text);
                 }
@@ -171,7 +171,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
                 const [result] = await client.textDetection(gcsSourceUri);
-                textFromFile = JSON.stringify(result.textAnnotations[0].description);
+                textFromFile = result.textAnnotations[0].description;
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
@@ -180,7 +180,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is a handwritten text
             if (textDetection == 'hndwrtng-img') {
                 const [result] = await client.documentTextDetection(gcsSourceUri);
-                textFromFile = JSON.stringify(result.fullTextAnnotation.text);
+                textFromFile = result.fullTextAnnotation.text;
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
