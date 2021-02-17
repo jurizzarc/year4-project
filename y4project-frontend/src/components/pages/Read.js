@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import axios from 'axios';
 import UserContext from '../../context/UserContext';
-// import NewlineText from '../misc/NewlineText';
 
 export default function Read(props) {
     const { userData } = useContext(UserContext);
-    const [ userUpload, setUserUpload ] = useState();
-    const [ detections, setDetections ] = useState();
+    const [ userUpload, setUserUpload ] = useState({});
+    const [ detections, setDetections ] = useState([]);
     const apiUrl = 'http://localhost:4000/uploads';
 
     useEffect(() => {
@@ -27,9 +26,19 @@ export default function Read(props) {
         getFileData();
     }, []);
 
-    const trim = (str) => {
-        return str.toString()
-                  .replace(/^"(.+(?="$))"$/, '$1')
+    let detectionsArray, extractedText, newText;
+    if (detections) {
+        detectionsArray = detections.map(detection => detection.text);
+        // console.log(detectionsArray);
+        extractedText = detectionsArray.join('');
+        // console.log(extractedText);
+        newText = extractedText.split('\n').map((value, index) => {
+            return (
+                <p key={index}>
+                    {value}
+                </p>
+            )
+        })
     }
 
     return (
@@ -37,11 +46,7 @@ export default function Read(props) {
             {userData.user ? (
                 <div className="page">
                     <section className="text">
-                        {detections && detections.map(detection => (
-                            <p key={detection._id}>
-                                {trim(detection.text)}
-                            </p>
-                        ))}
+                        {newText}
                     </section>
                 </div>
             ) : (
