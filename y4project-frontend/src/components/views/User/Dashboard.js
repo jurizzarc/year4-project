@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import UserContext from "../../context/UserContext";
+import UserContext from "../../../contexts/UserContext";
 import Axios from "axios";
-import Files from "./Files";
+import Files from "../../elements/Files";
 
 export default function Dashboard() {
     const {userData} = useContext(UserContext);

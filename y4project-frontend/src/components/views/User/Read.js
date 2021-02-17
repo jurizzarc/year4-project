@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import axios from 'axios';
-import UserContext from '../../context/UserContext';
+import UserContext from '../../../contexts/UserContext';
 
 export default function Read(props) {
     const { userData } = useContext(UserContext);

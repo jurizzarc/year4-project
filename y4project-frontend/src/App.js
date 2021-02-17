@@ -2,15 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Axios from "axios";
-import Header from "./components/layout/Header";
-import Home from "./components/pages/Home";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Dashboard from "./components/pages/Dashboard";
-import Read from "./components/pages/Read";
-import UserContext from "./context/UserContext";
+import Header from "./components/common/Header";
+import Home from "./components/views/Home";
+import Login from "./components/views/Authentication/Login";
+import Register from "./components/views/Authentication/Register";
+import Dashboard from "./components/views/User/Dashboard";
+import Read from "./components/views/User/Read";
+import UserContext from "./contexts/UserContext";
 
-import "./style.css";
+import "../src/theme/style.css"
 
 export default function App() {
     const [userData, setUserData] = useState({
