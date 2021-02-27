@@ -29,14 +29,16 @@ export default function Read(props) {
     let detectionsArray, extractedText, newText;
     if (detections) {
         detectionsArray = detections.map(detection => detection.text);
+        // console.log(detectionsArray);
         extractedText = detectionsArray.join('');
+        // console.log(extractedText);
         newText = extractedText.split('\n').map((value, index) => {
             return (
                 <p key={index}>
                     {value}
                 </p>
             )
-        });
+        })
     }
 
     return (
