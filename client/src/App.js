@@ -6,6 +6,8 @@ import { useTheme } from './theme/useTheme';
 import UserContext from './contexts/UserContext';
 import axios from 'axios';
 import Home from './components/views/Home';
+import Login from './components/views/Authentication/Login';
+import Dashboard from './components/views/User/Dashboard';
 
 export default function App() {
     const { theme, themeLoaded } = useTheme();
@@ -61,6 +63,8 @@ export default function App() {
                                     exact path="/"
                                     component={Home}
                                 />
+                                <Route path="/login" component={Login} />
+                                <Route path="/dashboard" component={Dashboard} />
                             </Switch>
                         </ThemeProvider>
                     }
