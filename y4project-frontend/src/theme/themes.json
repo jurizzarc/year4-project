@@ -1,0 +1,39 @@
+{
+    "data": {
+        "light": {
+            "id": "LIGHT_THM_001",
+            "name": "Light",
+            "colors": {
+                "primary_background": "#FFF",
+                "secondary_background": "#F4F4F4",
+                "high_contrast_background": "#393939",
+                "primary_text": "#161616",
+                "secondary_text": "#525252",
+                "tertiary_text": "#A8A8A8",
+                "link": {
+                    "primary": "#525252",
+                    "primary_hover": "#000"
+                },
+                "button": {
+                    "primary_enabled": "#525252",
+                    "primary_enabled_label": "#FFF",
+                    "primary_hover": "#6C9ACB",
+                    "primary_hover_label": "#000",
+                    "primary_focus": "#525252",
+                    "primary_focus_label": "#FFF",
+                    "primary_focus_outline": "#525252",
+                    "primary_active": "#003061",
+                    "primary_active_label": "#FFF",
+                    "ghost_enabled_label": "#525252",
+                    "ghost_hover_label": "#000",
+                    "ghost_focus": "#525252"
+                },
+                "border": {
+                    "subtle": "#E0E0E0",
+                    "medium_contrast": "#8D8D8D",
+                    "high_contrast": "#161616"
+                }
+            }
+        }
+    }
+}
