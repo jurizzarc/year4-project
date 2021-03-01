@@ -1,0 +1,62 @@
+div#root {
+    margin: var(--spacing-09) 0.938rem;
+}
+
+a[role=button]:hover {
+    text-decoration: none;
+}
+
+.btn {
+    font-weight: 600;
+    border-radius: 28px;
+    cursor: pointer;
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+}
+
+.btn-md {
+    padding: var(--spacing-03) calc(var(--spacing-03) * 2);
+    font-size: var(--small-text-size);
+}
+
+.btn-lg {
+    padding: var(--spacing-05) calc(var(--spacing-05) * 2);
+    font-size: var(--small-text-size);
+}
+
+form {
+    overflow: hidden;
+}
+
+form.authentication-form h3, p {
+    text-align: center;
+}
+
+section.form-fields {
+    margin-top: var(--spacing-04);
+    padding-top: var(--spacing-09);
+}
+
+div.form-group:not(:first-of-type) {
+    margin-top: var(--spacing-08);
+}
+
+form label {
+    font-size: var(--small-text-size);
+    font-weight: 600;
+    margin-bottom: var(--spacing-02);
+    display: block;
+}
+
+form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--spacing-04) var(--spacing-03);
+}
+
+form button {
+    margin: var(--spacing-10) auto;
+    display: block;
+}
