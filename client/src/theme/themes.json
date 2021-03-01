@@ -11,22 +11,24 @@
                 "secondary_text": "#525252",
                 "tertiary_text": "#A8A8A8",
                 "link": {
-                    "primary": "#525252",
+                    "primary": "#00588F",
                     "primary_hover": "#000"
                 },
                 "button": {
-                    "primary_enabled": "#525252",
+                    "primary_enabled": "#00588F",
                     "primary_enabled_label": "#FFF",
-                    "primary_hover": "#6C9ACB",
-                    "primary_hover_label": "#000",
-                    "primary_focus": "#525252",
+                    "primary_enabled_border": "#00588F",
+                    "primary_hover": "transparent",
+                    "primary_hover_label": "#00588F",
+                    "primary_hover_border": "#00588F",
+                    "primary_focus": "#00588F",
                     "primary_focus_label": "#FFF",
-                    "primary_focus_outline": "#525252",
+                    "primary_focus_outline": "#00588F",
                     "primary_active": "#003061",
                     "primary_active_label": "#FFF",
-                    "ghost_enabled_label": "#525252",
+                    "ghost_enabled_label": "#00588F",
                     "ghost_hover_label": "#000",
-                    "ghost_focus": "#525252"
+                    "ghost_focus": "#00588F"
                 },
                 "border": {
                     "subtle": "#E0E0E0",
