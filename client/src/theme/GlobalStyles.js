@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 export const GlobalStyles = createGlobalStyle`
+    ${reset}
+
     :root {
         --base-line-height: 1.5;
         --smaller-text-size: clamp(0.6944rem, 0.6532rem + 0.2061vw, 0.8rem);
@@ -13,16 +16,31 @@ export const GlobalStyles = createGlobalStyle`
         --heading-2: clamp(2.4881rem, 1.9703rem + 2.589vw, 3.815rem);
         --heading-1: clamp(2.9863rem, 2.2909rem + 3.4768vw, 4.7681rem);
 
-        --margin-md: calc(var(--base-line-height) * 1.5rem);
+        --spacing-01: calc(var(--base-line-height) * 0.15rem);
+        --spacing-02: calc(var(--base-line-height) * 0.25rem);
+        --spacing-03: calc(var(--base-line-height) * 0.4rem);
+        --spacing-04: calc(var(--base-line-height) * 0.5rem);
+        --spacing-05: calc(var(--base-line-height) * 0.65rem);
+        --spacing-06: calc(var(--base-line-height) * 0.75rem);
+        --spacing-07: calc(var(--base-line-height) * 0.9rem);
+
+        --spacing-08: calc(var(--base-line-height) * 1rem);
+        --spacing-09: calc(var(--base-line-height) * 1.5rem);
+        --spacing-10: calc(var(--base-line-height) * 2rem);
+        --spacing-11: calc(var(--base-line-height) * 2.5rem);
+        --spacing-12: calc(var(--base-line-height) * 3rem);
+        --spacing-13: calc(var(--base-line-height) * 3.5rem);
+        --spacing-14: calc(var(--base-line-height) * 4rem);
+        --spacing-15: calc(var(--base-line-height) * 4.5rem);
+        --spacing-15: calc(var(--base-line-height) * 5rem);
     }
 
     body {
         background: ${ ({ theme }) => theme.colors.primary_background };
         color: ${ ({ theme }) => theme.colors.primary_text };
-        font-family: 'Cabin', 'Helvetica', sans-serif;
+        font-family: 'Mulish', 'Helvetica', sans-serif;
         font-size: var(--base-font-size);
         line-height: var(--base-line-height);
-        margin: var(--margin-md) 0.938rem;
     }
 
     a {
@@ -34,5 +52,56 @@ export const GlobalStyles = createGlobalStyle`
         color: ${ ({ theme }) => theme.colors.link.primary_hover };
         text-decoration: underline;
         text-decoration-color: ${ ({ theme }) => theme.colors.link.primary };
+    }
+
+    h1, h2, h3 { font-weight: 600; }
+    h4, h5, h6 { font-weight: 500; }
+
+    h1 {
+        font-size: var(--heading-1);
+    }
+
+    h2 {
+        font-size: var(--heading-2);
+    }
+
+    h3 {
+        font-size: var(--heading-3);
+    }
+
+    h4 {
+        font-size: var(--heading-4);
+    }
+
+    h5 {
+        font-size: var(--heading-5);
+    }
+
+    h6 {
+        font-size: var(--heading-6);
+    }
+
+    .btn {
+        font-family: 'Mulish', 'Helvetica', sans-serif;
+    }
+
+    .btn-primary {
+        background-color: ${ ({ theme }) => theme.colors.button.primary_enabled };
+        color: ${ ({ theme }) => theme.colors.button.primary_enabled_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.primary_enabled_border };
+    }
+
+    .btn-primary:hover {
+        background-color: ${ ({ theme }) => theme.colors.button.primary_hover };
+        color: ${ ({ theme }) => theme.colors.button.primary_hover_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.primary_hover_border };
+    }
+
+    section.form-fields {
+        border-top: 1px solid ${ ({ theme }) => theme.colors.border.subtle };
+    }
+
+    form.authentication-form p {
+        color: ${ ({ theme }) => theme.colors.secondary_text };
     }
 `;
