@@ -7,13 +7,13 @@ export default function validateUserInfo(values) {
 
     if (!values.email) {
         errors.email = 'Please enter an e-mail address.';
-    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    } else if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
         errors.email = 'Please enter a valid e-mail address.';
     }
 
     if (!values.password) {
         errors.password = 'Please enter a password.';
-    } else if (!values.password.length < 6) {
+    } else if (values.password.length < 6) {
         errors.password = 'The password must be 6 characters or more.';
     }
 
@@ -22,6 +22,5 @@ export default function validateUserInfo(values) {
     } else if (values.passwordCheck !== values.password) {
         errors.passwordCheck = 'Passwords do not match.';
     }
-
     return errors;
 }
