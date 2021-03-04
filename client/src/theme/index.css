@@ -1,11 +1,33 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/********** Layout **********/
 div#root {
     margin: var(--spacing-09) 0.938rem;
 }
 
+main.authentication-form-container {
+    margin: 0 auto;
+    max-width: calc(25rem + 1vw);
+}
+
+/********** Typography **********/
+h1, h2, h3 { font-weight: 600; }
+h4, h5, h6 { font-weight: 500; }
+
+/********** Links **********/
 a[role=button]:hover {
     text-decoration: none;
 }
 
+.form-link {
+    font-weight: 600;
+}
+
+/********** Buttons **********/
 .btn {
     font-weight: 600;
     border-radius: 28px;
@@ -23,20 +45,16 @@ a[role=button]:hover {
 
 .btn-lg {
     padding: var(--spacing-05) calc(var(--spacing-05) * 2);
-    font-size: var(--small-text-size);
+    font-size: var(--base-font-size);
 }
 
-form {
-    overflow: hidden;
-}
-
-form.authentication-form h3, p {
+/********** Forms **********/
+form.authentication-form h1, p {
     text-align: center;
 }
 
 section.form-fields {
-    margin-top: var(--spacing-04);
-    padding-top: var(--spacing-09);
+    margin-top: var(--spacing-11);
 }
 
 div.form-group:not(:first-of-type) {
@@ -44,19 +62,33 @@ div.form-group:not(:first-of-type) {
 }
 
 form label {
-    font-size: var(--small-text-size);
     font-weight: 600;
     margin-bottom: var(--spacing-02);
     display: block;
 }
 
-form input {
+form input.form-field {
     width: 100%;
     box-sizing: border-box;
-    padding: var(--spacing-04) var(--spacing-03);
+    padding: var(--spacing-03) var(--spacing-02);
+    border-radius: 4px;
+    -webkit-transition: 180ms box-shadow ease-in-out;
+    -moz-transition: 180ms box-shadow ease-in-out;
+    -o-transition: 180ms box-shadow ease-in-out;
+    transition: 180ms box-shadow ease-in-out;
+}
+
+form input.form-field:focus {
+    outline: 2px solid transparent;
 }
 
 form button {
     margin: var(--spacing-10) auto;
     display: block;
+}
+
+form .error-msg {
+    font-size: var(--small-text-size);
+    text-align: left;
+    margin-top: var(--spacing-01);
 }
