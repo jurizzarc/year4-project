@@ -4,36 +4,95 @@
             "id": "LIGHT_THM_001",
             "name": "Light",
             "colors": {
-                "primary_background": "#FFF",
-                "secondary_background": "#F4F4F4",
-                "high_contrast_background": "#393939",
-                "primary_text": "#161616",
-                "secondary_text": "#525252",
-                "tertiary_text": "#A8A8A8",
+                "background": {
+                    "primary": "#FFF",
+                    "secondary": "#F4F4F4",
+                    "high_contrast": "#393939"
+                },
+                "text": {
+                    "primary": "#161616",
+                    "secondary": "#525252",
+                    "tertiary": "#6F6F6F",
+                    "form_label": "#525252",
+                    "accent": "#161F6D"
+                },
                 "link": {
-                    "primary": "#00588F",
-                    "primary_hover": "#000"
+                    "primary": "#161F6D",
+                    "primary_hover": "#161616",
+                    "primary_underline": "#161F6D"
                 },
                 "button": {
-                    "primary_enabled": "#00588F",
-                    "primary_enabled_label": "#FFF",
-                    "primary_enabled_border": "#00588F",
-                    "primary_hover": "transparent",
-                    "primary_hover_label": "#00588F",
-                    "primary_hover_border": "#00588F",
-                    "primary_focus": "#00588F",
-                    "primary_focus_label": "#FFF",
-                    "primary_focus_outline": "#00588F",
-                    "primary_active": "#003061",
-                    "primary_active_label": "#FFF",
-                    "ghost_enabled_label": "#00588F",
-                    "ghost_hover_label": "#000",
-                    "ghost_focus": "#00588F"
+                    "primary": {
+                        "enabled": "#161F6D",
+                        "enabled_label": "#FFF",
+                        "enabled_border": "#161F6D",
+                        "hover": "#4C479C",
+                        "hover_label": "#FFF",
+                        "hover_border": "#4C479C",
+                        "focus": "#161F6D",
+                        "focus_label": "#FFF",
+                        "focus_border": "#161F6D",
+                        "focus_outline": "#161F6D",
+                        "active": "#000041",
+                        "active_label": "#FFF",
+                        "active_border": "#000041"
+                    },
+                    "secondary": {
+                        "enabled": "#393939",
+                        "enabled_label": "#FFF",
+                        "enabled_border": "#393939",
+                        "hover": "#595959",
+                        "hover_label": "#FFF",
+                        "hover_border": "#595959",
+                        "focus": "#393939",
+                        "focus_label": "#FFF",
+                        "focus_border": "#393939",
+                        "focus_outline": "#161F6D",
+                        "active": "#131313",
+                        "active_label": "#FFF",
+                        "active_border": "#131313"
+                    },
+                    "tertiary": {
+                        "enabled": "transparent",
+                        "enabled_label": "#161F6D",
+                        "enabled_border": "#161F6D",
+                        "hover": "#161F6D",
+                        "hover_label": "#FFF",
+                        "hover_border": "#161F6D",
+                        "focus": "#161F6D",
+                        "focus_label": "#FFF",
+                        "focus_border": "#161F6D",
+                        "focus_outline": "#161F6D",
+                        "active": "#000041",
+                        "active_label": "#FFF",
+                        "active_border": "#000041"
+                    },
+                    "ghost": {
+                        "enabled": "transparent",
+                        "enabled_label": "#161F6D",
+                        "enabled_border": "transparent",
+                        "hover_label": "#000",
+                        "focus": "#00588F"
+                    }
+                },
+                "form": {
+                    "default_input_border": "#8D8D8D",
+                    "input_focus_h": "234",
+                    "input_focus_s": "66%",
+                    "input_focus_l": "26%",
+                    "error_input_border": "#B2010A"
                 },
                 "border": {
                     "subtle": "#E0E0E0",
                     "medium_contrast": "#8D8D8D",
                     "high_contrast": "#161616"
+                },
+                "alert": {
+                    "danger": {
+                        "text": "#B2010A",
+                        "border": "#B2010A",
+                        "background": "#F37C6D"
+                    }
                 }
             }
         }
