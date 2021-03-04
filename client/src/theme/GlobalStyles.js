@@ -23,7 +23,6 @@ export const GlobalStyles = createGlobalStyle`
         --spacing-05: calc(var(--base-line-height) * 0.65rem);
         --spacing-06: calc(var(--base-line-height) * 0.75rem);
         --spacing-07: calc(var(--base-line-height) * 0.9rem);
-
         --spacing-08: calc(var(--base-line-height) * 1rem);
         --spacing-09: calc(var(--base-line-height) * 1.5rem);
         --spacing-10: calc(var(--base-line-height) * 2rem);
@@ -32,15 +31,18 @@ export const GlobalStyles = createGlobalStyle`
         --spacing-13: calc(var(--base-line-height) * 3.5rem);
         --spacing-14: calc(var(--base-line-height) * 4rem);
         --spacing-15: calc(var(--base-line-height) * 4.5rem);
-        --spacing-15: calc(var(--base-line-height) * 5rem);
+        --spacing-16: calc(var(--base-line-height) * 5rem);
     }
 
     body {
-        background: ${ ({ theme }) => theme.colors.primary_background };
-        color: ${ ({ theme }) => theme.colors.primary_text };
+        background: ${ ({ theme }) => theme.colors.background.primary };
+        color: ${ ({ theme }) => theme.colors.text.primary };
+        line-height: var(--base-line-height);
+    }
+
+    body, button, input {
         font-family: 'Mulish', 'Helvetica', sans-serif;
         font-size: var(--base-font-size);
-        line-height: var(--base-line-height);
     }
 
     a {
@@ -54,54 +56,59 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration-color: ${ ({ theme }) => theme.colors.link.primary };
     }
 
-    h1, h2, h3 { font-weight: 600; }
-    h4, h5, h6 { font-weight: 500; }
-
-    h1 {
-        font-size: var(--heading-1);
-    }
-
-    h2 {
-        font-size: var(--heading-2);
-    }
-
-    h3 {
-        font-size: var(--heading-3);
-    }
-
-    h4 {
-        font-size: var(--heading-4);
-    }
-
-    h5 {
-        font-size: var(--heading-5);
-    }
-
-    h6 {
-        font-size: var(--heading-6);
-    }
-
-    .btn {
-        font-family: 'Mulish', 'Helvetica', sans-serif;
-    }
+    h1 { font-size: var(--heading-1); }
+    h2 { font-size: var(--heading-2); }
+    h3 { font-size: var(--heading-3); }
+    h4 { font-size: var(--heading-4); }
+    h5 { font-size: var(--heading-5); }
+    h6 { font-size: var(--heading-6); }
 
     .btn-primary {
-        background-color: ${ ({ theme }) => theme.colors.button.primary_enabled };
-        color: ${ ({ theme }) => theme.colors.button.primary_enabled_label };
-        border: 1px solid ${ ({ theme }) => theme.colors.button.primary_enabled_border };
+        background-color: ${ ({ theme }) => theme.colors.button.primary.enabled };
+        color: ${ ({ theme }) => theme.colors.button.primary.enabled_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.primary.enabled_border };
     }
 
     .btn-primary:hover {
-        background-color: ${ ({ theme }) => theme.colors.button.primary_hover };
-        color: ${ ({ theme }) => theme.colors.button.primary_hover_label };
-        border: 1px solid ${ ({ theme }) => theme.colors.button.primary_hover_border };
+        background-color: ${ ({ theme }) => theme.colors.button.primary.hover };
+        color: ${ ({ theme }) => theme.colors.button.primary.hover_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.primary.hover_border };
     }
 
-    section.form-fields {
-        border-top: 1px solid ${ ({ theme }) => theme.colors.border.subtle };
+    form label {
+        color: ${ ({ theme }) => theme.colors.text.form_label };
     }
 
-    form.authentication-form p {
-        color: ${ ({ theme }) => theme.colors.secondary_text };
+    form label.required-input::after {
+        content: '*';
+        margin-left: 0.313rem;
+        color: ${ ({ theme }) => theme.colors.text.accent };
+    }
+
+    form input.form-field {
+        border: 1px solid ${ ({ theme }) => theme.colors.form.default_input_border };
+    }
+
+    form input.form-field:focus {
+        border-color: hsl(
+            ${ ({ theme }) => theme.colors.form.input_focus_h },
+            ${ ({ theme }) => theme.colors.form.input_focus_s },
+            ${ ({ theme }) => theme.colors.form.input_focus_l }
+        );
+        box-shadow: 0 0 0 2px
+            hsla(
+                ${ ({ theme }) => theme.colors.form.input_focus_h },
+                ${ ({ theme }) => theme.colors.form.input_focus_s },
+                calc(${ ({ theme }) => theme.colors.form.input_focus_l } + 40%), 
+                0.8
+            );
+    }
+
+    form input.has-error {
+        border-color: ${ ({ theme }) => theme.colors.form.error_input_border };
+    }
+
+    form .error-msg {
+        color: ${ ({ theme }) => theme.colors.alert.danger.text };
     }
 `;
