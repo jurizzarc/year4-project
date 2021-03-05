@@ -1,29 +1,48 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../../../contexts/UserContext';
 import Button from '../../elements/Button';
+import ErrorSummary from '../../elements/ErrorSummary';
 import useSignUpForm from '../../../hooks/useSignUpForm';
 import validateUserInfo from '../../../validation/validateUserInfo';
 
-export default function Register() {
+const SignUp = () => {
+    const BASE_API_URL = 'http://localhost:4000/users';
     const INITIAL_STATE = {
         displayName: '',
         email: '',
         password: '',
         passwordCheck: ''
     };
-
-    const BASE_API_URL = 'http://localhost:4000/users/';
+    const [errorSum, setErrorSum] = useState();
+    const { setUserData } = useContext(UserContext);
+    const history = useHistory();
 
     const onFormSubmit = async () => {
+        console.log(isSubmitting);
         const { displayName, email, password, passwordCheck } = values;
-
         try {
             const newUser = { displayName, email, password, passwordCheck };
-        } catch {
-
+            await axios.post(
+                `${BASE_API_URL}/register`,
+                newUser
+            );
+            const loginRes = await axios.post(
+                `${BASE_API_URL}/login`,
+                {
+                    email,
+                    password
+                }
+            );
+            setUserData({
+                token: loginRes.data.token,
+                user: loginRes.data.user
+            });
+            localStorage.setItem('auth-token', loginRes.data.token);
+            history.push('/dashboard');
+        } catch (err) {
+            err.response.data.msg && setErrorSum(err.response.data.msg);
         }
     }
 
@@ -45,6 +64,9 @@ export default function Register() {
             >
                 <h1>Sign Up</h1>
                 <p>All fields below are required.</p>
+                {errorSum && (
+                    <ErrorSummary message={errorSum} />
+                )}
                 <section className="form-fields">
                     <div className="form-group">
                         <label 
@@ -131,7 +153,13 @@ export default function Register() {
                         }
                     </div>
                 </section>
-                <Button type="submit">Sign Up</Button>
+                <Button 
+                    type="submit"
+                    buttonStyle="btn-primary"
+                    buttonSize="btn-lg"
+                >
+                    Sign Up
+                </Button>
             </form>
             <p>
                 Already have an account?&nbsp;
@@ -144,4 +172,6 @@ export default function Register() {
             </p>
         </main>
     );
-}
+};
+
+export default SignUp;
