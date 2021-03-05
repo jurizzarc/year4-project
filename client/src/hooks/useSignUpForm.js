@@ -11,13 +11,13 @@ const useSignUpForm = (initialState, validate, runOnSubmit) => {
     useEffect(() => {
         // Call form submission if submit button was hit
         if (isSubmitting) {
+            // Run form submission
+            runOnSubmit();
             const noErrors = Object.keys(errors).length === 0;
             // Call form submission only if there are no errors
             if (noErrors) {
                 // Clear touched array
                 setTouched([]);
-                // Run form submission
-                runOnSubmit();
                 setSubmitting(false);
             } else {
                 setSubmitting(false);
@@ -68,7 +68,7 @@ const useSignUpForm = (initialState, validate, runOnSubmit) => {
         const validationErrors = validate(values);
         setErrors(validationErrors);
         setSubmitting(true);
-    }
+    };
 
     // Return values from hook to be used in the form component
     return { 
