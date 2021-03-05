@@ -6,10 +6,13 @@ import { useTheme } from './theme/useTheme';
 import UserContext from './contexts/UserContext';
 import axios from 'axios';
 import Home from './components/views/Home';
-import Login from './components/views/Authentication/Login';
+import SignUp from './components/views/Authentication/SignUp';
+import SignIn from './components/views/Authentication/SignIn';
 import Dashboard from './components/views/User/Dashboard';
+import '../src/theme/index.css';
 
-export default function App() {
+const App = () => {
+    const BASE_API_URL = 'http://localhost:4000/users'
     const { theme, themeLoaded } = useTheme();
     const [selectedTheme, setSelectedTheme] = useState(theme);
     const [userData, setUserData] = useState({
@@ -30,14 +33,14 @@ export default function App() {
             }
 
             const tokenRes = await axios.post(
-                'http://localhost:4000/users/tokenIsValid', 
+                `${BASE_API_URL}/tokenIsValid`,
                 null, 
                 { headers: { 'x-auth-token': token } }
             );
             
             if (tokenRes.data) {
                 const userRes = await axios.get(
-                    'http://localhost:4000/users/userInfo',
+                    `${BASE_API_URL}/userInfo`,
                     { headers: { 'x-auth-token': token } }
                 );
 
@@ -57,14 +60,24 @@ export default function App() {
                 <UserContext.Provider value={{userData, setUserData}}>
                     {
                         themeLoaded && <ThemeProvider theme={selectedTheme}>
-                            <GlobalStyles/>
+                            <GlobalStyles />
                             <Switch>
                                 <Route
                                     exact path="/"
                                     component={Home}
                                 />
-                                <Route path="/login" component={Login} />
-                                <Route path="/dashboard" component={Dashboard} />
+                                <Route 
+                                    path="/sign-up" 
+                                    component={SignUp} 
+                                />
+                                <Route 
+                                    path="/sign-in" 
+                                    component={SignIn} 
+                                />
+                                <Route 
+                                    path="/dashboard"
+                                    component={Dashboard}
+                                />
                             </Switch>
                         </ThemeProvider>
                     }
@@ -73,3 +86,5 @@ export default function App() {
         </>
     );
 }
+
+export default App;
