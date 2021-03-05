@@ -75,6 +75,11 @@ export const GlobalStyles = createGlobalStyle`
         border: 1px solid ${ ({ theme }) => theme.colors.button.primary.hover_border };
     }
 
+    section.error-summary {
+        border: 1px solid ${ ({ theme }) => theme.colors.alert.danger.border };
+        background-color: ${ ({ theme }) => theme.colors.alert.danger.background };
+    }
+
     form label {
         color: ${ ({ theme }) => theme.colors.text.form_label };
     }

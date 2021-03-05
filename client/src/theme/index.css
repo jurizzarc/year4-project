@@ -53,8 +53,19 @@ form.authentication-form h1, p {
     text-align: center;
 }
 
+section.error-summary {
+    margin-top: var(--spacing-08);
+    padding: var(--spacing-05);
+    border-radius: 4px;
+}
+
+section.error-summary p {
+    text-align: left;
+    font-size: var(--small-text-size);
+}
+
 section.form-fields {
-    margin-top: var(--spacing-11);
+    margin-top: var(--spacing-10);
 }
 
 div.form-group:not(:first-of-type) {
