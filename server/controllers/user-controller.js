@@ -8,36 +8,40 @@ const user_test = async (req, res) => {
 
 const user_register = async (req, res) => {
     try {
-        let {email, password, passwordCheck, displayName} = req.body;
+        let { displayName, email, password, passwordCheck } = req.body;
 
         // Validate
-        if (!email || !password || !passwordCheck) {
+        if (!displayName || !email || !password || !passwordCheck) {
             return res
                 .status(400)
-                .json({ msg: 'Not all fields have been filled in.' });
+                .json({ 
+                    msg: "We couldn't register you. Not all fields have been filled in." 
+                });
         }
 
         if (password.length < 6) {
             return res
                 .status(400)
-                .json({ msg: 'The password must be at least 6 characters long.' });
+                .json({ 
+                    msg: "We couldn't register you. Please provide a password that's at least 6 characters long." 
+                });
         }
 
         if (password !== passwordCheck) {
             return res
                 .status(400)
-                .json({ msg: 'Enter the same password twice for verification.' });
+                .json({ 
+                    msg: "We couldn't register you. Please enter the same password twice for verification."
+                });
         }
 
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res
                 .status(400)
-                .json({ msg: 'An account with this e-mail address already exists.' });
-        }
-
-        if (!displayName) {
-            displayName = email;
+                .json({ 
+                    msg: "We couldn't register you. An account with this e-mail address already exists." 
+                });
         }
 
         const salt = await bycrypt.genSalt();
@@ -65,21 +69,27 @@ const user_login = async (req, res) => {
         if (!email || !password) {
             return res
                 .status(400)
-                .json({msg: 'Not all fields have been filled in.'});
+                .json({
+                    msg: "We couldn't sign you in. Please fill in the fields."
+                });
         }
 
         const user = await User.findOne({ email: email });
         if (!user) {
             return res
                 .status(400)
-                .json({msg: 'No account with this e-mail address has been registered.'});
+                .json({
+                    msg: 'No account with this e-mail address has been registered.'
+                });
         }
 
         const isMatching = await bycrypt.compare(password, user.password);
         if (!isMatching) {
             return res
                 .status(400)
-                .json({ msg: 'Invalid credentials.' });
+                .json({ 
+                    msg: "We couldn't sign you in. Check your e-mail address and password, then try again." 
+                });
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
