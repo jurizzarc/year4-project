@@ -32,7 +32,7 @@
                         "focus": "#161F6D",
                         "focus_label": "#FFF",
                         "focus_border": "#161F6D",
-                        "focus_outline": "#161F6D",
+                        "focus_outline": "#4C479C",
                         "active": "#000041",
                         "active_label": "#FFF",
                         "active_border": "#000041"
@@ -73,6 +73,21 @@
                         "enabled_border": "transparent",
                         "hover_label": "#000",
                         "focus": "#00588F"
+                    },
+                    "accessibility": {
+                        "enabled": "#6D164A",
+                        "enabled_label": "#FFF",
+                        "enabled_border": "#6D164A",
+                        "hover": "#873B65",
+                        "hover_label": "#FFF",
+                        "hover_border": "#873B65",
+                        "focus": "#6D164A",
+                        "focus_label": "#FFF",
+                        "focus_border": "#6D164A",
+                        "focus_outline": "#873B65",
+                        "active": "#3E0022",
+                        "active_label": "#FFF",
+                        "active_border": "#3E0022"
                     }
                 },
                 "form": {

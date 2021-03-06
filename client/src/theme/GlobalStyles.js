@@ -72,10 +72,52 @@ export const GlobalStyles = createGlobalStyle`
     .btn-primary:hover {
         background-color: ${ ({ theme }) => theme.colors.button.primary.hover };
         color: ${ ({ theme }) => theme.colors.button.primary.hover_label };
-        border: 1px solid ${ ({ theme }) => theme.colors.button.primary.hover_border };
+        border-color: ${ ({ theme }) => theme.colors.button.primary.hover_border };
     }
 
-    section.error-summary {
+    .btn-primary:focus {
+        background-color: ${ ({ theme }) => theme.colors.button.primary.focus };
+        color: ${ ({ theme }) => theme.colors.button.primary.focus_label };
+        border-color: ${ ({ theme }) => theme.colors.button.primary.focus_border };
+        -webkit-box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.primary.focus_outline };
+        -moz-box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.primary.focus_outline };
+        box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.primary.focus_outline };
+    }
+
+    .btn-primary:active {
+        background-color: ${ ({ theme }) => theme.colors.button.primary.active };
+        color: ${ ({ theme }) => theme.colors.button.primary.active_label };
+        border-color: ${ ({ theme }) => theme.colors.button.primary.active_border };
+    }
+
+    .btn-accessibility {
+        background-color: ${ ({ theme }) => theme.colors.button.accessibility.enabled };
+        color: ${ ({ theme }) => theme.colors.button.accessibility.enabled_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.accessibility.enabled_border };
+    }
+
+    .btn-accessibility:hover {
+        background-color: ${ ({ theme }) => theme.colors.button.accessibility.hover };
+        color: ${ ({ theme }) => theme.colors.button.accessibility.hover_label };
+        border: 1px solid ${ ({ theme }) => theme.colors.button.accessibility.hover_border };
+    }
+
+    .btn-accessibility:focus {
+        background-color: ${ ({ theme }) => theme.colors.button.accessibility.focus };
+        color: ${ ({ theme }) => theme.colors.button.accessibility.focus_label };
+        border-color: ${ ({ theme }) => theme.colors.button.accessibility.focus_border };
+        -webkit-box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.accessibility.focus_outline };
+        -moz-box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.accessibility.focus_outline };
+        box-shadow: 0 0 0 4px ${ ({ theme }) => theme.colors.button.accessibility.focus_outline };
+    }
+
+    .btn-accessibility:active {
+        background-color: ${ ({ theme }) => theme.colors.button.accessibility.active };
+        color: ${ ({ theme }) => theme.colors.button.accessibility.active_label };
+        border-color: ${ ({ theme }) => theme.colors.button.accessibility.active_border };
+    }
+
+    section.danger-alert {
         border: 1px solid ${ ({ theme }) => theme.colors.alert.danger.border };
         background-color: ${ ({ theme }) => theme.colors.alert.danger.background };
     }
@@ -100,6 +142,20 @@ export const GlobalStyles = createGlobalStyle`
             ${ ({ theme }) => theme.colors.form.input_focus_s },
             ${ ({ theme }) => theme.colors.form.input_focus_l }
         );
+        -webkit-box-shadow: 0 0 0 2px
+            hsla(
+                ${ ({ theme }) => theme.colors.form.input_focus_h },
+                ${ ({ theme }) => theme.colors.form.input_focus_s },
+                calc(${ ({ theme }) => theme.colors.form.input_focus_l } + 40%), 
+                0.8
+            );
+        -moz-box-shadow: 0 0 0 2px
+            hsla(
+                ${ ({ theme }) => theme.colors.form.input_focus_h },
+                ${ ({ theme }) => theme.colors.form.input_focus_s },
+                calc(${ ({ theme }) => theme.colors.form.input_focus_l } + 40%), 
+                0.8
+            );
         box-shadow: 0 0 0 2px
             hsla(
                 ${ ({ theme }) => theme.colors.form.input_focus_h },
@@ -115,5 +171,9 @@ export const GlobalStyles = createGlobalStyle`
 
     form .error-msg {
         color: ${ ({ theme }) => theme.colors.alert.danger.text };
+    }
+
+    div.modal-container {
+        background-color: ${ ({ theme }) => theme.colors.background.secondary };
     }
 `;
