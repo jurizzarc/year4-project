@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../../../contexts/UserContext';
 import Button from '../../elements/Button.js';
-import ErrorSummary from '../../elements/ErrorSummary';
+import Danger from '../../elements/alerts/Danger';
 
 const SignIn = () => {
     const BASE_API_URL = 'http://localhost:4000/users';
@@ -41,7 +41,10 @@ const SignIn = () => {
                 <h1>Sign In</h1>
                 <p>Please enter your details below.</p>
                 {errorSum && (
-                    <ErrorSummary message={errorSum} />
+                    <Danger 
+                        message={errorSum} 
+                        ariaRole="Error Summary"
+                    />
                 )}
                 <section className="form-fields">
                     <div className="form-group">
@@ -51,6 +54,7 @@ const SignIn = () => {
                             type="email"
                             id="sign-in-email"
                             name="email"
+                            aria-required="true"
                             onChange={
                                 (e) => setEmail(e.target.value)
                             }
@@ -63,6 +67,7 @@ const SignIn = () => {
                             type="password"
                             id="sign-in-password"
                             name="password"
+                            aria-required="true"
                             onChange={
                                 (e) => setPassword(e.target.value)
                             }
