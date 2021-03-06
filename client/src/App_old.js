@@ -5,7 +5,7 @@ import Axios from "axios";
 import Header from "./components/common/Header";
 import Home from "./components/views/Home";
 import Login from "./components/views/Authentication/Login";
-import Register from "./components/views/Authentication/Register";
+import Register from "./components/views/Authentication/SignUp";
 import Dashboard from "./components/views/User/Dashboard";
 import Read from "./components/views/User/Read";
 import UserContext from "./contexts/UserContext";

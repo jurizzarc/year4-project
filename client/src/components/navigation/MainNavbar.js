@@ -44,11 +44,11 @@ export default function MainNavbar() {
             <AuthLinks>
                 <li>
                     <Link 
-                        to="/register"
+                        to="/sign-up"
                         role="button"
                         className="btn btn-primary btn-md"
                     >
-                        Register
+                        Sign Up
                     </Link>
                 </li>
             </AuthLinks>
