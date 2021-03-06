@@ -4,7 +4,8 @@ const STYLES = [
     'btn-primary',
     'btn-secondary',
     'btn-tertiary',
-    'btn-ghost'
+    'btn-ghost',
+    'btn-accessibility'
 ];
 
 const SIZES = [
@@ -15,6 +16,7 @@ const SIZES = [
 
 export default function Button({
     children, 
+    buttonId,
     type,
     onClick,
     buttonStyle,
@@ -28,9 +30,10 @@ export default function Button({
         : SIZES[0];
     return (
         <button
-            className={`btn ${checkButtonStyle} ${checkButtonSize}`} 
-            onClick={onClick}
+            className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+            id={buttonId} 
             type={type}
+            onClick={onClick}
         >
             {children}
         </button>
