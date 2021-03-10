@@ -59,7 +59,10 @@ export default function Modal({
                 className={`modal-container ${checkModalSize}`}
                 aria-modal="true"
             >
-                <div className="modal-content">
+                <div 
+                    className="modal-content"
+                    ref={modalRef}
+                >
                     <ModalContext.Provider value={{ onModalClose }}>
                         {children}
                     </ModalContext.Provider>
