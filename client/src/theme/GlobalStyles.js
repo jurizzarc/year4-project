@@ -40,7 +40,7 @@ export const GlobalStyles = createGlobalStyle`
         line-height: var(--base-line-height);
     }
 
-    body, button, input {
+    body, button, input, select {
         font-family: 'Mulish', 'Helvetica', sans-serif;
         font-size: var(--base-font-size);
     }
@@ -136,7 +136,12 @@ export const GlobalStyles = createGlobalStyle`
         border: 1px solid ${ ({ theme }) => theme.colors.form.default_input_border };
     }
 
-    form input.form-field:focus {
+    div.form-select {
+        border: 1px solid ${ ({ theme }) => theme.colors.form.default_input_border };
+        background-color: ${ ({ theme }) => theme.colors.background.primary };
+    }
+
+    form input.form-field:focus, {
         border-color: hsl(
             ${ ({ theme }) => theme.colors.form.input_focus_h },
             ${ ({ theme }) => theme.colors.form.input_focus_s },
