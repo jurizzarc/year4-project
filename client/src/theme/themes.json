@@ -110,6 +110,117 @@
                     }
                 }
             }
+        },
+        "dark": {
+            "id": "DARK_THM_002",
+            "name": "Dark",
+            "colors": {
+                "background": {
+                    "primary": "#262626",
+                    "secondary": "#393939",
+                    "high_contrast": "#F4F4F4"
+                },
+                "text": {
+                    "primary": "#F4F4F4",
+                    "secondary": "#C6C6C6",
+                    "tertiary": "#B5B5B5",
+                    "form_label": "#C6C6C6",
+                    "accent": "#A6ACED"
+                },
+                "link": {
+                    "primary": "#A6ACED",
+                    "primary_hover": "#F4F4F4",
+                    "primary_underline": "#A6ACED"
+                },
+                "button": {
+                    "primary": {
+                        "enabled": "#A6ACED",
+                        "enabled_label": "#262626",
+                        "enabled_border": "#A6ACED",
+                        "hover": "#BABBF2",
+                        "hover_label": "#262626",
+                        "hover_border": "#BABBF2",
+                        "focus": "#A6ACED",
+                        "focus_label": "#262626",
+                        "focus_border": "#A6ACED",
+                        "focus_outline": "#BABBF2",
+                        "active": "#8189E4",
+                        "active_label": "#262626",
+                        "active_border": "#8189E4"
+                    },
+                    "secondary": {
+                        "enabled": "#B8B8B8",
+                        "enabled_label": "#262626",
+                        "enabled_border": "#B8B8B8",
+                        "hover": "#D4D4D4",
+                        "hover_label": "#262626",
+                        "hover_border": "#D4D4D4",
+                        "focus": "#B8B8B8",
+                        "focus_label": "#262626",
+                        "focus_border": "#B8B8B8",
+                        "focus_outline": "#D4D4D4",
+                        "active": "#9C9C9C",
+                        "active_label": "#262626",
+                        "active_border": "#9C9C9C"
+                    },
+                    "tertiary": {
+                        "enabled": "transparent",
+                        "enabled_label": "#A6ACED",
+                        "enabled_border": "#A6ACED",
+                        "hover": "#A6ACED",
+                        "hover_label": "#262626",
+                        "hover_border": "#A6ACED",
+                        "focus": "#A6ACED",
+                        "focus_label": "#262626",
+                        "focus_border": "#A6ACED",
+                        "focus_outline": "#A6ACED",
+                        "active": "#8189E4",
+                        "active_label": "#262626",
+                        "active_border": "#8189E4"
+                    },
+                    "ghost": {
+                        "enabled": "transparent",
+                        "enabled_label": "#A6ACED",
+                        "enabled_border": "transparent",
+                        "hover_label": "#000",
+                        "focus": "#00588F"
+                    },
+                    "accessibility": {
+                        "enabled": "#E78DC3",
+                        "enabled_label": "#262626",
+                        "enabled_border": "#E78DC3",
+                        "hover": "#F0B7DA",
+                        "hover_label": "#262626",
+                        "hover_border": "#F0B7DA",
+                        "focus": "#E78DC3",
+                        "focus_label": "#262626",
+                        "focus_border": "#E78DC3",
+                        "focus_outline": "#F0B7DA",
+                        "active": "#DE63AD",
+                        "active_label": "#262626",
+                        "active_border": "#DE63AD"
+                    }
+                },
+                "form": {
+                    "default_input_border": "#8D8D8D",
+                    "input_focus_h": "235",
+                    "input_focus_s": "66%",
+                    "input_focus_l": "79%",
+                    "error_input_border": "#FE525B"
+                },
+                "border": {
+                    "subtle": "#E0E0E0",
+                    "medium_contrast": "#8D8D8D",
+                    "high_contrast": "#707070"
+                },
+                "alert": {
+                    "danger": {
+                        "text": "#FE525B",
+                        "border": "#FE525B",
+                        "background": "#FE9A9F"
+                    }
+                }
+            }
         }
     }
 }
