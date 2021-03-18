@@ -5,10 +5,12 @@ import { GlobalStyles } from './theme/GlobalStyles';
 import { useTheme } from './theme/useTheme';
 import UserContext from './contexts/UserContext';
 import axios from 'axios';
+import AccessibilityMenu from './components/accessibility/AccessibilityMenu';
 import Home from './components/views/Home';
 import SignUp from './components/views/Authentication/SignUp';
 import SignIn from './components/views/Authentication/SignIn';
 import Dashboard from './components/views/User/Dashboard';
+import Read from './components/views/User/Read';
 import '../src/theme/index.css';
 
 const App = () => {
@@ -78,7 +80,14 @@ const App = () => {
                                     path="/dashboard"
                                     component={Dashboard}
                                 />
+                                <Route 
+                                    exact path="/read/:userUploadId"
+                                    render={(props) => (
+                                        <Read {...props} />
+                                    )}
+                                />
                             </Switch>
+                            {/* <AccessibilityMenu /> */}
                         </ThemeProvider>
                     }
                 </UserContext.Provider>
