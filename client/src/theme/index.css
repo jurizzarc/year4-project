@@ -1,7 +1,38 @@
+:root {
+    --min-font-size: 14px;
+    --min-vw: 320;
+    --max-vw: 1824;
+
+    --article-bg-color: #FAFAFA;
+    --article-text-color: #151515;
+    --article-max-font-size: 20px;
+    --article-line-height: 1.5;
+    --article-letter-spacing: 0px;
+    --article-type-scale: 1.250;
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+body {
+    /* font-size: var(--article-max-font-size); */
+    /* font-size: calc( var(--min-font-size) + ( var(--article-max-font-size) - var(--min-font-size) ) 
+                * ( (100vw - 320px) / ( var(--max-vw) - var(--min-vw) ) ) ); */
+}
+
+@media screen and (max-width: 320px) {
+    body {
+        font-size: var(--min-font-size)!important;
+    }
+}
+
+@media screen and (min-width: 1824px) {
+    body {
+        font-size: var(--article-max-font-size)!important;
+    }
 }
 
 /********** Layout **********/
@@ -71,7 +102,7 @@ button:focus {
 
 /********** Forms **********/
 form.authentication-form h1,
-p {
+form.authentication-form p {
     text-align: center;
 }
 
@@ -187,4 +218,77 @@ div.modal-content {
     height: 100%;
     padding: var(--spacing-08) calc(var(--spacing-08) / 2);
     overflow: auto;
+}
+
+/** To be changed **/
+section.upload-form-container {
+    max-width: 30rem;
+}
+
+table th {
+    text-align: left;
+    font-weight: 600;
+}
+
+.reading-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.reading-container aside {
+    /* margin: calc(1rem / 2); */
+    flex-basis: 18.75rem;
+    flex-grow: 1;
+    padding-right: 15px;
+}
+
+section.article-container {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(50% - 1rem);
+    /* padding: 1rem; */
+    background-color: var(--article-bg-color);
+    overflow: hidden;
+}
+
+article {
+    max-width: 60ch;
+    padding-top: 1rem!important;
+    padding-left: 1rem!important;
+}
+
+article p {
+    font-family: 'PT Serif', serif;
+    color: var(--article-text-color);
+    font-size: var(--article-max-font-size);
+    letter-spacing: var(--article-letter-spacing);
+    line-height: var(--article-line-height)!important;
+}
+
+article p:not(:first-of-type) {
+    margin-top: calc(var(--article-line-height) * 0.75rem);
+}
+
+
+strong {
+    font-weight: 600!important;
+}
+
+div.settings-group {
+    margin-top: var(--spacing-04);
+}
+
+.settings-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: var(--spacing-03) 0;
+}
+
+input[type='color'] {
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    background: transparent;
+    outline: 0;
 }
