@@ -5,8 +5,9 @@ import NewLineText from '../../elements/NewLineText';
 
 const Read = (props) => {
     const BASE_API_URL = 'http://localhost:4000/uploads';
-    const [userUpload, setUserUpload] = useState({});
+    // const [userUpload, setUserUpload] = useState({});
     const [detectedText, setDetectedText] = useState([]);
+    const [detectionType, setDetectionType] = useState();
 
     useEffect(() => {
         const userUploadId = props.match.params.userUploadId;
@@ -18,8 +19,9 @@ const Read = (props) => {
                     'x-auth-token': token
                 }
             }).then((response) => {
-                setUserUpload(response.data);
+                // setUserUpload(response.data);
                 setDetectedText(response.data.detections);
+                setDetectionType(response.data.textDetection);
             }).catch(error => console.error(`Error: ${error}`));
         };
         getFileData();
@@ -30,7 +32,7 @@ const Read = (props) => {
             <ReadingSettings />
             <section className="article-container">
                 <article>
-                    {detectedText && <NewLineText detections={detectedText} />}
+                    {detectedText && <NewLineText detections={detectedText} detectionType={detectionType} />}
                 </article>
             </section>
         </main>
