@@ -4,7 +4,7 @@ const ReadingSettings = () => {
     const INITIAL_STATE = {
         articleBgColor: '#FAFAFA',
         articleTextColor: '#161616',
-        articleMaxFontSize: '20px',
+        maxFontSize: '20px',
         articleLineHeight: '1.5',
         articleLetterSpacing: '0px'
     };
@@ -23,13 +23,17 @@ const ReadingSettings = () => {
     useEffect(() => {
         setValueFromLocalStorage('article-bg-color');
         setValueFromLocalStorage('article-text-color');
-        setValueFromLocalStorage('article-max-font-size');
+        setValueFromLocalStorage('max-font-size');
         setValueFromLocalStorage('article-line-height');
         setValueFromLocalStorage('article-letter-spacing'); 
     });
 
     // document.addEventListener('DOMContentLoaded', () => {
-        
+    //     setValueFromLocalStorage('article-bg-color');
+    //     setValueFromLocalStorage('article-text-color');
+    //     setValueFromLocalStorage('max-font-size');
+    //     setValueFromLocalStorage('article-line-height');
+    //     setValueFromLocalStorage('article-letter-spacing'); 
     // });
 
     const handleInputChange = (readingProp, isPixel, e) => {
@@ -85,17 +89,17 @@ const ReadingSettings = () => {
                 <p>Font</p>
                 <form>
                     <div className="settings-form-group">
-                        <label className="settings-label" htmlFor="article-max-font-size">Font Size</label>
+                        <label className="settings-label" htmlFor="max-font-size">Font Size</label>
                         <input 
                             type="range"
-                            id="article-max-font-size"
-                            name="articleMaxFontSize"
+                            id="max-font-size"
+                            name="maxFontSize"
                             min="14"
                             max="30"
                             step="1"
                             defaultValue={values.articleTextColor}
                             onChange={
-                                (e) => handleInputChange('article-max-font-size', true, e)
+                                (e) => handleInputChange('max-font-size', false, e)
                             }
                         />
                     </div>
