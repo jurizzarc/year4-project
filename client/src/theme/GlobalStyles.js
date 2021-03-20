@@ -42,6 +42,9 @@ export const GlobalStyles = createGlobalStyle`
 
     body, button, input, select {
         font-family: 'Mulish', 'Helvetica', sans-serif;
+    }
+
+    body, button, input, select {
         font-size: var(--base-font-size);
     }
 

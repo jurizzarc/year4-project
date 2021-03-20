@@ -6,7 +6,7 @@ import Button from '../../elements/Button';
 import UploadsList from '../../elements/UploadsList';
 
 const Dashboard = () => {
-    const BASE_API_URL = 'http://localhost:4000/uploads';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
 
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();

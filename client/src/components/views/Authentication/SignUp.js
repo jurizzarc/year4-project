@@ -4,12 +4,11 @@ import axios from 'axios';
 import UserContext from '../../../contexts/UserContext';
 import Button from '../../elements/Button';
 import Danger from '../../elements/alerts/Danger';
-import AccessibilityMenu from '../../accessibility/AccessibilityMenu';
 import useSignUpForm from '../../../hooks/useSignUpForm';
 import validateUserInfo from '../../../validation/validateUserInfo';
 
 const SignUp = () => {
-    const BASE_API_URL = 'http://localhost:4000/users';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
     const INITIAL_STATE = {
         displayName: '',
         email: '',
@@ -180,7 +179,6 @@ const SignUp = () => {
                     </Link>
                 </p>
             </main>
-        <AccessibilityMenu />
         </>
     );
 };

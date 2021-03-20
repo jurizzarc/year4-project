@@ -27,6 +27,14 @@ const AccessibilityMenu = () => {
                     }
                 >
                     <Modal.Header>Accessibility Options</Modal.Header>
+
+                    <Modal.Body>
+                        <div className="dialog-form">
+                            <div className="dialog-form-item">
+                                <label htmlFor="main-theme">Change Theme</label>
+                            </div>
+                        </div>
+                    </Modal.Body>
                 </Modal>
             )}
         </>
