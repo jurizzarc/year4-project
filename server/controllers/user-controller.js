@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 const user_test = async (req, res) => {
     res.send(`Hello, it's working.`);
-}
+};
 
 const user_register = async (req, res) => {
     try {
@@ -15,7 +15,7 @@ const user_register = async (req, res) => {
             return res
                 .status(400)
                 .json({ 
-                    msg: "We couldn't register you. Not all fields have been filled in." 
+                    msg: "We couldn't register you. Please enter all required fields." 
                 });
         }
 
@@ -23,7 +23,7 @@ const user_register = async (req, res) => {
             return res
                 .status(400)
                 .json({ 
-                    msg: "We couldn't register you. Please provide a password that's at least 6 characters long." 
+                    msg: "We couldn't register you. Please enter a password that's at least 6 characters long." 
                 });
         }
 
@@ -44,22 +44,34 @@ const user_register = async (req, res) => {
                 });
         }
 
+        // Hash the password
         const salt = await bycrypt.genSalt();
         const passwordHash = await bycrypt.hash(password, salt);
 
+        // Store user in the database
         const newUser = new User({
             email,
             password: passwordHash,
             displayName
         });
-
-        // Save user to database
         const savedUser = await newUser.save();
-        res.json(savedUser);
+
+        // Sign the token
+        const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
+
+        // Send the token to a HTTP-only cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        }).send();
+
+        // res.json(savedUser);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error(err);
+        res.status(500).send();
     }
-}
+};
 
 const user_login = async (req, res) => {
     try {
@@ -70,40 +82,60 @@ const user_login = async (req, res) => {
             return res
                 .status(400)
                 .json({
-                    msg: "We couldn't sign you in. Please fill in the fields."
+                    msg: "We couldn't sign you in. Please enter all required fields."
                 });
         }
 
-        const user = await User.findOne({ email: email });
-        if (!user) {
+        const existingUser = await User.findOne({ email: email });
+        if (!existingUser) {
             return res
-                .status(400)
+                .status(401)
                 .json({
-                    msg: 'No account with this e-mail address has been registered.'
+                    msg: "We couldn't sign you in. Check your e-mail address or password and try again."
                 });
         }
 
-        const isMatching = await bycrypt.compare(password, user.password);
+        const isMatching = await bycrypt.compare(password, existingUser.password);
         if (!isMatching) {
             return res
-                .status(400)
+                .status(401)
                 .json({ 
-                    msg: "We couldn't sign you in. Check your e-mail address and password, then try again." 
+                    msg: "We couldn't sign you in. Check your e-mail address or password, then try again." 
                 });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        res.json({
-            token,
-            user: {
-                id: user._id,
-                displayName: user.displayName
-            }
-        });
+        // Sign the token
+        const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET);
+
+        // Send the token to a HTTP-only cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        }).send();
+
+        // res.json({
+        //     token,
+        //     user: {
+        //         id: user._id,
+        //         displayName: user.displayName
+        //     }
+        // });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error(err);
+        res.status(500).send();
     }
-}
+};
+
+const user_logout = (req, res) => {
+    // Clear the cookie
+    res.cookie('token', '', {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: true,
+        sameSite: 'none'
+    }).send();
+};
 
 const user_delete = async (req, res) => {
     try {
@@ -149,6 +181,7 @@ module.exports = {
     user_test,
     user_register,
     user_login,
+    user_logout,
     user_delete,
     user_is_token_valid,
     user_get_info
