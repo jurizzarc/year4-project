@@ -7,4 +7,5 @@ const uploadSchema = new mongoose.Schema({
     detections: [{ text: String }]
 });
 
-module.exports = Upload = mongoose.model('upload', uploadSchema);
+const Upload = mongoose.model('upload', uploadSchema);
+module.exports = Upload;

@@ -7,7 +7,8 @@ const uuid = require('uuid');
 const uuidv1 = uuid.v1;
 const pdfjsLib = require('pdfjs-dist/es5/build/pdf');
 const Upload = require('../models/upload');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Create a Storage
 const storage = new Storage({
@@ -76,11 +77,6 @@ const upload_new = async (req, res) => {
         const userId = req.user;
         // Where the number of pages of a PDF file is stored
         let numPages;
-        // Where the text extracted from the file is stored
-        let textFromFile;
-        let outputFolder;
-        let outputFilePrefix;
-        let jsonOutputFileName;
         // Create object to be stored in the bucket
         const blob = bucket.file(fullFileName);
         // Create writable stream
@@ -104,10 +100,10 @@ const upload_new = async (req, res) => {
             });
 
             // The folder in the bucket where JSON output is stored
-            outputFolder = 'results';
+            const outputFolder = 'results';
             // JSON output file prefix. So that the prefix of JSON output
             // is the same as the name of the uploaded file where text is extracted 
-            outputFilePrefix = newFileName + '_';
+            const outputFilePrefix = newFileName + '_';
             // Path to object or upload
             const gcsSourceUri = `gs://${bucketName}/${objectName}`;
             // Path to output folder
@@ -157,13 +153,13 @@ const upload_new = async (req, res) => {
                 const [filesResponse] = await result.promise();
                 const destinationUri = filesResponse.responses[0].outputConfig.gcsDestination.uri;
                 console.log(`JSON saved to: ${destinationUri}`);
-                jsonOutputFileName = 'output-1-to-' + numPages + '.json';
+                const jsonOutputFileName = 'output-1-to-' + numPages + '.json';
 
                 // Get JSON response file
                 const jsonOutputFile = bucket.file(`${outputFolder}/${outputFilePrefix}${jsonOutputFileName}`);
                 const detections = await readJsonOutput(jsonOutputFile).catch(e => { console.log(e) });
                 for (const detection of detections) {
-                    textFromFile = detection.fullTextAnnotation.text;
+                    const textFromFile = detection.fullTextAnnotation.text;
                     const text = { text: textFromFile };
                     newUpload.detections.push(text);
                 }
@@ -171,7 +167,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is image
             if (textDetection == 'digi-text-img') {
                 const [result] = await client.textDetection(gcsSourceUri);
-                textFromFile = result.textAnnotations[0].description;
+                const textFromFile = result.textAnnotations[0].description;
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
@@ -180,7 +176,7 @@ const upload_new = async (req, res) => {
             // Run if uploaded file is a handwritten text
             if (textDetection == 'hndwrtng-img') {
                 const [result] = await client.documentTextDetection(gcsSourceUri);
-                textFromFile = result.fullTextAnnotation.text;
+                const textFromFile = result.fullTextAnnotation.text;
                 console.log(`Full Text: ${textFromFile}`);
                 // Push extracted text to detections array of newUpload object
                 const text = { text: textFromFile };
@@ -188,7 +184,8 @@ const upload_new = async (req, res) => {
             }
 
             // Insert newUpload to the database
-            newUpload.save();
+            const savedUpload = newUpload.save();
+            res.json(savedUpload);
             console.log('New file stored in the database.');
         });
     } catch (err) {

@@ -56,17 +56,7 @@ const user_register = async (req, res) => {
         });
         const savedUser = await newUser.save();
 
-        // Sign the token
-        const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
-
-        // Send the token to a HTTP-only cookie
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none'
-        }).send();
-
-        // res.json(savedUser);
+        res.json(savedUser);
     } catch (err) {
         console.error(err);
         res.status(500).send();
@@ -107,34 +97,17 @@ const user_login = async (req, res) => {
         // Sign the token
         const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET);
 
-        // Send the token to a HTTP-only cookie
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none'
-        }).send();
-
-        // res.json({
-        //     token,
-        //     user: {
-        //         id: user._id,
-        //         displayName: user.displayName
-        //     }
-        // });
+        res.json({
+            token,
+            user: {
+                id: existingUser._id,
+                displayName: existingUser.displayName
+            }
+        });
     } catch (err) {
         console.error(err);
         res.status(500).send();
     }
-};
-
-const user_logout = (req, res) => {
-    // Clear the cookie
-    res.cookie('token', '', {
-        httpOnly: true,
-        expires: new Date(0),
-        secure: true,
-        sameSite: 'none'
-    }).send();
 };
 
 const user_delete = async (req, res) => {
@@ -181,7 +154,6 @@ module.exports = {
     user_test,
     user_register,
     user_login,
-    user_logout,
     user_delete,
     user_is_token_valid,
     user_get_info

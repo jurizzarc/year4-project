@@ -32,5 +32,8 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 });
 
 // Set up routes
+app.get('/', (req, res) => {
+    res.send(`Server is up on port: ${PORT}`);
+});
 app.use('/users', userRoutes);
 app.use('/uploads', uploadRoutes);
