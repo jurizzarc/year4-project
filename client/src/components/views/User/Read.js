@@ -6,9 +6,9 @@ import NewLineText from '../../elements/NewLineText';
 const Read = (props) => {
     const BASE_API_URL = 'http://localhost:4000/uploads';
     // const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
-    // const [userUpload, setUserUpload] = useState({});
     const [detectedText, setDetectedText] = useState([]);
     const [detectionType, setDetectionType] = useState();
+    const [hasHandwritingSystem, setHasHandwritingSystem] = useState();
 
     useEffect(() => {
         const userUploadId = props.match.params.userUploadId;
@@ -20,9 +20,9 @@ const Read = (props) => {
                     'x-auth-token': token
                 }
             }).then((response) => {
-                // setUserUpload(response.data);
                 setDetectedText(response.data.detections);
                 setDetectionType(response.data.textDetection);
+                setHasHandwritingSystem(response.data.hasHandwritingSystem);
             }).catch(error => console.error(`Error: ${error}`));
         };
         getFileData();
@@ -33,7 +33,13 @@ const Read = (props) => {
             <ReadingSettings />
             <section className="article-container">
                 <article>
-                    {detectedText && <NewLineText detections={detectedText} detectionType={detectionType} />}
+                    {detectedText && 
+                        <NewLineText 
+                            detections={detectedText} 
+                            detectionType={detectionType}
+                            hasHandwritingSystem={hasHandwritingSystem} 
+                        />
+                    }
                 </article>
             </section>
         </main>

@@ -3,21 +3,12 @@ import { Markup } from 'interweave';
 
 const NewLineText = (props) => {
     const detectionType = props.detectionType;
+    const hasHandwritingSystem = props.hasHandwritingSystem;
     const detections = props.detections;
     const detectionsArray = detections.map(detection => detection.text);
     let extractedText = detectionsArray.join('');
 
-    if (detectionType !== 'hndwrtng-img') {
-        const newText = extractedText.split('\n').map((value, index) => {
-            return (
-                <p key={index}>
-                    {value}
-                </p>
-            )
-        });
-
-        return newText;
-    } else {
+    if (hasHandwritingSystem && detectionType == 'hndwrtng-img') {
         // Pre Clean
         let cleanText = extractedText;
         ['[h]', '[s]', '[p]', '[b]', '[i]'].forEach((item, i) => {
@@ -42,9 +33,17 @@ const NewLineText = (props) => {
                 resultHtml = resultHtml + '<p><em>' + temp + '</em></p>'
             }
         });
-        
         console.log(resultHtml);
         return <Markup content={resultHtml} />;
+    } else {
+        const newText = extractedText.split('\n').map((value, index) => {
+            return (
+                <p key={index}>
+                    {value}
+                </p>
+            )
+        });
+        return newText;
     }
 }
 

@@ -4,11 +4,25 @@ const ReadingSettings = () => {
     const INITIAL_STATE = {
         articleBgColor: '#FAFAFA',
         articleTextColor: '#161616',
-        maxFontSize: '20px',
+        maxFontSize: '20',
         articleLineHeight: '1.5',
         articleLetterSpacing: '0px'
     };
     const [values, setValues] = useState(INITIAL_STATE);
+
+    useEffect(() => {
+        const parsedValues = JSON.parse(localStorage.getItem('values'));
+        setValues(parsedValues);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('values', JSON.stringify(values));
+        setValueFromLocalStorage('article-bg-color');
+        setValueFromLocalStorage('article-text-color');
+        setValueFromLocalStorage('max-font-size');
+        setValueFromLocalStorage('article-line-height');
+        setValueFromLocalStorage('article-letter-spacing'); 
+    }, [values]);
 
     const setValueFromLocalStorage = (readingProp) => {
         let value = window.localStorage.getItem(readingProp);
@@ -18,23 +32,15 @@ const ReadingSettings = () => {
         );
         const input = document.querySelector(`#${readingProp}`);
         input.value = value.replace('px', '');
-    }
+    };
 
-    useEffect(() => {
+    document.addEventListener('DOMContentLoaded', () => {
         setValueFromLocalStorage('article-bg-color');
         setValueFromLocalStorage('article-text-color');
         setValueFromLocalStorage('max-font-size');
         setValueFromLocalStorage('article-line-height');
         setValueFromLocalStorage('article-letter-spacing'); 
     });
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     setValueFromLocalStorage('article-bg-color');
-    //     setValueFromLocalStorage('article-text-color');
-    //     setValueFromLocalStorage('max-font-size');
-    //     setValueFromLocalStorage('article-line-height');
-    //     setValueFromLocalStorage('article-letter-spacing'); 
-    // });
 
     const handleInputChange = (readingProp, isPixel, e) => {
         const { name, value } = e.target;
