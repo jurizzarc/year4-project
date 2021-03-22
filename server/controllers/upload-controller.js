@@ -74,7 +74,12 @@ const upload_new = async (req, res) => {
         // Get type of text detection
         const textDetection = req.body.textDetection;
         // Get boolean value if handwritten file follows a system
-        const hasHandwritingSystem = req.body.hasHandwritingSystem;
+        let hasHandwritingSystem;
+        if (req.body.hasHandwritingSystem) {
+            hasHandwritingSystem = req.body.hasHandwritingSystem;
+        } else {
+            hasHandwritingSystem = false;
+        }
         // Get id of user
         const userId = req.user;
         // Where the number of pages of a PDF file is stored
