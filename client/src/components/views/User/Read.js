@@ -4,7 +4,8 @@ import ReadingSettings from '../../elements/ReadingSettings';
 import NewLineText from '../../elements/NewLineText';
 
 const Read = (props) => {
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
+    const BASE_API_URL = 'http://localhost:4000/uploads';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
     // const [userUpload, setUserUpload] = useState({});
     const [detectedText, setDetectedText] = useState([]);
     const [detectionType, setDetectionType] = useState();

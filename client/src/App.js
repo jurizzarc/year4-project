@@ -14,7 +14,8 @@ import Read from './components/views/User/Read';
 import '../src/theme/index.css';
 
 const App = () => {
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
+    const BASE_API_URL = 'http://localhost:4000/users';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
     const { theme, themeLoaded } = useTheme();
     const [selectedTheme, setSelectedTheme] = useState(theme);
     const [userData, setUserData] = useState({

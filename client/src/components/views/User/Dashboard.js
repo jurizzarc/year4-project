@@ -6,7 +6,8 @@ import Button from '../../elements/Button';
 import UploadsList from '../../elements/UploadsList';
 
 const Dashboard = () => {
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
+    const BASE_API_URL = 'http://localhost:4000/uploads';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
 
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
@@ -22,6 +23,7 @@ const Dashboard = () => {
 
     const [userUpload, setUserUpload] = useState('');
     const [textDetection, setTextDetection] = useState('');
+    const [hasHandwritingSystem, setHasHandwritingSystem] = useState('');
     const [selOptions] = useState([
         { label: 'Digital Text in Image', value: 'digi-text-img' },
         { label: 'Handwriting in Image', value: 'hndwrtng-img' },
@@ -31,16 +33,27 @@ const Dashboard = () => {
 
     const onFileChange = (e) => {
         setUserUpload(e.target.files[0]);
-    }
+    };
 
     const onSelectChange = (e) => {
         setTextDetection(e.target.value);
-    }
+    };
+
+    const strToBool = (value) => {
+        if (value === "true") return true;
+        if (value === "false") return false;
+        return value;
+    };
+
+    const onRadioChange = (e) => {
+        setHasHandwritingSystem(strToBool(e.target.value));
+    };
 
     const submit = async (e) => {
         e.preventDefault();
 
         let formData = new FormData();
+        formData.append('hasHandwritingSystem', hasHandwritingSystem);
         formData.append('textDetection', textDetection);
         formData.append('file', userUpload);
         console.log(formData.get('file'));
@@ -124,6 +137,23 @@ const Dashboard = () => {
                                             </option>
                                         ))}
                                     </select>
+                                    {textDetection == 'hndwrtng-img' &&
+                                        <div className="form-group">
+                                            <label htmlFor="hasHandwritingSystem">Follows a handwriting system (headings are marked etc)</label>
+                                            <input 
+                                                type="radio"
+                                                name="hasHandwritingSystem"
+                                                value="true"
+                                                onChange={onRadioChange}
+                                            />Yes
+                                            <input 
+                                                type="radio"
+                                                name="hasHandwritingSystem"
+                                                value="false"
+                                                onChange={onRadioChange}
+                                            />No
+                                        </div>
+                                    }
                                 </div>
                             </section>
                             <Button

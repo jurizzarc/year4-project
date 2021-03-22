@@ -42,16 +42,7 @@ const NewLineText = (props) => {
                 resultHtml = resultHtml + '<p><em>' + temp + '</em></p>'
             }
         });
-        // resultHtml = resultHtml + '</>';
-
-        // Post Clean
-        // let tags = ['<h1>', '<h2>', '<p>', '<strong>', '<em>'];
-        // tags.forEach((tag, i) => {
-        //     resultHtml = resultHtml.split(tag + '').join(tag);
-        //     let closingTag = tag.split('<').join('</');
-        //     resultHtml = resultHtml.split(' ' + closingTag).join(closingTag);
-        // });
-        // console.log(typeof resultHtml);
+        
         console.log(resultHtml);
         return <Markup content={resultHtml} />;
     }
