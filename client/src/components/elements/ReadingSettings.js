@@ -6,9 +6,23 @@ const ReadingSettings = () => {
         articleTextColor: '#161616',
         maxFontSize: '20',
         articleLineHeight: '1.5',
-        articleLetterSpacing: '0'
+        articleLetterSpacing: '0',
+        articleFontFamily: 'PT Serif',
+        articleTextAlign: 'left'
     };
     const [values, setValues] = useState(INITIAL_STATE);
+    const [fontFamilyOptions] = useState([
+        { label: 'Alegreya', value: 'Alegreya' },
+        { label: 'Andika', value: 'Andika' },
+        { label: 'Arial', value: 'Arial' },
+        { label: 'Georgia', value: 'Georgia' },
+        { label: 'Helvetica', value: 'Helvetica' },
+        { label: 'PT Sans', value: 'PT Sans' },
+        { label: 'PT Serif', value: 'PT Serif' },
+        { label: 'Tahoma', value: 'Tahoma' },
+        { label: 'Times', value: 'Times' },
+        { label: 'Verdana', value: 'Verdana' }
+    ]);
 
     useEffect(() => {
         const articleBgColor = localStorage.getItem('article-bg-color');
@@ -16,12 +30,16 @@ const ReadingSettings = () => {
         const maxFontSize = localStorage.getItem('max-font-size');
         const articleLineHeight = localStorage.getItem('article-line-height');
         const articleLetterSpacing = localStorage.getItem('article-letter-spacing');
+        const articleFontFamily = localStorage.getItem('article-font-family');
+        const articleTextAlign = localStorage.getItem('article-text-align');
 
         articleBgColor && setValueFromLocalStorage('article-bg-color');
         articleTextColor && setValueFromLocalStorage('article-text-color');
         maxFontSize && setValueFromLocalStorage('max-font-size');
         articleLineHeight && setValueFromLocalStorage('article-line-height');
         articleLetterSpacing && setValueFromLocalStorage('article-letter-spacing'); 
+        articleFontFamily && setValueFromLocalStorage('article-font-family');
+        articleTextAlign && setValueFromLocalStorage('article-text-align');
     }, []);
 
     useEffect(() => {
@@ -49,6 +67,8 @@ const ReadingSettings = () => {
         setValueFromLocalStorage('max-font-size');
         setValueFromLocalStorage('article-line-height');
         setValueFromLocalStorage('article-letter-spacing'); 
+        setValueFromLocalStorage('article-font-family');
+        setValueFromLocalStorage('article-text-align');
     });
 
     const handleInputChange = (readingProp, isPixel, e) => {
@@ -104,6 +124,27 @@ const ReadingSettings = () => {
                 <p>Font</p>
                 <form>
                     <div className="settings-form-group">
+                        <label className="settings-label" htmlFor="article-font-family">Font Family</label>
+                        <select
+                            id="article-font-family"
+                            name="articleFontFamily"
+                            value={values.articleFontFamily}
+                            onChange={
+                                (e) => handleInputChange('article-font-family', false, e)
+                            }
+                        >
+                            <option></option>
+                            {fontFamilyOptions.map(fontFamilyOption => (
+                                <option
+                                    key={fontFamilyOption.value}
+                                    value={fontFamilyOption.value}
+                                >
+                                    {fontFamilyOption.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="settings-form-group">
                         <label className="settings-label" htmlFor="max-font-size">Font Size</label>
                         <input 
                             type="range"
@@ -147,6 +188,29 @@ const ReadingSettings = () => {
                                 (e) => handleInputChange('article-letter-spacing', true, e)
                             }
                         />
+                    </div>
+                    <div className="settings-form-group">
+                        <label className="settings-label" htmlFor="article-text-align">Alignment</label>
+                        <input
+                            type="radio"
+                            id="article-text-align"
+                            name="articleTextAlign"
+                            value="left"
+                            checked={values.articleTextAlign === 'left'}
+                            onChange={
+                                (e) => handleInputChange('article-text-align', false, e)
+                            }
+                        />Left
+                        <input
+                            type="radio"
+                            id="article-text-align"
+                            name="articleTextAlign"
+                            value="justify"
+                            checked={values.articleTextAlign === 'justify'}
+                            onChange={
+                                (e) => handleInputChange('article-text-align', false, e)
+                            }
+                        />Justify
                     </div>
                 </form>
             </div>

@@ -22,7 +22,7 @@ const UploadsList = (props) => {
                                     <Link to={{
                                         pathname: `/read/${upload._id}`
                                     }}>
-                                        {upload.fileName}
+                                        {upload.fileName.substring(0, upload.fileName.indexOf('_'))}
                                     </Link>
                                 </td>
                                 <td>{upload.textDetection}</td>

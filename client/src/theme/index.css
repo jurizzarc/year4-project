@@ -3,6 +3,8 @@
     --article-text-color: #151515;
     --article-line-height: 1.5;
     --article-letter-spacing: 0px;
+    --article-font-family: 'PT Serif';
+    --article-text-align: left;
 
     --min-font-size: 14;
     --max-font-size: 20;
@@ -313,7 +315,7 @@ article {
 }
 
 article h1, article h2, article p, article strong, article em {
-    font-family: 'PT Serif', serif!important;
+    font-family: var(--article-font-family);
     color: var(--article-text-color);
     letter-spacing: var(--article-letter-spacing);
     line-height: var(--article-line-height)!important;
@@ -321,6 +323,7 @@ article h1, article h2, article p, article strong, article em {
 
 article p {
     font-size: var(--font-size-0);
+    text-align: var(--article-text-align);
 }
 
 article h1 {
