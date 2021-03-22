@@ -73,6 +73,8 @@ const upload_new = async (req, res) => {
         const fullFileName = `${newFileName}${fileExt}`;
         // Get type of text detection
         const textDetection = req.body.textDetection;
+        // Get boolean value if handwritten file follows a system
+        const hasHandwritingSystem = req.body.hasHandwritingSystem;
         // Get id of user
         const userId = req.user;
         // Where the number of pages of a PDF file is stored
@@ -96,6 +98,7 @@ const upload_new = async (req, res) => {
             const newUpload = new Upload({
                 fileName: objectName,
                 textDetection: textDetection,
+                hasHandwritingSystem: hasHandwritingSystem,
                 userId: userId
             });
 
