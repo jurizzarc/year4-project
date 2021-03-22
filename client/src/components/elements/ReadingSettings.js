@@ -6,9 +6,23 @@ const ReadingSettings = () => {
         articleTextColor: '#161616',
         maxFontSize: '20',
         articleLineHeight: '1.5',
-        articleLetterSpacing: '0px'
+        articleLetterSpacing: '0'
     };
     const [values, setValues] = useState(INITIAL_STATE);
+
+    useEffect(() => {
+        const articleBgColor = localStorage.getItem('article-bg-color');
+        const articleTextColor = localStorage.getItem('article-text-color');
+        const maxFontSize = localStorage.getItem('max-font-size');
+        const articleLineHeight = localStorage.getItem('article-line-height');
+        const articleLetterSpacing = localStorage.getItem('article-letter-spacing');
+
+        articleBgColor && setValueFromLocalStorage('article-bg-color');
+        articleTextColor && setValueFromLocalStorage('article-text-color');
+        maxFontSize && setValueFromLocalStorage('max-font-size');
+        articleLineHeight && setValueFromLocalStorage('article-line-height');
+        articleLetterSpacing && setValueFromLocalStorage('article-letter-spacing'); 
+    }, []);
 
     useEffect(() => {
         const parsedValues = JSON.parse(localStorage.getItem('values'));
@@ -17,11 +31,6 @@ const ReadingSettings = () => {
 
     useEffect(() => {
         localStorage.setItem('values', JSON.stringify(values));
-        setValueFromLocalStorage('article-bg-color');
-        setValueFromLocalStorage('article-text-color');
-        setValueFromLocalStorage('max-font-size');
-        setValueFromLocalStorage('article-line-height');
-        setValueFromLocalStorage('article-letter-spacing'); 
     }, [values]);
 
     const setValueFromLocalStorage = (readingProp) => {
