@@ -192,9 +192,9 @@ const upload_new = async (req, res) => {
             }
 
             // Insert newUpload to the database
-            const savedUpload = newUpload.save();
+            const savedUpload = await newUpload.save();
             res.json(savedUpload);
-            console.log('New file stored in the database.');
+            console.log(savedUpload);
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
