@@ -100,7 +100,7 @@ const ReadingSettings = () => {
                             type="color"
                             id="article-bg-color"
                             name="articleBgColor"
-                            value={values.articleBgColor}
+                            value={values && values.articleBgColor}
                             onChange={
                                 (e) => handleInputChange('article-bg-color', false, e)
                             }
@@ -112,7 +112,7 @@ const ReadingSettings = () => {
                             type="color"
                             id="article-text-color"
                             name="articleTextColor"
-                            value={values.articleTextColor}
+                            value={values && values.articleTextColor}
                             onChange={
                                 (e) => handleInputChange('article-text-color', false, e)
                             }
@@ -128,7 +128,7 @@ const ReadingSettings = () => {
                         <select
                             id="article-font-family"
                             name="articleFontFamily"
-                            value={values.articleFontFamily}
+                            value={values && values.articleFontFamily}
                             onChange={
                                 (e) => handleInputChange('article-font-family', false, e)
                             }
@@ -153,7 +153,7 @@ const ReadingSettings = () => {
                             min="14"
                             max="30"
                             step="1"
-                            defaultValue={values.articleTextColor}
+                            defaultValue={values && values.articleTextColor}
                             onChange={
                                 (e) => handleInputChange('max-font-size', false, e)
                             }
@@ -168,7 +168,7 @@ const ReadingSettings = () => {
                             min="1.0"
                             max="3.0"
                             step="0.1"
-                            defaultValue={values.articleLineHeight}
+                            defaultValue={values && values.articleLineHeight}
                             onChange={
                                 (e) => handleInputChange('article-line-height', false, e)
                             }
@@ -183,7 +183,7 @@ const ReadingSettings = () => {
                             min="0"
                             max="10"
                             step="1"
-                            defaultValue={values.articleLetterSpacing}
+                            defaultValue={values && values.articleLetterSpacing}
                             onChange={
                                 (e) => handleInputChange('article-letter-spacing', true, e)
                             }
@@ -196,7 +196,7 @@ const ReadingSettings = () => {
                             id="article-text-align"
                             name="articleTextAlign"
                             value="left"
-                            checked={values.articleTextAlign === 'left'}
+                            checked={values && values.articleTextAlign === 'left'}
                             onChange={
                                 (e) => handleInputChange('article-text-align', false, e)
                             }
@@ -206,7 +206,7 @@ const ReadingSettings = () => {
                             id="article-text-align"
                             name="articleTextAlign"
                             value="justify"
-                            checked={values.articleTextAlign === 'justify'}
+                            checked={values && values.articleTextAlign === 'justify'}
                             onChange={
                                 (e) => handleInputChange('article-text-align', false, e)
                             }
