@@ -30,6 +30,7 @@ const Dashboard = () => {
         { label: 'Digital Text in PDF', value: 'digi-text-pdf' }
     ]);
     const [uploads, setUploads] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onFileChange = (e) => {
         setUserUpload(e.target.files[0]);
@@ -51,6 +52,7 @@ const Dashboard = () => {
 
     const submit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         let formData = new FormData();
         formData.append('hasHandwritingSystem', hasHandwritingSystem);
@@ -71,7 +73,9 @@ const Dashboard = () => {
                 }
             })
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
+                const uploadId = response.data._id;
+                history.push(`/read/${uploadId}`);
             });
         } catch (error) {
             console.error(error);
@@ -97,76 +101,85 @@ const Dashboard = () => {
         <>
             {userData.user ? (
                 <main>
-                    <button onClick={logout}>Sign Out</button>
+                    {isSubmitting ? (
+                        <>
+                            <h5>Loading...</h5>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={logout}>Sign Out</button>
 
-                    <section className="upload-form-container">
-                        <form
-                            className="upload-form"
-                            encType="multipart/form-data"
-                            method="POST"
-                            onSubmit={submit}
-                        >
-                            <h4>Upload File</h4>
-                            <section className="form-fields">
-                                <div className="form-group">
-                                    <input 
-                                        className="form-field"
-                                        type="file"
-                                        id="upload-file"
-                                        name="file"
-                                        aria-required="true"
-                                        onChange={onFileChange}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="textDetection">Text Detection Type</label>
-                                    <select
-                                        className="form-select"
-                                        id="textDetection"
-                                        name="textDetection"
-                                        value={textDetection}
-                                        onChange={onSelectChange}
-                                    >
-                                        <option></option>
-                                        {selOptions.map(selOption => (
-                                            <option
-                                                key={selOption.value}
-                                                value={selOption.value}
-                                            >
-                                                {selOption.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {textDetection == 'hndwrtng-img' &&
+                            <section className="upload-form-container">
+                                <form
+                                    className="upload-form"
+                                    encType="multipart/form-data"
+                                    method="POST"
+                                    onSubmit={submit}
+                                >
+                                    <h4>Upload File</h4>
+                                    <section className="form-fields">
                                         <div className="form-group">
-                                            <label htmlFor="hasHandwritingSystem">Follows a handwriting system (headings are marked etc)</label>
                                             <input 
-                                                type="radio"
-                                                name="hasHandwritingSystem"
-                                                value="true"
-                                                onChange={onRadioChange}
-                                            />Yes
-                                            <input 
-                                                type="radio"
-                                                name="hasHandwritingSystem"
-                                                value="false"
-                                                onChange={onRadioChange}
-                                            />No
+                                                className="form-field"
+                                                type="file"
+                                                id="upload-file"
+                                                name="file"
+                                                aria-required="true"
+                                                onChange={onFileChange}
+                                            />
                                         </div>
-                                    }
-                                </div>
+                                        <div className="form-group">
+                                            <label htmlFor="textDetection">Text Detection Type</label>
+                                            <select
+                                                className="form-select"
+                                                id="textDetection"
+                                                name="textDetection"
+                                                value={textDetection}
+                                                onChange={onSelectChange}
+                                            >
+                                                <option></option>
+                                                {selOptions.map(selOption => (
+                                                    <option
+                                                        key={selOption.value}
+                                                        value={selOption.value}
+                                                    >
+                                                        {selOption.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {textDetection == 'hndwrtng-img' &&
+                                                <div className="form-group">
+                                                    <label htmlFor="hasHandwritingSystem">Follows a handwriting system (headings are marked etc)</label>
+                                                    <input 
+                                                        type="radio"
+                                                        name="hasHandwritingSystem"
+                                                        value="true"
+                                                        onChange={onRadioChange}
+                                                    />Yes
+                                                    <input 
+                                                        type="radio"
+                                                        name="hasHandwritingSystem"
+                                                        value="false"
+                                                        onChange={onRadioChange}
+                                                    />No
+                                                </div>
+                                            }
+                                        </div>
+                                    </section>
+                                    <Button
+                                        type="submit"
+                                        buttonStyle="btn-primary"
+                                        buttonSize="btn-md"
+                                    >
+                                        Upload
+                                    </Button>
+                                </form>
                             </section>
-                            <Button
-                                type="submit"
-                                buttonStyle="btn-primary"
-                                buttonSize="btn-md"
-                            >
-                                Upload
-                            </Button>
-                        </form>
-                    </section>
 
-                    <UploadsList uploads={uploads} />
+                            <UploadsList uploads={uploads} />
+                        </>
+                    )}
+                    
                 </main>
             ) : (
                 <main>

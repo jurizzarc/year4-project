@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
 
 const UploadsList = (props) => {
     const uploads = props.uploads;
+
+    const splitFileName = (str) => {
+        return str.substring(0, str.indexOf('_'));
+    };
+
+    const splitDate = (str) => {
+        return str.substring(0, str.indexOf('T'));
+    };
 
     return (
         <section className="user-uploads">
@@ -12,6 +21,7 @@ const UploadsList = (props) => {
                     <thead>
                         <tr>
                             <th>File Name</th>
+                            <th>Date Created</th>
                             <th>Detection Type</th>
                         </tr>
                     </thead>
@@ -22,8 +32,15 @@ const UploadsList = (props) => {
                                     <Link to={{
                                         pathname: `/read/${upload._id}`
                                     }}>
-                                        {upload.fileName.substring(0, upload.fileName.indexOf('_'))}
+                                        {splitFileName(upload.fileName)}
                                     </Link>
+                                </td>
+                                <td>
+                                    <Moment 
+                                        date={splitDate(upload.createdAt)}
+                                        parse="YYYY-MM-dd"
+                                        format="DD MMM YYYY"
+                                    />
                                 </td>
                                 <td>{upload.textDetection}</td>
                             </tr>
