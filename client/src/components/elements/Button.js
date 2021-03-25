@@ -18,6 +18,7 @@ export default function Button({
     children, 
     buttonId,
     type,
+    ariaLabel,
     onClick,
     buttonStyle,
     buttonSize
@@ -33,6 +34,7 @@ export default function Button({
             className={`btn ${checkButtonStyle} ${checkButtonSize}`}
             id={buttonId} 
             type={type}
+            aria-label={ariaLabel}
             onClick={onClick}
         >
             {children}

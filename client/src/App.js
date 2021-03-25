@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './theme/GlobalStyles';
-import { useTheme } from './theme/useTheme';
 import UserContext from './contexts/UserContext';
 import axios from 'axios';
-import AccessibilityMenu from './components/accessibility/AccessibilityMenu';
 import Home from './components/views/Home';
 import SignUp from './components/views/Authentication/SignUp';
 import SignIn from './components/views/Authentication/SignIn';
+import Library from './components/views/User/Library';
 import Dashboard from './components/views/User/Dashboard';
-import Read from './components/views/User/Read';
-import '../src/theme/index.css';
+import Read from './components/views/User/Read/Read';
+import GlobalStyles from './theme/GlobalStyles';
+import './theme/index.css';
 
 const App = () => {
-    const BASE_API_URL = 'http://localhost:4000/users';
-    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
-    const { theme, themeLoaded } = useTheme();
-    const [selectedTheme, setSelectedTheme] = useState(theme);
+    // const BASE_API_URL = 'http://localhost:4000/users';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
     const [userData, setUserData] = useState({
         token: undefined,
         user: undefined
     });
-
-    useEffect(() => {
-        setSelectedTheme(theme);
-    }, [themeLoaded]);
 
     useEffect(() => {
         const checkLoggedIn = async () => {
@@ -59,38 +51,37 @@ const App = () => {
 
     return (
         <>
+            <GlobalStyles />
             <BrowserRouter>
                 <UserContext.Provider value={{userData, setUserData}}>
-                    {
-                        themeLoaded && <ThemeProvider theme={selectedTheme}>
-                            {/* <GlobalStyles /> */}
-                            <Switch>
-                                <Route
-                                    exact path="/"
-                                    component={Home}
-                                />
-                                <Route 
-                                    path="/sign-up" 
-                                    component={SignUp} 
-                                />
-                                <Route 
-                                    path="/sign-in" 
-                                    component={SignIn} 
-                                />
-                                <Route 
-                                    path="/dashboard"
-                                    component={Dashboard}
-                                />
-                                <Route 
-                                    exact path="/read/:userUploadId"
-                                    render={(props) => (
-                                        <Read {...props} />
-                                    )}
-                                />
-                            </Switch>
-                            {/* <AccessibilityMenu /> */}
-                        </ThemeProvider>
-                    }
+                    <Switch>
+                        <Route
+                            exact path="/"
+                            component={Home}
+                        />
+                        <Route 
+                            path="/sign-up" 
+                            component={SignUp} 
+                        />
+                        <Route 
+                            path="/sign-in" 
+                            component={SignIn} 
+                        />
+                        <Route 
+                            path="/library"
+                            component={Library}
+                        />
+                        <Route 
+                            path="/dashboard"
+                            component={Dashboard}
+                        />
+                        <Route 
+                            exact path="/read/:userUploadId"
+                            render={(props) => (
+                                <Read {...props} />
+                            )}
+                        />
+                    </Switch>
                 </UserContext.Provider>
             </BrowserRouter>
         </>

@@ -6,8 +6,8 @@ import Button from '../../elements/Button.js';
 import Danger from '../../elements/alerts/Danger';
 
 const SignIn = () => {
-    const BASE_API_URL = 'http://localhost:4000/users';
-    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
+    // const BASE_API_URL = 'http://localhost:4000/users';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [errorSum, setErrorSum] = useState();
@@ -27,7 +27,7 @@ const SignIn = () => {
                 user: loginRes.data.user
             });
             localStorage.setItem('auth-token', loginRes.data.token);
-            history.push('/dashboard');
+            history.push('/library');
         } catch (err) {
             err.response.data.msg && setErrorSum(err.response.data.msg);
         }
@@ -39,8 +39,8 @@ const SignIn = () => {
                 className="authentication-form"
                 onSubmit={onFormSubmit}
             >
-                <h1>Sign In</h1>
-                <p>Please enter your details below.</p>
+                <h1 className="form-heading">Sign In</h1>
+                <p className="form-text">Please enter your details below.</p>
                 {errorSum && (
                     <Danger 
                         message={errorSum} 
@@ -83,7 +83,7 @@ const SignIn = () => {
                     Sign In
                 </Button>
             </form>
-            <p>
+            <p className="form-text">
                 Don't have an account?&nbsp;
                 <Link
                     to="/sign-up"

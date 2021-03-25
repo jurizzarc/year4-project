@@ -1,18 +1,29 @@
 import React from 'react';
-import styled from 'styled-components';
-import MainNavbar from '../navigation/MainNavbar';
+import { useHistory } from 'react-router-dom';
+import Button from '../elements/Button';
 
-const Main = styled.main`
-    margin-top: var(--spacing-06);
-`;
+const Home = () => {
+    const history = useHistory();
+    const goToSignUp = () => history.push('/sign-up');
 
-export default function Home() {
     return (
-        <>
-            <MainNavbar />
-            <Main>
-                <h4>Home Page</h4>
-            </Main>
-        </>
-    );
-}
+        <div className="centered">
+            <main id="welcome">
+                <h1 id="intro">
+                    <span id="app-name">clear</span> is designed to make PDFs, text in images, and paper-based notes easier
+                    to read for everyone
+                </h1>
+                <Button
+                    buttonStyle="btn-primary"
+                    buttonSize="btn-lg"
+                    ariaLabel="Go to Sign Up page"
+                    onClick={goToSignUp}
+                >
+                    Get Started Now
+                </Button>
+            </main>
+        </div>
+    )
+};
+
+export default Home;

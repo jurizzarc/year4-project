@@ -8,8 +8,8 @@ import useSignUpForm from '../../../hooks/useSignUpForm';
 import validateUserInfo from '../../../validation/validateUserInfo';
 
 const SignUp = () => {
-    const BASE_API_URL = 'http://localhost:4000/users';
-    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
+    // const BASE_API_URL = 'http://localhost:4000/users';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
     const INITIAL_STATE = {
         displayName: '',
         email: '',
@@ -64,8 +64,8 @@ const SignUp = () => {
                     className="authentication-form"
                     onSubmit={handleSubmit}
                 >
-                    <h1>Sign Up</h1>
-                    <p>All fields below are required.</p>
+                    <h1 className="form-heading">Sign Up</h1>
+                    <p className="form-text">All fields below are required.</p>
                     {errorSum && (
                         <Danger 
                             message={errorSum} 
@@ -170,7 +170,7 @@ const SignUp = () => {
                         Sign Up
                     </Button>
                 </form>
-                <p>
+                <p className="form-text">
                     Already have an account?&nbsp;
                     <Link 
                         to="/sign-in"
