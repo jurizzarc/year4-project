@@ -1,53 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BiBookOpen, BiCog, BiHelpCircle, BiExit } from 'react-icons/bi';
+import { BiMenuAltLeft, BiBookOpen, BiCog, BiHelpCircle, BiExit } from 'react-icons/bi';
 
 const SideMenu = () => {
     return (
-        <div className="side-menu">
-            <nav className="side-nav">
+        <div className="sidebar-content">
+            <div
+                role="button"
+                aria-expanded="false"
+                className="sidebar-trigger"
+                aria-label="Mobile Sidebar Navigation Menu"
+            >
+                <span className="sidebar-trigger-icon">
+                    <BiMenuAltLeft className="nav-icon" />
+                </span>
+            </div>
 
-                <ul className="side-nav-list">
-                    <li className="side-nav-list-item">
+            <nav className="sidebar-nav">
+                <ul>
+                    <li>
                         <Link
                             to="/library"
-                            className="side-nav-link"
+                            className="sidebar-nav-link"
                         >
-                            <BiBookOpen className="side-nav-icon" />
-                            <span className="side-nav-name">Library</span>
+                            <BiBookOpen className="nav-icon" />
+                            <em className="nav-link-name">Library</em>
                         </Link>
                     </li>
-                    <li className="side-nav-list-item">
+                    <li>
                         <Link
                             to="/settings"
-                            className="side-nav-link"
+                            className="sidebar-nav-link"
                         >
-                            <BiCog className="side-nav-icon" />
-                            <span className="side-nav-name">Settings</span>
+                            <BiCog className="nav-icon" />
+                            <em className="nav-link-name">Settings</em>
                         </Link>
                     </li>
-                    <li className="side-nav-list-item">
+                    <li>
                         <Link
                             to="/help"
-                            className="side-nav-link"
+                            className="sidebar-nav-link"
                         >
-                            <BiHelpCircle className="side-nav-icon" />
-                            <span className="side-nav-name">Help</span>
+                            <BiHelpCircle className="nav-icon" />
+                            <em className="nav-link-name">Help</em>
                         </Link>
                     </li>
-                    <li className="side-nav-list-item">
+                    <li>
                         <Link
                             to="/sign-out"
-                            className="side-nav-link"
+                            className="sidebar-nav-link"
                         >
-                            <BiExit className="side-nav-icon" />
-                            <span className="side-nav-name">Sign Out</span>
+                            <BiExit className="nav-icon" />
+                            <em className="nav-link-name">Sign Out</em>
                         </Link>
                     </li>
                 </ul>
             </nav>
         </div>
-    )
+    );
 };
 
 export default SideMenu;

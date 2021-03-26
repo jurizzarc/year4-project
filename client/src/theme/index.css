@@ -71,7 +71,6 @@
     --primary-bg: #FFF;
     --secondary-bg: #F4F4F4;
     --high-contrast-bg: #393939;
-    --menu-bg: #FFF;
 
     --primary-text: #161616;
     --secondary-text: #525252;
@@ -83,6 +82,7 @@
     --primary-link-hover: #161616;
     --primary-link-underline: #161F6D;
 
+    --sidebar-bg: #FFF;
     --active-sidebar-link: #161F6D;
     --sidebar-link: #525252;
     --sidebar-link-hover: #161F6D;
@@ -127,82 +127,19 @@ body {
     background: var(--primary-bg)!important;
     color: var(--primary-text)!important;
     line-height: var(--main-line-height)!important;
-    transition: .5s;
-}
-
-.dashboard-body {
-    background: var(--secondary-bg)!important;
-    position: relative;
-    margin: var(--dashboard-header-height) 0 0 0;
-    padding: 0 var(--main-lr-margin);
-}
-
-/********** Navigation **********/
-.dashboard-header {
-    width: 100%;
-    height: var(--dashboard-header-height);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 var(--spacing-05);
-    background-color: var(--menu-bg);
-    z-index: 100;
-    transition: .5s;
-}
-
-.side-menu-toggle {
-    color: var(--menu-toggler);
-    font-size: var(--step-1);
-    cursor: pointer;
-}
-
-div.side-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--side-menu-width);
-    height: 100vh;
-    background-color: var(--menu-bg);
-    padding: var(--spacing-02) var(--spacing-05) 0 0;
-    z-index: 100;
-}
-
-nav.side-nav {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-}
-
-.side-nav-link {
-    text-decoration: none!important;
-    display: grid;
-    grid-template-columns: max-content max-content;
-    align-items: center;
-    column-gap: var(--spacing-04);
-    padding: var(--spacing-01) 0 var(--spacing-01) var(--spacing-03);
-    margin-bottom: var(--spacing-02);
-    position: relative;
-    color: var(--sidebar-link)!important;
-    transition: .3s;
-}
-
-.side-nav-link:hover {
-    color: var(--sidebar-link-hover);
-}
-
-.side-nav-icon {
-    font-size: var(--step-0)!important;
 }
 
 /********** Layout **********/
 /* div#root {
     margin: 0 var(--main-lr-margin);
 } */
+
+div.dashboard-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: var(--secondary-bg)!important;
+}
 
 div.centered {
     min-height: 100vh;
@@ -224,6 +161,121 @@ main.authentication-form-container {
     max-width: calc(25rem + 1vw);
     margin: 0 auto;
     padding: var(--spacing-12) 0;
+}
+
+main.dashboard-content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/********** Navigation **********/
+a.sidebar-nav-link {
+    text-decoration: none!important;
+}
+
+div.sidebar-trigger {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    background: #192b3c;
+}
+
+div.sidebar-trigger > span.sidebar-trigger-icon {
+    display: inline-block;
+    margin: 1.5em 0 0 1.5em;
+}
+
+nav.sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: -15em;
+    overflow: hidden;
+    transition: all .3s ease-in;
+    width: 15em;
+    height: 100%;
+    background: #243e56;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+nav.sidebar-nav ul {
+    position: absolute;
+    top: 4em;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 15em;
+}
+
+nav.sidebar-nav ul li {
+    width: 100%;
+}
+
+nav.sidebar-nav a.sidebar-nav-link {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 4em;
+}
+
+em.nav-link-name {
+    position: absolute;
+    left: 4em;
+}
+
+a.sidebar-nav-link:hover {
+    background: #4d6276;
+}
+
+a.sidebar-nav-link > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+}
+
+@media (min-width: 42em) {
+    main.dashboard-content {
+        margin-left: 4em;
+    }
+
+    div.sidebar-trigger {
+        width: 4em;
+    }
+
+    nav.sidebar-nav {
+        width: 4em;
+        left: 0;
+    }
+
+    nav.sidebar-nav:hover,
+    nav.sidebar-nav:focus, 
+    button.sidebar-trigger:hover + nav.sidebar-nav,
+    button.sidebar-trigger:focus + nav.sidebar-nav {
+        width: 15em;
+    }
+}
+
+@media (min-width: 68em) {
+    main.dashboard-content {
+        margin-left: 15em;
+    }
+
+    div.sidebar-trigger {
+        display: none;
+    }
+
+    nav.sidebar-nav {
+        width: 15em;
+    }
+
+    nav.sidebar-nav ul {
+        top: 5em;
+    }
 }
 
 /********** Typography **********/

@@ -37,7 +37,7 @@ async function listBuckets() {
         console.error('ERROR:', err);
     }
 }
-// listBuckets();
+listBuckets();
 
 async function readJsonOutput(_jsonOutputFile) {
     return new Promise((resolve, reject) => {
