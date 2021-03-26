@@ -8,7 +8,7 @@ const NewLineText = (props) => {
     const detectionsArray = detections.map(detection => detection.text);
     let extractedText = detectionsArray.join('');
 
-    if (hasHandwritingSystem && detectionType == 'hndwrtng-img') {
+    if (hasHandwritingSystem && detectionType === 'hndwrtng-img') {
         // Pre Clean
         let cleanText = extractedText;
         ['[h]', '[s]', '[p]', '[b]', '[i]'].forEach((item, i) => {

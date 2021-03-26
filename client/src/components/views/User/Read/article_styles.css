@@ -72,13 +72,13 @@ section.article-container {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(50% - 1rem);
-    /* padding: 1rem; */
     background-color: var(--article-bg-color);
     overflow: hidden;
+    height: 100%;
 }
 
 article {
-    max-width: 90ch;
+    max-width: 70ch;
     padding: 1rem!important;
 }
 

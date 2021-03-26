@@ -5,7 +5,6 @@ import axios from 'axios';
 import Home from './components/views/Home';
 import SignUp from './components/views/Authentication/SignUp';
 import SignIn from './components/views/Authentication/SignIn';
-import Library from './components/views/User/Library';
 import Dashboard from './components/views/User/Dashboard';
 import Read from './components/views/User/Read/Read';
 import GlobalStyles from './theme/GlobalStyles';
@@ -66,10 +65,6 @@ const App = () => {
                         <Route 
                             path="/sign-in" 
                             component={SignIn} 
-                        />
-                        <Route 
-                            path="/library"
-                            component={Library}
                         />
                         <Route 
                             path="/dashboard"

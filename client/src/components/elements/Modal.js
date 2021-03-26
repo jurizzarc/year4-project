@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, createRef } from 'react';
 import { createPortal } from 'react-dom';
+import { BiX } from 'react-icons/bi';
 
 const ModalContext = createContext();
 
 const SIZES = [
-    'modal-default',
+    'modal-md',
     'modal-sm'
 ];
 
@@ -80,13 +81,13 @@ Modal.Header = function ModalHeader(props) {
     return (
         <div className="modal-header">
             <button 
-                className="close-btn"
+                className="modal-close-btn"
                 title="Close Modal"
                 onClick={onModalClose}
             >
-                Close
+                <BiX />
             </button>
-            <h5>{props.children}</h5>
+            <h4>{props.children}</h4>
         </div>
     );
 }

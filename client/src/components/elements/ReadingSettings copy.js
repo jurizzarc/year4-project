@@ -25,15 +25,6 @@ const ReadingSettings = () => {
     ]);
 
     useEffect(() => {
-        const parsedValues = JSON.parse(localStorage.getItem('values'));
-        setValues(parsedValues);
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('values', JSON.stringify(values));
-    }, [values]);
-
-    useEffect(() => {
         const articleBgColor = localStorage.getItem('article-bg-color');
         const articleTextColor = localStorage.getItem('article-text-color');
         const maxFontSize = localStorage.getItem('max-font-size');
@@ -50,6 +41,15 @@ const ReadingSettings = () => {
         articleFontFamily && setValueFromLocalStorage('article-font-family');
         articleTextAlign && setValueFromLocalStorage('article-text-align');
     }, []);
+
+    useEffect(() => {
+        const parsedValues = JSON.parse(localStorage.getItem('values'));
+        setValues(parsedValues);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('values', JSON.stringify(values));
+    }, [values]);
 
     const setValueFromLocalStorage = (readingProp) => {
         let value = window.localStorage.getItem(readingProp);
@@ -89,13 +89,13 @@ const ReadingSettings = () => {
     };
 
     return (
-        <div className="rc-sidebar">
-            {/* <h1>Reading Customisation</h1> */}
+        <aside>
+            <strong>Reading Customisation</strong>
             <div className="settings-group">
-                <strong>Color</strong>
+                <p>Color</p>
                 <form>
                     <div className="settings-form-group">
-                        <label className="settings-label" htmlFor="article-bg-color">Background</label>
+                        <label className="settings-label" htmlFor="article-bg-color">Background Color</label>
                         <input 
                             type="color"
                             id="article-bg-color"
@@ -107,7 +107,7 @@ const ReadingSettings = () => {
                         />
                     </div>
                     <div className="settings-form-group">
-                        <label className="settings-label" htmlFor="article-text-color">Text</label>
+                        <label className="settings-label" htmlFor="article-text-color">Text Color</label>
                         <input 
                             type="color"
                             id="article-text-color"
@@ -121,7 +121,7 @@ const ReadingSettings = () => {
                 </form>
             </div>
             <div className="settings-group">
-                <strong>Font</strong>
+                <p>Font</p>
                 <form>
                     <div className="settings-form-group">
                         <label className="settings-label" htmlFor="article-font-family">Font Family</label>
@@ -194,19 +194,13 @@ const ReadingSettings = () => {
                         <input
                             type="radio"
                             id="article-text-align"
-                            name="articleTextAlignLeft"
+                            name="articleTextAlign"
                             value="left"
                             checked={values && values.articleTextAlign === 'left'}
                             onChange={
                                 (e) => handleInputChange('article-text-align', false, e)
                             }
-                        />
-                        <label
-                            className="radio-label"
-                            htmlFor="articleTextAlign"
-                        >
-                            Left
-                        </label>
+                        />Left
                         <input
                             type="radio"
                             id="article-text-align"
@@ -220,7 +214,7 @@ const ReadingSettings = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </aside>
     );
 }
 
