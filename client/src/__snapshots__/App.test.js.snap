@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Fragment>
+  <Memo(l) />
+  <BrowserRouter>
+    <ContextProvider
+      value={
+        Object {
+          "setUserData": [Function],
+          "userData": Object {
+            "token": undefined,
+            "user": undefined,
+          },
+        }
+      }
+    >
+      <Switch>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/sign-up"
+        />
+        <Route
+          component={[Function]}
+          path="/sign-in"
+        />
+        <Route
+          component={[Function]}
+          path="/dashboard"
+        />
+        <Route
+          exact={true}
+          path="/read/:userUploadId"
+          render={[Function]}
+        />
+      </Switch>
+    </ContextProvider>
+  </BrowserRouter>
+</Fragment>
+`;
