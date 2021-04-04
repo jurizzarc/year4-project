@@ -6,8 +6,8 @@ import Button from '../../elements/Button.js';
 import Danger from '../../elements/alerts/Danger';
 
 const SignIn = () => {
-    // const BASE_API_URL = 'http://localhost:4000/users';
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
+    const BASE_API_URL = 'http://localhost:4000/users';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [errorSum, setErrorSum] = useState();

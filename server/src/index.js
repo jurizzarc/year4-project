@@ -38,4 +38,4 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);
 app.use('/uploads', uploadRoutes);
 
-require('../controllers/dictionary');
+// require('../controllers/dictionary');

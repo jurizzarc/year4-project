@@ -5,8 +5,8 @@ import NewLineText from '../../../elements/NewLineText';
 import '../Read/article_styles.css';
 
 const Read = (props) => {
-    // const BASE_API_URL = 'http://localhost:4000/uploads';
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
+    const BASE_API_URL = 'http://localhost:4000/uploads';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
     const [detectedText, setDetectedText] = useState([]);
     const [detectionType, setDetectionType] = useState();
     const [hasHandwritingSystem, setHasHandwritingSystem] = useState();

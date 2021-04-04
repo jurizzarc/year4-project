@@ -8,8 +8,8 @@ import useSignUpForm from '../../../hooks/useSignUpForm';
 import validateUserInfo from '../../../validation/validateUserInfo';
 
 const SignUp = () => {
-    // const BASE_API_URL = 'http://localhost:4000/users';
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
+    const BASE_API_URL = 'http://localhost:4000/users';
+    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users';
     const INITIAL_STATE = {
         displayName: '',
         email: '',
