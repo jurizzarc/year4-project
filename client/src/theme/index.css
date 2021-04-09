@@ -100,6 +100,20 @@
     --button-primary-active-label: #FFF;
     --button-primary-active-border: #000041;
 
+    --button-ghost-enabled: transparent;
+    --button-ghost-enabled-label: #161F6D;
+    --button-ghost-enabled-border: transparent;
+    --button-ghost-hover: #E5E5E5;
+    --button-ghost-hover-label: #161F6D;
+    --button-ghost-hover-border: #E5E5E5;
+    --button-ghost-focus: transparent;
+    --button-ghost-focus-label: #161F6D;
+    --button-ghost-focus-border: #161F6D;
+    --button-ghost-focus-outline: #161F6D;
+    --button-ghost-active: transparent;
+    --button-ghost-active-label: #161F6D;
+    --button-ghost-active-border: transparent;
+
     --default-input-border: #8D8D8D;
     --input-focus-h: 234;
     --input-focus-s: 66%;
@@ -192,11 +206,6 @@ section.user-uploads {
     margin-top: var(--spacing-10);
 }
 
-main.reading-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 main.reading-container div.rc-sidebar {
     flex-basis: 18.75rem;
     flex-grow: 1;
@@ -213,6 +222,30 @@ div.side-menu-container {
     overflow: auto;
     height: 100%;
     padding: var(--spacing-07) var(--spacing-05);
+}
+
+header.reading-customisation-menu {
+    margin: 0rem var(--main-lr-margin);
+    padding: var(--spacing-05) 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+ul.centre-menu {
+    list-style: none;
+} 
+
+ul.centre-menu li {
+    display: inline;
+}
+
+ul.centre-menu li:not(:last-of-type) {
+    margin-right: var(--spacing-03);
+}
+
+div.search-field {
+    display: inline-block;
 }
 
 /********** Typography **********/
@@ -273,7 +306,6 @@ div.user-info strong.user-name {
 /********** Buttons **********/
 .btn {
     font-weight: 600;
-    font-size: var(--step--1);
     border-radius: 28px;
     cursor: pointer;
     -webkit-transition: ease-in-out 0.3s;
@@ -285,8 +317,20 @@ div.user-info strong.user-name {
     display: block;
 }
 
+.btn-icon {
+    vertical-align: middle;
+}
+
+span.nav-name {
+    margin-left: var(--spacing-03);
+}
+
 button:focus {
     outline: 1px solid transparent;
+}
+
+.btn-sm {
+    padding: var(--spacing-01) calc(var(--spacing-01) * 2);
 }
 
 .btn-md {
@@ -323,6 +367,34 @@ button:focus {
     background-color: var(--button-primary-active);
     color: var(--button-primary-active-label);
     border: 1px solid var(--button-primary-active-border);
+}
+
+.btn-ghost {
+    display: inline-block;
+    background-color: var(--button-ghost-enabled);
+    color: var(--button-ghost-enabled-label);
+    border: 1px solid var(--button-ghost-enabled-border);
+}
+
+.btn-ghost:hover {
+    background-color: var(--button-ghost-hover);
+    color: var(--button-ghost-hover-label);
+    border: 1px solid var(--button-ghost-hover-border);
+}
+
+.btn-ghost:focus {
+    background-color: var(--button-ghost-focus);
+    color: var(--button-ghost-focus-label);
+    border-color: var(--button-ghost-focus-border);;
+    -webkit-box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+    -moz-box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+    box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+}
+
+.btn-ghost:active {
+    background-color: var(--button-ghost-active);
+    color: var(--button-ghost-active-label);
+    border: 1px solid var(--button-ghost-active-border);
 }
 
 button#upload-modal-btn {
@@ -508,12 +580,15 @@ table.uploads-table .action-icon {
 /********** Modal **********/
 div.modal-container {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 4px;
     z-index: 1010;
     background-color: #FFF;
+}
+
+div.modal-centre {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 div.modal-overlay {
@@ -587,4 +662,17 @@ input[type='color'] {
     border: 0;
     background: transparent;
     outline: 0;
+}
+
+/********** Media Queries **********/
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    span.nav-name { 
+        clip: rect(0 0 0 0); 
+        clip-path: inset(100%); 
+        height: 1px; 
+        overflow: hidden; 
+        position: absolute; 
+        white-space: nowrap; 
+        width: 1px; 
+    }
 }

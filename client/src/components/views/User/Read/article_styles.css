@@ -68,18 +68,15 @@
     --font-size-6: calc(((var(--min-font-size-6) * 1rem) + (var(--max-font-size-6) - var(--min-font-size-6)) * var(--article-fluid-bp))); /* <h1> */
 }
 
-section.article-container {
-    flex-basis: 0;
-    flex-grow: 999;
-    min-width: calc(50% - 1rem);
-    background-color: var(--article-bg-color);
+main.reading-container {
     overflow: hidden;
-    height: 100%;
+    background-color: var(--article-bg-color);
 }
 
 article {
     max-width: 70ch;
-    padding: 1rem!important;
+    padding: var(--spacing-10) var(--main-lr-margin)!important;
+    margin: 0 auto!important;
 }
 
 article h1, article h2, article p, article strong, article em {

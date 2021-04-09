@@ -4,6 +4,11 @@ import { BiX } from 'react-icons/bi';
 
 const ModalContext = createContext();
 
+const POSITIONS = [
+    'modal-centre',
+    'modal-topright'
+]
+
 const SIZES = [
     'modal-md',
     'modal-sm'
@@ -13,11 +18,16 @@ export default function Modal({
     children,
     modalId,
     modalSize,
+    modalPosition,
     onModalClose
 }) {
     const checkModalSize = SIZES.includes(modalSize)
         ? modalSize
         : SIZES[0];
+    
+    const checkModalPosition = POSITIONS.includes(modalPosition)
+        ? modalPosition
+        : POSITIONS[0];
     
     // Keyboard shortcut
     useEffect(() => {
@@ -57,7 +67,7 @@ export default function Modal({
             <div
                 role="dialog"
                 id={modalId}
-                className={`modal-container ${checkModalSize}`}
+                className={`modal-container ${checkModalSize} ${checkModalPosition}`}
                 aria-modal="true"
             >
                 <div 

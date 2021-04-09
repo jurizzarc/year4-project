@@ -88,6 +88,7 @@ const UploadForm = () => {
                 <Modal
                     modalId="upload-form-modal"
                     modalSize="modal-md"
+                    modalPosition="modal-centre"
                     onModalClose={
                         () => setIsModalVisible(false)
                     }

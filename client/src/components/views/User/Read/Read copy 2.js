@@ -30,20 +30,20 @@ const Read = (props) => {
     }, []);
 
     return (
-        <>
+        <main className="reading-container">
             <ReadingSettings />
-            <main className="reading-container">
+            <section className="article-container">
                 <article>
                     {detectedText && 
                         <NewLineText 
-                            detections={detectedText}
+                            detections={detectedText} 
                             detectionType={detectionType}
-                            hasHandwritingSystem={hasHandwritingSystem}
+                            hasHandwritingSystem={hasHandwritingSystem} 
                         />
                     }
                 </article>
-            </main>
-        </>
+            </section>
+        </main>
     )
 }
 
