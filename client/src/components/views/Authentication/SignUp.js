@@ -45,7 +45,7 @@ const SignUp = () => {
         } catch (err) {
             err.response.data.msg && setErrorSum(err.response.data.msg);
         }
-    }
+    };
 
     // Call the hook
     const {

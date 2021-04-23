@@ -140,7 +140,7 @@ const user_is_token_valid = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 const user_get_info = async (req, res) => {
     const user = await User.findById(req.user);
@@ -148,7 +148,7 @@ const user_get_info = async (req, res) => {
         displayName: user.displayName,
         id: user._id
     });
-}
+};
 
 module.exports = {
     user_test,

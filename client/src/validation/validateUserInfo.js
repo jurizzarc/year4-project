@@ -22,5 +22,6 @@ export default function validateUserInfo(values) {
     } else if (values.passwordCheck !== values.password) {
         errors.passwordCheck = 'Passwords do not match.';
     }
+    
     return errors;
 }

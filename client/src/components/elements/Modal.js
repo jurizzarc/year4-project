@@ -70,13 +70,15 @@ export default function Modal({
                 className={`modal-container ${checkModalSize} ${checkModalPosition}`}
                 aria-modal="true"
             >
-                <div 
-                    className="modal-content"
-                    ref={modalRef}
-                >
-                    <ModalContext.Provider value={{ onModalClose }}>
-                        {children}
-                    </ModalContext.Provider>
+                <div className="modal-document" role="document">
+                    <div 
+                        className="modal-content"
+                        ref={modalRef}
+                    >
+                        <ModalContext.Provider value={{ onModalClose }}>
+                            {children}
+                        </ModalContext.Provider>
+                    </div>
                 </div>
             </div>
             <div className="modal-overlay" id="modal-overlay"></div>
@@ -92,10 +94,10 @@ Modal.Header = function ModalHeader(props) {
         <div className="modal-header">
             <button 
                 className="modal-close-btn"
-                title="Close Modal"
+                aria-label="Close Modal"
                 onClick={onModalClose}
             >
-                <BiX />
+                <BiX className="btn-icon" />
             </button>
             <h4>{props.children}</h4>
         </div>

@@ -14,6 +14,5 @@ describe('get user test route', function() {
     userController.user_test(req, res);
     console.log(res.send);
     expect(res.send.calledOnce).to.be.true;
-    expect(res.send.firstCall.args[0]).to.equal("Hello, it's working.");
   });
 });

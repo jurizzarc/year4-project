@@ -114,6 +114,10 @@
     --button-ghost-active-label: #161F6D;
     --button-ghost-active-border: transparent;
 
+    --button-modal-close-enabled: transparent;
+    --button-modal-close-enabled-label: #525252;
+    --button-modal-close-enabled-border: transparent;
+
     --default-input-border: #8D8D8D;
     --input-focus-h: 234;
     --input-focus-s: 66%;
@@ -283,7 +287,7 @@ h4 {
     font-size: var(--step-1)!important;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
     font-weight: 600!important;
     letter-spacing: -1px!important;
 }
@@ -315,6 +319,26 @@ div.user-info strong.user-name {
     -webkit-appearance: none;
     -moz-appearance: none;
     display: block;
+}
+
+.modal-close-btn {
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: block;
+    float: right;
+    background-color: var(--button-modal-close-enabled);
+    color: var(--button-modal-close-enabled-label);
+    border: 1px solid var(--button-modal-close-enabled-border);
+}
+
+.modal-close-btn .btn-icon {
+    font-size: var(--step-1);
 }
 
 .btn-icon {
@@ -582,13 +606,21 @@ div.modal-container {
     position: fixed;
     border-radius: 4px;
     z-index: 1010;
-    background-color: #FFF;
+}
+
+div.modal-document {
+    position: relative;
 }
 
 div.modal-centre {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+div.modal-topright {
+    top: calc(190px + 1vw);
+    right: var(--main-lr-margin);
 }
 
 div.modal-overlay {
@@ -601,26 +633,25 @@ div.modal-overlay {
     background: rgba(0, 0, 0, 0.6);
 }
 
+div.modal-sm {
+    width: calc(18rem + 1vw);
+    max-width: 100%;
+    height: auto;
+}
+
 div.modal-md {
     width: calc(30rem + 1vw);
     max-width: 100%;
-    height: calc(50rem + 1vw);
-    max-height: 60%;
+    height: auto;
 }
 
 div.modal-content {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
-    height: auto;
-    padding: var(--spacing-08) calc(var(--spacing-08) / 2);
-    overflow: auto;
-}
-
-div.modal-header button.modal-close-btn {
-    float: right;
-    display: block;
+    padding: var(--spacing-06) var(--spacing-04);
+    background-color: var(--primary-bg);
 }
 
 div.modal-header {

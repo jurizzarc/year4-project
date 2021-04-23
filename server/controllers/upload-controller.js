@@ -199,7 +199,7 @@ const upload_new = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 const upload_get_user_uploads = async (req, res) => {
     try {
@@ -210,7 +210,7 @@ const upload_get_user_uploads = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 const upload_read_text = async (req, res) => {
     try {
@@ -219,7 +219,7 @@ const upload_read_text = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 const upload_delete = async (req, res) => {
     try {
