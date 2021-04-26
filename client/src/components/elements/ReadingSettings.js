@@ -173,7 +173,7 @@ const ReadingSettings = () => {
                                     type="color"
                                     id="article-bg-color"
                                     name="articleBgColor"
-                                    value={values ? values.articleBgColor : initStyles.articleBgColor}
+                                    value={(values && values.articleBgColor) || initStyles.articleBgColor}
                                     onChange={
                                         (e) => handleInputChange('article-bg-color', false, e)
                                     }
@@ -185,7 +185,7 @@ const ReadingSettings = () => {
                                 type="color"
                                 id="article-text-color"
                                 name="articleTextColor"
-                                value={values ? values.articleTextColor : initStyles.articleTextColor}
+                                value={(values && values.articleTextColor) || initStyles.articleTextColor}
                                 onChange={
                                     (e) => handleInputChange('article-text-color', false, e)
                                 }
@@ -212,7 +212,7 @@ const ReadingSettings = () => {
                                 <select
                                     id="article-font-family"
                                     name="articleFontFamily"
-                                    value={values ? values.articleFontFamily : initStyles.articleFontFamily}
+                                    value={(values && values.articleFontFamily) || initStyles.articleFontFamily}
                                     onChange={
                                         (e) => handleInputChange('article-font-family', false, e)
                                     }
@@ -237,7 +237,7 @@ const ReadingSettings = () => {
                                     min="14"
                                     max="40"
                                     step="1"
-                                    defaultValue={values ? values.maxFontSize : initStyles.maxFontSize}
+                                    defaultValue={(values && values.maxFontSize) || initStyles.maxFontSize}
                                     onChange={
                                         (e) => handleInputChange('max-font-size', false, e)
                                     }
@@ -252,7 +252,7 @@ const ReadingSettings = () => {
                                     min="1.0"
                                     max="3.0"
                                     step="0.1"
-                                    defaultValue={values ? values.articleLineHeight : initStyles.articleLineHeight}
+                                    defaultValue={(values && values.articleLineHeight) || initStyles.articleLineHeight}
                                     onChange={
                                         (e) => handleInputChange('article-line-height', false, e)
                                     }
@@ -267,7 +267,7 @@ const ReadingSettings = () => {
                                     min="0"
                                     max="10"
                                     step="1"
-                                    defaultValue={values ? values.articleLetterSpacing : initStyles.articleLetterSpacing}
+                                    defaultValue={(values && values.articleLetterSpacing) || initStyles.articleLetterSpacing}
                                     onChange={
                                         (e) => handleInputChange('article-letter-spacing', true, e)
                                     }

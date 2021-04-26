@@ -20,7 +20,7 @@ const ItemsList = (props) => {
     };
 
     return (
-        <section className="user-uploads">
+        <>
             {uploads.length > 0 ?
                 <table className="uploads-table">
                     <thead>
@@ -78,7 +78,7 @@ const ItemsList = (props) => {
             : (
                 <p>You have not uploaded any files.</p>
             )}
-        </section>
+        </>
     );
 };
 
