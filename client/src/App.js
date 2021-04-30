@@ -11,8 +11,8 @@ import GlobalStyles from './theme/GlobalStyles';
 import './theme/index.css';
 
 const App = () => {
-    const BASE_API_URL = 'http://localhost:4000/users';
-    // const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
+    // const BASE_API_URL = 'http://localhost:4000/users';
+    const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
     const [userData, setUserData] = useState({
         token: undefined,
         user: undefined

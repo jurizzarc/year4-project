@@ -822,7 +822,7 @@ ul.auto-items-grid  > * + * {
 ul.auto-items-grid li {
     padding: 8rem 1rem;
     text-align: center;
-    background: #eb4d4b;
+    background: #ccc;
     color: #ffffff;
 }
 
