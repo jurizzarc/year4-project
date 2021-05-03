@@ -1,8 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import WelcomeImg from '../elements/WelcomeImg';
 import Button from '../elements/Button';
 
 const Home = () => {
+    const history = useHistory();
+    const goToSignUp = () => history.push('/sign-up');
 
     return (
         <div role="main" id="home-container">
@@ -15,6 +18,8 @@ const Home = () => {
                     <Button
                         buttonStyle="btn-primary"
                         buttonSize="btn-lg"
+                        ariaLabel="Click to go to Sign Up page"
+                        onClick={goToSignUp}
                     >
                         Get Started Now
                     </Button>
