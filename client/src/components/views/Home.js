@@ -1,29 +1,30 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import WelcomeImg from '../elements/WelcomeImg';
 import Button from '../elements/Button';
 
 const Home = () => {
-    const history = useHistory();
-    const goToSignUp = () => history.push('/sign-up');
 
     return (
-        <div className="centered">
-            <main id="welcome">
-                <h1 id="intro">
-                    <span id="app-name">clear</span> is designed to make PDFs, text in images, and paper-based notes easier
-                    to read for everyone
-                </h1>
-                <Button
-                    buttonStyle="btn-primary"
-                    buttonSize="btn-lg"
-                    ariaLabel="Go to Sign Up page"
-                    onClick={goToSignUp}
-                >
-                    Get Started Now
-                </Button>
-            </main>
+        <div role="main" id="home-container">
+            <div className="wrapper">
+                <div role="article" id="welcome-msg">
+                    <h1>Clear, A Reading Application</h1>
+                    <p>
+                        Clear is designed to make PDFs, text in images, and paper-based notes easier to read for everyone.
+                    </p>
+                    <Button
+                        buttonStyle="btn-primary"
+                        buttonSize="btn-lg"
+                    >
+                        Get Started Now
+                    </Button>
+                </div>
+                <div id="welcome-img">
+                    <WelcomeImg />
+                </div>
+            </div>
         </div>
-    )
+    );
 };
 
 export default Home;

@@ -65,6 +65,8 @@
     --spacing-14: calc(var(--main-line-height) * 4rem);
     --spacing-15: calc(var(--main-line-height) * 4.5rem);
     --spacing-16: calc(var(--main-line-height) * 5rem);
+
+    --space: 1rem;
 }
 
 :root {
@@ -168,29 +170,47 @@ body {
 }
 
 /********** Layout **********/
-/* div#root {
-    margin: 0 var(--main-lr-margin);
-} */
 
 div.dashboard-layout {
     background-color: var(--dashboard-bg)!important;
     overflow: hidden!important;
 }
 
-div.centered {
-    min-height: 100vh;
+div#home-container {
+    margin: 0 var(--main-lr-margin);
+    overflow: hidden;
+    max-height: 100%;
+}
+
+div#home-container > * {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    margin: calc(var(--space) / 2 * -1);
 }
 
-main#welcome {
-    max-width: calc(50rem + 1vw);
-    margin: 0 auto;
-    text-align: center;
+div#home-container > * > * {
+    margin: calc(var(--space) / 2);
+    flex-basis: 30rem;
+    flex-grow: 1;
 }
 
-main#welcome button {
-    margin: var(--spacing-09) auto;
+div#home-container > * > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(50% - var(--space));
+}
+
+div#welcome-msg {
+    padding-top: var(--spacing-15);
+}
+
+div#welcome-img {
+    padding: var(--spacing-10) 0;
+}
+
+div#welcome-img svg {
+    width: 100%;
+    height: auto;
 }
 
 main.authentication-form-container {
@@ -381,7 +401,15 @@ h4 {
 
 h1, h2, h3 {
     font-weight: 600!important;
-    /* letter-spacing: -1px!important; */
+    letter-spacing: -1px!important;
+}
+
+div#welcome-msg h1 {
+    margin-bottom: var(--spacing-07);
+}
+
+div#welcome-msg p {
+    margin-bottom: var(--spacing-09);
 }
 
 h1#intro span#app-name {
