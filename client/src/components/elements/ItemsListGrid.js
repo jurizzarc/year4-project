@@ -50,7 +50,7 @@ const ItemsListGrid = (props) => {
                                     <Moment 
                                         date={upload.createdAt}
                                         parse="YYYY-MM-DD"
-                                        format="DD MMM YYYY"
+                                        format="DD/MM/YYYY"
                                     />
                                 </span>
                             </li>

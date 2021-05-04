@@ -179,7 +179,7 @@ div.dashboard-layout {
 div#home-container {
     margin: 0 var(--main-lr-margin);
     overflow: hidden;
-    max-height: 100%;
+    /* max-height: 100%; */
 }
 
 div#home-container > * {
@@ -205,12 +205,16 @@ div#welcome-msg {
 }
 
 div#welcome-img {
-    padding: var(--spacing-10) 0;
+    /* padding: var(--spacing-08) 0; */
+    height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
 div#welcome-img svg {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
+    display: block;
 }
 
 main.authentication-form-container {
@@ -362,7 +366,7 @@ div.search-field {
 
 /********** Typography **********/
 body, button, input, select {
-    font-family: 'Mulish', 'Helvetica', sans-serif!important;
+    font-family: 'Quicksand', 'Helvetica', sans-serif!important;
     font-size: var(--step-0)!important;
 }
 
@@ -770,7 +774,9 @@ div.modal-content {
 }
 
 div.modal-header {
-    margin-bottom: var(--spacing-05);
+    margin-bottom: var(--spacing-07);
+    padding-bottom: var(--spacing-05);
+    border-bottom: 1px solid var(--subtle-border);
 }
 
 div.modal-form-group:not(:first-of-type) {
