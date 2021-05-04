@@ -20,8 +20,7 @@ const ReadingSettings = () => {
         maxFontSize: '',
         articleLineHeight: '',
         articleLetterSpacing: '',
-        articleFontFamily: '',
-        articleTextAlign: ''
+        articleFontFamily: ''
     });
     const [fontOptions] = useState([
         { label: 'Alegreya', value: 'Alegreya' },
@@ -31,6 +30,7 @@ const ReadingSettings = () => {
         { label: 'Helvetica', value: 'Helvetica' },
         { label: 'PT Sans', value: 'PT Sans' },
         { label: 'PT Serif', value: 'PT Serif' },
+        { label: 'Roboto Slab', value: 'Roboto Slab' },
         { label: 'Tahoma', value: 'Tahoma' },
         { label: 'Times', value: 'Times' },
         { label: 'Verdana', value: 'Verdana' }
@@ -102,7 +102,7 @@ const ReadingSettings = () => {
                 <Button
                     buttonStyle="btn-ghost"
                     buttonSize="btn-sm"
-                    ariaLabel="Back to Dashboard Button"
+                    ariaLabel="Click to go back to Dashboard page"
                     onClick={onBackBtnClick}
                 >
                     <BiArrowBack className="btn-icon" />
@@ -117,7 +117,7 @@ const ReadingSettings = () => {
                         <Button
                             buttonStyle="btn-ghost"
                             buttonSize="btn-sm"
-                            ariaLabel="Colour Options"
+                            ariaLabel="Click to change color settings"
                             onClick={
                                 () => setIsColourModalVisible(true)
                             }
@@ -130,7 +130,7 @@ const ReadingSettings = () => {
                         <Button
                             buttonStyle="btn-ghost"
                             buttonSize="btn-sm"
-                            ariaLabel="Font Options"
+                            ariaLabel="Click to change font settings"
                             onClick={
                                 () => setIsTextModalVisible(true)
                             }
@@ -143,7 +143,7 @@ const ReadingSettings = () => {
                         <Button
                             buttonStyle="btn-ghost"
                             buttonSize="btn-sm"
-                            ariaLabel="Layout Options"
+                            ariaLabel="Click to change layout settings"
                             onClick={
                                 () => setIsLayoutModalVisible(true)
                             }
@@ -300,6 +300,7 @@ const ReadingSettings = () => {
                                     onChange={
                                         (e) => handleInputChange('article-text-align', false, e)
                                     }
+                                    defaultChecked
                                 />
                                 <label
                                     className="radio-label"
