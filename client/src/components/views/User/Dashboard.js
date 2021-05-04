@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [uploads, setUploads] = useState('');
     const { userData } = useContext(UserContext);
     const token = localStorage.getItem('auth-token');
-    
+
     useEffect(() => {
         const getAllUploads = () => {
             axios.get(`${BASE_API_URL}/all`, {
@@ -27,7 +27,7 @@ const Dashboard = () => {
         getAllUploads();
     }, []);
 
-    if (token == undefined || token == null) return <Redirect to="/sign-in" />;
+    // if (token === undefined) return <Redirect to="/sign-in" />;
 
     return (
         <>
