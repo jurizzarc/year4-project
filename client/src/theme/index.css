@@ -179,7 +179,7 @@ div.dashboard-layout {
 div#home-container {
     margin: 0 var(--main-lr-margin);
     overflow: hidden;
-    /* max-height: 100%; */
+    /* max-height: calc(100vh - 80px - var(--spacing-05)); */
 }
 
 div#home-container > * {
@@ -206,7 +206,7 @@ div#welcome-msg {
 
 div#welcome-img {
     /* padding: var(--spacing-08) 0; */
-    height: 100vh;
+    height: calc(100vh - 80px);
     display: flex;
     align-items: center;
 }
@@ -362,6 +362,70 @@ ul.centre-menu li:not(:last-of-type) {
 
 div.search-field {
     display: inline-block;
+}
+
+nav.navbar {
+    height: 48px;
+    width: 100%;
+    /* background: var(--secondary-bg); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--spacing-04) 0;
+    padding: 0 var(--main-lr-margin);
+    font-size: var(--step-0);
+}
+
+a.nav-logo {
+    height: 40px;
+}
+
+a.nav-logo img {
+    width: auto;
+    height: 100%;
+}
+
+ul.nav-links {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 30px;
+    list-style: none;
+}
+
+a.nav-link {
+    height: 47px;
+    line-height: 47px;
+    white-space: nowrap;
+    transition: 0.3s all;
+}
+
+.nav-icon {
+    display: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 576px) {
+    .navbar { position: relative; }
+
+    .nav-links {
+        display: flex!important;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        top: 48px;
+        left: -100%;
+        transition: 0.5s all;
+        padding: var(--spacing-08) var(--main-lr-margin);
+    }
+
+    .nav-links.active {
+        background: var(--secondary-bg);
+        left: 0;
+    }
+
+    .nav-icon {
+        display: flex;
+    }
 }
 
 /********** Typography **********/
@@ -656,7 +720,7 @@ form .error-msg {
     margin-top: var(--spacing-02);
 }
 
-section.danger-alert {
+div.danger-alert {
     border: 1px solid var(--danger-border);
     background-color: var(--danger-bg);
     margin-top: var(--spacing-08);
@@ -834,8 +898,8 @@ ul.auto-items-grid li {
     color: #000;
     border-radius: 4px;
     overflow: hidden;
-    height: 25rem;
-    max-height: 25rem;
+    height: 22rem;
+    max-height: 22rem;
     padding: var(--spacing-03);
 }
 

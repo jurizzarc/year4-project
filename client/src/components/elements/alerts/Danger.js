@@ -2,15 +2,15 @@ import React from 'react';
 
 const Danger = (props) => {
     return (
-        <section 
+        <div 
             className="danger-alert"
-            role="contentinfo"
+            role="alert"
             aria-label={props.ariaLabel}
         >
             <p>
                 {props.message}
             </p>
-        </section>
+        </div>
     );
 }
 

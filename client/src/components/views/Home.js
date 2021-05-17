@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Navbar from '../navigation/Navbar';
 import WelcomeImg from '../elements/WelcomeImg';
 import Button from '../elements/Button';
 
@@ -8,6 +9,8 @@ const Home = () => {
     const goToSignUp = () => history.push('/sign-up');
 
     return (
+        <>
+        <Navbar />
         <div role="main" id="home-container">
             <div className="wrapper">
                 <div role="article" id="welcome-msg">
@@ -29,6 +32,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
