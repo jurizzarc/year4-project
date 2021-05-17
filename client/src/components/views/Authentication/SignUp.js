@@ -59,13 +59,26 @@ const SignUp = () => {
 
     return (
         <>
+            <header className="page-header">
+                <Link to="/" className="nav-logo">
+                    <img src="logo-lg.png" />
+                </Link>
+            </header>
             <main className="authentication-form-container">
                 <form 
                     className="authentication-form"
                     onSubmit={handleSubmit}
                 >
                     <h1 className="form-heading">Sign Up</h1>
-                    <p className="form-text">All fields below are required.</p>
+                    <p className="form-text">
+                        Already have an account?&nbsp;
+                        <Link 
+                            to="/sign-in"
+                            className="form-link"
+                        >
+                            Sign In
+                        </Link>
+                    </p>
                     {errorSum && (
                         <Danger 
                             message={errorSum} 
@@ -170,15 +183,6 @@ const SignUp = () => {
                         Sign Up
                     </Button>
                 </form>
-                <p className="form-text">
-                    Already have an account?&nbsp;
-                    <Link 
-                        to="/sign-in"
-                        className="form-link"
-                    >
-                        Sign In
-                    </Link>
-                </p>
             </main>
         </>
     );

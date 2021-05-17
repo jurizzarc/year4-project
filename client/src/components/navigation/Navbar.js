@@ -16,7 +16,7 @@ const Navbar = () => {
             </Link>
             <button
                 onClick={openMenu}
-                className="nav-icon"
+                className="nav-toggler"
             >
                 { open ? <BiX /> : <BiMenu /> }
             </button>

@@ -143,6 +143,8 @@
     --side-nav-link-hover: #161616;
     --side-nav-link-active: #161F6D;
     --z-fixed: 100;
+
+    --navbar-height: 3rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -218,9 +220,14 @@ div#welcome-img svg {
 }
 
 main.authentication-form-container {
+    width: 100%;
+    height: auto;
+    padding: var(--spacing-10) var(--main-lr-margin);
+}
+
+form.authentication-form {
     max-width: calc(25rem + 1vw);
     margin: 0 auto;
-    padding: var(--spacing-12) 0;
 }
 
 main.dashboard-content {
@@ -364,10 +371,9 @@ div.search-field {
     display: inline-block;
 }
 
-nav.navbar {
-    height: 48px;
+nav.navbar, header.page-header {
+    height: var(--navbar-height);
     width: 100%;
-    /* background: var(--secondary-bg); */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -377,7 +383,7 @@ nav.navbar {
 }
 
 a.nav-logo {
-    height: 40px;
+    height: 32px;
 }
 
 a.nav-logo img {
@@ -399,7 +405,7 @@ a.nav-link {
     transition: 0.3s all;
 }
 
-.nav-icon {
+.nav-toggler {
     display: none;
     cursor: pointer;
 }
@@ -423,7 +429,7 @@ a.nav-link {
         left: 0;
     }
 
-    .nav-icon {
+    .nav-toggler {
         display: flex;
     }
 }
@@ -611,10 +617,6 @@ button#upload-modal-btn {
 }
 
 /********** Forms **********/
-h1.form-heading, p.form-text {
-    text-align: center;
-}
-
 h1.form-heading {
     margin-bottom: var(--spacing-04);
 }

@@ -34,66 +34,72 @@ const SignIn = () => {
     };
 
     return (
-        <main className="authentication-form-container">
-            <form
-                className="authentication-form"
-                onSubmit={onFormSubmit}
-            >
-                <h1 className="form-heading">Sign In</h1>
-                <p className="form-text">Please enter your details below.</p>
-                {errorSum && (
-                    <Danger 
-                        message={errorSum} 
-                        ariaRole="Error Summary"
-                    />
-                )}
-                <section className="form-fields">
-                    <div className="form-group">
-                        <label htmlFor="sign-in-email">E-mail Address</label>
-                        <input 
-                            className="form-field"
-                            type="email"
-                            id="sign-in-email"
-                            name="email"
-                            aria-required="true"
-                            onChange={
-                                (e) => setEmail(e.target.value)
-                            }
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="sign-in-password">Password</label>
-                        <input 
-                            className="form-field"
-                            type="password"
-                            id="sign-in-password"
-                            name="password"
-                            aria-required="true"
-                            onChange={
-                                (e) => setPassword(e.target.value)
-                            }
-                        />
-                    </div>
-                </section>
-                <Button
-                    type="submit"
-                    buttonStyle="btn-primary"
-                    buttonSize="btn-lg"
-                >
-                    Sign In
-                </Button>
-            </form>
-            <p className="form-text">
-                Don't have an account?&nbsp;
-                <Link
-                    to="/sign-up"
-                    className="form-link"
-                >
-                    Sign Up
+        <>
+            <header className="page-header">
+                <Link to="/" className="nav-logo">
+                    <img src="logo-lg.png" />
                 </Link>
-            </p>
-        </main>
-    )
+            </header>
+            <main className="authentication-form-container">
+                <form
+                    className="authentication-form"
+                    onSubmit={onFormSubmit}
+                >
+                    <h1 className="form-heading">Sign In</h1>
+                    <p className="form-text">
+                        Don't have an account?&nbsp;
+                        <Link
+                            to="/sign-up"
+                            className="form-link"
+                        >
+                            Sign Up
+                        </Link>
+                    </p>
+                    {errorSum && (
+                        <Danger 
+                            message={errorSum} 
+                            ariaRole="Error Summary"
+                        />
+                    )}
+                    <section className="form-fields">
+                        <div className="form-group">
+                            <label htmlFor="sign-in-email">E-mail Address</label>
+                            <input 
+                                className="form-field"
+                                type="email"
+                                id="sign-in-email"
+                                name="email"
+                                aria-required="true"
+                                onChange={
+                                    (e) => setEmail(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="sign-in-password">Password</label>
+                            <input 
+                                className="form-field"
+                                type="password"
+                                id="sign-in-password"
+                                name="password"
+                                aria-required="true"
+                                onChange={
+                                    (e) => setPassword(e.target.value)
+                                }
+                            />
+                        </div>
+                    </section>
+                    <Button
+                        type="submit"
+                        buttonStyle="btn-primary"
+                        buttonSize="btn-lg"
+                    >
+                        Sign In
+                    </Button>
+                </form>
+            </main>
+        </>
+    );
 };
 
 export default SignIn;
