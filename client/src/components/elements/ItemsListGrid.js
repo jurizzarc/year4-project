@@ -23,40 +23,35 @@ const ItemsListGrid = (props) => {
     return (
         <>
             {uploads.length > 0 ?
-                <div className="grid-wrapper">
-                    <ul className="auto-items-grid">
-                        {uploads.map((upload) => (
-                            <li
-                                className="item-card"
-                                key={upload._id}
-                            >
-                                 <Link to={{ pathname: `/read/${upload._id}` }}>
-                                    <span className="item-card-img">
-                                        {upload.textDetection === 'hndwrtng-img' &&
-                                            <img src={`${publicStorageURL}/${upload.fileName}`} />
-                                        }
-                                        {upload.textDetection === 'digi-text-img' &&
-                                            <img src={`${publicStorageURL}/${upload.fileName}`} />
-                                        }
-                                        {upload.textDetection === 'digi-text-pdf' &&
-                                            <iframe src={`${publicStorageURL}/${upload.fileName}`} />
-                                        }
-                                    </span>
+                <ul className="grid">
+                    {uploads.map((upload) => (
+                        <li 
+                            className="card"
+                            key={upload._id}
+                        >
+                            <div className="card-img">
+                                <Link to={{ pathname: `/read/${upload._id}` }}>
+                                    {upload.textDetection === 'hndwrtng-img' &&
+                                        <img src={`${publicStorageURL}/${upload.fileName}`} />
+                                    }
+                                    {upload.textDetection === 'digi-text-img' &&
+                                        <img src={`${publicStorageURL}/${upload.fileName}`} />
+                                    }
                                 </Link>
-                                <span className="item-card-body">
-                                    <Link to={{ pathname: `/read/${upload._id}` }}>
-                                        {splitFileName(upload.fileName)}
-                                    </Link>
-                                    <Moment 
-                                        date={upload.createdAt}
-                                        parse="YYYY-MM-DD"
-                                        format="DD/MM/YYYY"
-                                    />
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                            </div>
+                            <div className="card-txt">
+                                <Link to={{ pathname: `/read/${upload._id}` }}>
+                                    <strong>{splitFileName(upload.fileName)}</strong>
+                                </Link>
+                                <Moment 
+                                    date={upload.createdAt}
+                                    parse="YYYY-MM-DD"
+                                    format="DD/MM/YYYY"
+                                />
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             : (
                 <strong>You have not uploaded any files.</strong>
             )}
