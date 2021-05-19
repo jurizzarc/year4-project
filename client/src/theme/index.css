@@ -424,7 +424,9 @@ a.nav-link {
         top: 48px;
         left: -100%;
         transition: 0.5s all;
+        grid-gap: 10px!important;
         padding: var(--spacing-08) var(--main-lr-margin);
+        margin-top: var(--navbar-height);
     }
 
     .nav-links.active {
@@ -434,6 +436,7 @@ a.nav-link {
 
     .nav-toggler {
         display: flex;
+        justify-content: center;
     }
 }
 
@@ -527,11 +530,24 @@ button {
     border-radius: 50%;
 }
 
-.modal-close-btn .btn-icon {
-    font-size: var(--step-1)!important;
+.nav-toggler {
+    background-color: var(--button-modal-close-enabled);
+    color: var(--button-modal-close-enabled-label);
+    border: 1px solid var(--button-modal-close-enabled-border);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
 }
 
-.modal-close-btn:hover {
+.nav-toggler .btn-icon {
+    font-size: var(--step-2)!important;
+}
+
+.modal-close-btn .btn-icon {
+    font-size: var(--step-2)!important;
+}
+
+.modal-close-btn:hover, .nav-toggler:hover {
     background-color: var(--button-modal-close-hover);
     color: var(--button-modal-close-hover-label);
     border: 1px solid var(--button-modal-close-hover-border);
