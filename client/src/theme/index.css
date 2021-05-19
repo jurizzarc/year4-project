@@ -1061,7 +1061,12 @@ input[type=radio] {
     height: calc(18.75rem + 1vw);
 }
 
-.card-img img {
+.card-img a { 
+    text-decoration: none!important; 
+    color: inherit;
+}
+
+.card-img img, .card-img div.pdf-tn {
     max-width: 100%;
     height: auto;
     vertical-align: middle;
@@ -1070,8 +1075,16 @@ input[type=radio] {
     box-shadow: 4px 4px 8px -2px rgba(0,0,0,0.47);
 }
 
-.card-img img:hover {
+.card-img img:hover, .card-img div.pdf-tn:hover {
     opacity: 0.8;
+}
+
+div.pdf-tn {
+    padding: var(--spacing-03) var(--spacing-06);
+}
+
+div.pdf-tn p {
+    font-size: var(--step--2);
 }
 
 .card-txt {

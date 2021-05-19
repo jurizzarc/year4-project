@@ -26,13 +26,20 @@ const ItemsListGrid = (props) => {
     const splitFileName = (str) => {
         return str.substring(0, str.indexOf('_'));
     };
+
+    const splitStr = (_text) => {
+        let text = _text.split('.');
+        let str = text.slice(0, 8).join('.') + '.';
+        return str;
+    };
+
     const uploadType = (str) => {
         let type;
         if (str === 'digi-text-pdf') type = 'PDF';
         if (str === 'hndwrtng-img') type = 'Paper-based Notes';
         if (str === 'digi-text-img') type= 'Text in Image';
         return type;
-    }
+    };
 
     const publicStorageURL = 'https://storage.googleapis.com/clear-reading-app-uploads';
 
@@ -88,6 +95,13 @@ const ItemsListGrid = (props) => {
                                     }
                                     {upload.textDetection === 'digi-text-img' &&
                                         <img src={`${publicStorageURL}/${upload.fileName}`} />
+                                    }
+                                    {upload.textDetection === 'digi-text-pdf' &&
+                                        <div className="pdf-tn">
+                                            <p>
+                                                {splitStr(upload.detections[0].text)}..
+                                            </p>
+                                        </div>
                                     }
                                 </Link>
                             </div>
