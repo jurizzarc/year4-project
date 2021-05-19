@@ -11,8 +11,7 @@ const ReadingSettings = () => {
         maxFontSize: '20',
         articleLineHeight: '1.5',
         articleLetterSpacing: '0',
-        articleFontFamily: 'PT Serif',
-        articleTextAlign: 'left'
+        articleFontFamily: 'PT Serif'
     };
     const [values, setValues] = useState({
         articleBgColor: '',
@@ -20,8 +19,10 @@ const ReadingSettings = () => {
         maxFontSize: '',
         articleLineHeight: '',
         articleLetterSpacing: '',
-        articleFontFamily: ''
+        articleFontFamily: '',
+        articleTextAlign: ''
     });
+    const [selectedAlign, setSelectedAlign] = useState('left');
     const [fontOptions] = useState([
         { label: 'Alegreya', value: 'Alegreya' },
         { label: 'Andika', value: 'Andika' },
@@ -42,13 +43,6 @@ const ReadingSettings = () => {
     const onBackBtnClick = () => history.push('/dashboard');
 
     useEffect(() => {
-        // const articleBgColor = localStorage.getItem('article-bg-color');
-        // const articleTextColor = localStorage.getItem('article-text-color');
-        // const maxFontSize = localStorage.getItem('max-font-size');
-        // const articleLineHeight = localStorage.getItem('article-line-height');
-        // const articleLetterSpacing = localStorage.getItem('article-letter-spacing');
-        // const articleFontFamily = localStorage.getItem('article-font-family');
-        // const articleTextAlign = localStorage.getItem('article-text-align');
         setValueFromLocalStorage('article-bg-color');
         setValueFromLocalStorage('article-text-color');
         setValueFromLocalStorage('max-font-size');
@@ -83,6 +77,26 @@ const ReadingSettings = () => {
             ...values,
             [name]: value
         });
+
+        document.documentElement.style.setProperty(
+            `--${readingProp}`,
+            `${value}${isPixel ? 'px': ''}`
+        );
+        window.localStorage.setItem(
+            readingProp,
+            `${value}${isPixel ? 'px' : ''}`
+        );
+    };
+
+    const handleRadioChange = (readingProp, isPixel, e) => {
+        const { name, value } = e.target;
+        if (value === 'left') {
+            setSelectedAlign('left');
+            setValues({ ...values, [name]: value });
+        } else {
+            setSelectedAlign('justify');
+            setValues({ ...values, [name]: value });
+        }
 
         document.documentElement.style.setProperty(
             `--${readingProp}`,
@@ -167,29 +181,31 @@ const ReadingSettings = () => {
                     <Modal.Header>Colour</Modal.Header>
                     <Modal.Body>
                         <form id="colour-options-form">
-                            <div className="settings-form-group">
-                                <label className="settings-label" htmlFor="article-bg-color">Background</label>
+                            <div className="modal-grid">
+                                <div className="settings-form-group">
+                                    <label className="settings-label" htmlFor="article-bg-color">Background</label>
+                                    <input 
+                                        type="color"
+                                        id="article-bg-color"
+                                        name="articleBgColor"
+                                        value={(values && values.articleBgColor) || initStyles.articleBgColor}
+                                        onChange={
+                                            (e) => handleInputChange('article-bg-color', false, e)
+                                        }
+                                    />
+                                </div>
+                                <div className="settings-form-group">
+                                <label className="settings-label" htmlFor="article-text-color">Text</label>
                                 <input 
                                     type="color"
-                                    id="article-bg-color"
-                                    name="articleBgColor"
-                                    value={(values && values.articleBgColor) || initStyles.articleBgColor}
+                                    id="article-text-color"
+                                    name="articleTextColor"
+                                    value={(values && values.articleTextColor) || initStyles.articleTextColor}
                                     onChange={
-                                        (e) => handleInputChange('article-bg-color', false, e)
+                                        (e) => handleInputChange('article-text-color', false, e)
                                     }
                                 />
-                            </div>
-                            <div className="settings-form-group">
-                            <label className="settings-label" htmlFor="article-text-color">Text</label>
-                            <input 
-                                type="color"
-                                id="article-text-color"
-                                name="articleTextColor"
-                                value={(values && values.articleTextColor) || initStyles.articleTextColor}
-                                onChange={
-                                    (e) => handleInputChange('article-text-color', false, e)
-                                }
-                            />
+                                </div>
                             </div>
                         </form>
                     </Modal.Body>
@@ -291,33 +307,29 @@ const ReadingSettings = () => {
                         <form id="layout-options-form">
                             <div className="settings-form-group">
                                 <label className="settings-label" htmlFor="article-text-align">Alignment</label>
-                                <input
-                                    type="radio"
-                                    id="article-text-align"
-                                    name="articleTextAlignLeft"
-                                    value="left"
-                                    checked={values && values.articleTextAlign === 'left'}
-                                    onChange={
-                                        (e) => handleInputChange('article-text-align', false, e)
-                                    }
-                                    defaultChecked
-                                />
-                                <label
-                                    className="radio-label"
-                                    htmlFor="articleTextAlign"
-                                >
-                                    Left
-                                </label>
-                                <input
-                                    type="radio"
-                                    id="article-text-align"
-                                    name="articleTextAlign"
-                                    value="justify"
-                                    checked={values && values.articleTextAlign === 'justify'}
-                                    onChange={
-                                        (e) => handleInputChange('article-text-align', false, e)
-                                    }
-                                />Justify
+                                    <input 
+                                        type="radio"
+                                        value="left"
+                                        name="articleTextAlign"
+                                        id="left"
+                                        onChange={
+                                            (e) => handleRadioChange('article-text-align', false, e)
+                                        }
+                                        checked={selectedAlign === 'left'}
+                                    />
+                                    <label className="radio-label" htmlFor="left">Left</label>
+
+                                    <input 
+                                        type="radio"
+                                        value="justify"
+                                        name="articleTextAlign"
+                                        id="justify"
+                                        onChange={
+                                            (e) => handleRadioChange('article-text-align', false, e)
+                                        }
+                                        checked={selectedAlign === 'justify'}
+                                    />
+                                    <label className="radio-label" htmlFor="justify">Justify</label>
                             </div>
                         </form>
                     </Modal.Body>

@@ -82,7 +82,7 @@ const UploadForm = () => {
                     () => setIsModalVisible(true)
                 }
             >
-                <BiPlus className="button-icon" />Upload
+                <BiPlus className="modal-toggler-icon" />Upload
             </Button>
             {isModalVisible && (
                 <Modal
