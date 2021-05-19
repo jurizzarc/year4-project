@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
 const ItemsListGrid = (props) => {
     const uploads = props.uploads;
+    const sortedUploads = [...uploads];
+    const [sortedField, setSortedField] = useState('');
+    console.log(sortedField);
+    if (sortedField !== null) {
+        sortedUploads.sort((a, b) => {
+            if (a[sortedField] < b[sortedField]) {
+                return -1;
+            }
+            if (a[sortedField] > b[sortedField]) {
+                return 1;
+            }
+            return 0; 
+        });
+    }
+
+    const onSelectChange = (e) => {
+        setSortedField(e.target.value);
+    };
+
     const splitFileName = (str) => {
         return str.substring(0, str.indexOf('_'));
     };
@@ -14,14 +33,47 @@ const ItemsListGrid = (props) => {
         if (str === 'digi-text-img') type= 'Text in Image';
         return type;
     }
-    const splitDate = (str) => {
-        return str.substring(0, str.indexOf('T'));
-    };
 
     const publicStorageURL = 'https://storage.googleapis.com/clear-reading-app-uploads';
 
     return (
         <>
+            {/* <div className="filters">
+                <div className="filters-wrapper">
+                    <div className="search-field">
+                        <input 
+                            id="searchUploads"
+                            type="text"
+                            className="form-control"
+                            aria-label="Search Uploads"
+                            placeholder="Search by file name"
+                        />
+                    </div>
+                    <div className="sort-select">
+                        <strong>Sort by</strong>
+                        <select
+                            id="sort-field"
+                            name="sortUploads"
+                            value={sortedField}
+                            onChange={onSelectChange}
+                        >
+                            <option></option>
+                            <option
+                                key="fileName"
+                                value="fileName"
+                            >
+                                File Name
+                            </option>
+                            <option
+                                key="createdAt"
+                                value="createdAt"
+                            >
+                                Date Uploaded
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div> */}
             {uploads.length > 0 ?
                 <ul className="grid">
                     {uploads.map((upload) => (

@@ -272,6 +272,18 @@ section.user-uploads {
     margin-top: var(--spacing-08);
 }
 
+div.filters > * {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: calc(var(--space) / 2 * -1);
+}
+
+div.filters > * > * {
+    margin: calc(var(--space) / 2);
+}
+
 main.reading-container div.rc-sidebar {
     flex-basis: 18.75rem;
     flex-grow: 1;
@@ -655,7 +667,20 @@ form input.form-field {
     transition: 180ms box-shadow ease-in-out;
 }
 
-form input.form-field:focus {
+.filters input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--spacing-02) var(--spacing-04);
+    border-radius: 4px;
+    font-size: var(--step--1)!important;
+    border: 1px solid var(--subtle-border);
+    -webkit-transition: 180ms box-shadow ease-in-out;
+    -moz-transition: 180ms box-shadow ease-in-out;
+    -o-transition: 180ms box-shadow ease-in-out;
+    transition: 180ms box-shadow ease-in-out;
+}
+
+form input.form-field:focus, .filters input:focus, select:focus {
     outline: 3px solid transparent;
     border-color: hsl(
         var(--input-focus-h),
@@ -688,6 +713,25 @@ form input.form-field:focus {
 div.form-select {
     border: 1px solid var(--default-input-border);
     background-color: var(--primary-bg);
+    -webkit-transition: 180ms box-shadow ease-in-out;
+    -moz-transition: 180ms box-shadow ease-in-out;
+    -o-transition: 180ms box-shadow ease-in-out;
+    transition: 180ms box-shadow ease-in-out;
+}
+
+.filters select {
+    border: 1px solid var(--subtle-border);
+    background-color: var(--primary-bg);
+    line-height: 1.2;
+    padding: var(--spacing-02) var(--spacing-04);
+    border-radius: 4px;
+    font-size: var(--step--1)!important;
+    margin: 0 0 0 var(--spacing-05);
+    cursor: pointer;
+    -webkit-transition: 180ms box-shadow ease-in-out;
+    -moz-transition: 180ms box-shadow ease-in-out;
+    -o-transition: 180ms box-shadow ease-in-out;
+    transition: 180ms box-shadow ease-in-out;
 }
 
 select.form-select {
@@ -1002,6 +1046,7 @@ input[type=radio] {
     display: grid;
     grid-gap: var(--spacing-08);
     overflow: hidden;
+    margin-top: var(--spacing-10);
 }
 
 @supports (width: min(13.75rem, 100%)) {

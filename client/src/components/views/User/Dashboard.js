@@ -9,7 +9,7 @@ import UploadForm from '../../elements/UploadForm';
 const Dashboard = () => {
     // const BASE_API_URL = 'http://localhost:4000/uploads';
     const BASE_API_URL = 'https://clear-server.herokuapp.com/uploads';
-    const [uploads, setUploads] = useState('');
+    const [uploads, setUploads] = useState([]);
     const { userData } = useContext(UserContext);
     const token = localStorage.getItem('auth-token');
 
