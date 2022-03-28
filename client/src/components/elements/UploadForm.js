@@ -15,9 +15,9 @@ const UploadForm = () => {
     const [textDetection, setTextDetection] = useState('');
     const [hasHandwritingSystem, setHasHandwritingSystem] = useState('');
     const [selOptions] = useState([
-        { label: 'Digital Text in Image', value: 'digi-text-img' },
+        { label: 'Typed or Scanned Text in Image', value: 'digi-text-img' },
         { label: 'Handwriting in Image', value: 'hndwrtng-img' },
-        { label: 'Digital Text in PDF', value: 'digi-text-pdf' }
+        { label: 'Typed or Scanned Text in PDF', value: 'digi-text-pdf' }
     ]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 

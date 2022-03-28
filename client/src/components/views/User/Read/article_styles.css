@@ -71,6 +71,7 @@
 main.reading-container {
     overflow: hidden;
     background-color: var(--article-bg-color);
+    height: 100vh!important;
 }
 
 article {
@@ -78,6 +79,7 @@ article {
     padding: var(--spacing-10) var(--main-lr-margin)!important;
     margin: 0 auto!important;
     /* font-variation-settings: 'wght' 300; */
+    height: 100%;
 }
 
 article h1, article h2, article p, article strong, article em {
