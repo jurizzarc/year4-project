@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const userRoutes = require('../routes/user-routes');
-const uploadRoutes = require('../routes/upload-routes');
+// const uploadRoutes = require('../routes/upload-routes');
 
 // Set up the server
 const app = express();
@@ -36,6 +36,6 @@ app.get('/', (req, res) => {
     res.send(`Server is up on port: ${PORT}`);
 });
 app.use('/users', userRoutes);
-app.use('/uploads', uploadRoutes);
+// app.use('/uploads', uploadRoutes);
 
 // require('../controllers/dictionary');

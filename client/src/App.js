@@ -11,76 +11,60 @@ import GlobalStyles from './theme/GlobalStyles';
 import './theme/index.css';
 
 const App = () => {
-    // const BASE_API_URL = 'http://localhost:4000/users';
-    const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
-    const [userData, setUserData] = useState({
-        token: undefined,
-        user: undefined
-    });
+  const BASE_API_URL = "http://localhost:4000/users";
+  // const BASE_API_URL = 'https://clear-server.herokuapp.com/users'
+  const [userData, setUserData] = useState({
+    token: undefined,
+    user: undefined,
+  });
 
-    useEffect(() => {
-        const checkLoggedIn = async () => {
-            let token = localStorage.getItem('auth-token');
-            if (token === null) {
-                localStorage.setItem('auth-token', '');
-                token = '';
-            }
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("auth-token");
+      if (token === null) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
 
-            const tokenRes = await axios.post(
-                `${BASE_API_URL}/tokenIsValid`,
-                null, 
-                { headers: { 'x-auth-token': token } }
-            );
-            
-            if (tokenRes.data) {
-                const userRes = await axios.get(
-                    `${BASE_API_URL}/userInfo`,
-                    { headers: { 'x-auth-token': token } }
-                );
+      const tokenRes = await axios.post(`${BASE_API_URL}/tokenIsValid`, null, {
+        headers: { "x-auth-token": token },
+      });
 
-                setUserData({
-                    token,
-                    user: userRes.data
-                });
-            }
-        };
+      if (tokenRes.data) {
+        const userRes = await axios.get(`${BASE_API_URL}/userInfo`, {
+          headers: { "x-auth-token": token },
+        });
 
-        checkLoggedIn();
-    }, []);
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
+    };
 
-    return (
-        <>
-            <GlobalStyles />
-            <BrowserRouter>
-                <UserContext.Provider value={{userData, setUserData}}>
-                    <Switch>
-                        <Route
-                            exact path="/"
-                            component={Home}
-                        />
-                        <Route 
-                            path="/sign-up" 
-                            component={SignUp} 
-                        />
-                        <Route 
-                            path="/sign-in" 
-                            component={SignIn} 
-                        />
-                        <Route 
-                            path="/dashboard"
-                            component={Dashboard}
-                        />
-                        <Route 
-                            exact path="/read/:userUploadId"
-                            render={(props) => (
-                                <Read {...props} />
-                            )}
-                        />
-                    </Switch>
-                </UserContext.Provider>
-            </BrowserRouter>
-        </>
-    );
-}
+    checkLoggedIn();
+  }, []);
+
+  return (
+    <>
+      <GlobalStyles />
+      <BrowserRouter>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/sign-up" component={SignUp} />
+            <Route path="/sign-in" component={SignIn} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route
+              exact
+              path="/read/:userUploadId"
+              render={(props) => <Read {...props} />}
+            />
+          </Switch>
+        </UserContext.Provider>
+      </BrowserRouter>
+    </>
+  );
+};
 
 export default App;
