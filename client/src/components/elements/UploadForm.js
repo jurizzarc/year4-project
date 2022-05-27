@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { BiPlus } from 'react-icons/bi';
-import Button from '../elements/Button';
+import Button from "./button/button.component";
 import Modal from '../elements/Modal';
 
 const UploadForm = () => {

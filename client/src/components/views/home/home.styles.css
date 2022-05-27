@@ -1,0 +1,52 @@
+div.home-container {
+    margin: 0 var(--main-lr-margin);
+    overflow: hidden;
+}
+
+div.home-container>* {
+    display: flex;
+    flex-wrap: wrap;
+    margin: calc(var(--space) / 2 * -1);
+}
+
+div.home-container>*>* {
+    margin: calc(var(--space) / 2);
+    flex-basis: 30rem;
+    flex-grow: 1;
+}
+
+div.home-container>*> :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(50% - var(--space));
+}
+
+div.welcome-msg {
+    padding-top: var(--spacing-15);
+}
+
+div.welcome-msg h1 {
+    margin-bottom: var(--spacing-08);
+}
+
+div.welcome-msg p {
+    margin-bottom: var(--spacing-09);
+}
+
+div.welcome-img {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-10) 0;
+}
+
+div.welcome-img svg {
+    width: auto;
+    height: 100%;
+    display: block;
+}
+
+@media only screen and (max-width: 576px) {
+    div.welcome-msg {
+        padding-top: var(--spacing-11);
+    }
+}

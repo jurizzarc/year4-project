@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BiArrowBack, BiPalette, BiFontFamily, BiAlignLeft } from 'react-icons/bi';
-import Button from '../elements/Button';
+import Button from "./button/button.component";
 import Modal from '../elements/Modal';
 
 const ReadingSettings = () => {

@@ -1,0 +1,154 @@
+:root {
+    --button-primary-enabled: #161F6D;
+    --button-primary-enabled-label: #FFF;
+    --button-primary-enabled-border: #161F6D;
+    --button-primary-hover: #4C479C;
+    --button-primary-hover-label: #FFF;
+    --button-primary-hover-border: #4C479C;
+    --button-primary-focus: #161F6D;
+    --button-primary-focus-label: #FFF;
+    --button-primary-focus-border: #161F6D;
+    --button-primary-focus-outline: #4C479C;
+    --button-primary-active: #000041;
+    --button-primary-active-label: #FFF;
+    --button-primary-active-border: #000041;
+
+    --button-ghost-enabled: transparent;
+    --button-ghost-enabled-label: #161F6D;
+    --button-ghost-enabled-border: transparent;
+    --button-ghost-hover: #E0E0E0;
+    --button-ghost-hover-label: #161F6D;
+    --button-ghost-hover-border: #E0E0E0;
+    --button-ghost-focus: transparent;
+    --button-ghost-focus-label: #161F6D;
+    --button-ghost-focus-border: #161F6D;
+    --button-ghost-focus-outline: #161F6D;
+    --button-ghost-active: transparent;
+    --button-ghost-active-label: #161F6D;
+    --button-ghost-active-border: transparent;
+
+    --button-modal-close-enabled: transparent;
+    --button-modal-close-enabled-label: #161616;
+    --button-modal-close-enabled-border: transparent;
+    --button-modal-close-hover: #E0E0E0;
+    --button-modal-close-hover-label: #161F6D;
+    --button-modal-close-hover-border: #E0E0E0;
+}
+
+button {
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+button:focus {
+    outline: 1px solid transparent;
+}
+
+.btn {
+    border-radius: 28px;
+}
+
+.btn-sm {
+    padding: var(--spacing-01) calc(var(--spacing-01) * 2);
+}
+
+.btn-md {
+    padding: var(--spacing-03) calc(var(--spacing-03) * 2);
+}
+
+.btn-lg {
+    padding: var(--spacing-05) calc(var(--spacing-05) * 2);
+}
+
+.btn-primary {
+    background-color: var(--button-primary-enabled);
+    color: var(--button-primary-enabled-label);
+    border: 1px solid var(--button-primary-enabled-border);
+}
+
+.btn-primary:hover {
+    background-color: var(--button-primary-hover);
+    color: var(--button-primary-hover-label);
+    border: 1px solid var(--button-primary-hover-border);
+}
+
+.btn-primary:focus {
+    background-color: var(--button-primary-focus);
+    color: var(--button-primary-focus-label);
+    border-color: var(--button-primary-focus-border);
+    ;
+    -webkit-box-shadow: 0 0 0 4px var(--button-primary-focus-outline);
+    -moz-box-shadow: 0 0 0 4px var(--button-primary-focus-outline);
+    box-shadow: 0 0 0 4px var(--button-primary-focus-outline);
+}
+
+.btn-primary:active {
+    background-color: var(--button-primary-active);
+    color: var(--button-primary-active-label);
+    border: 1px solid var(--button-primary-active-border);
+}
+
+.btn-ghost {
+    display: inline-block;
+    background-color: var(--button-ghost-enabled);
+    color: var(--button-ghost-enabled-label);
+    border: 1px solid var(--button-ghost-enabled-border);
+}
+
+.btn-ghost:hover {
+    background-color: var(--button-ghost-hover);
+    color: var(--button-ghost-hover-label);
+    border: 1px solid var(--button-ghost-hover-border);
+}
+
+.btn-ghost:focus {
+    background-color: var(--button-ghost-focus);
+    color: var(--button-ghost-focus-label);
+    border-color: var(--button-ghost-focus-border);
+    ;
+    -webkit-box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+    -moz-box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+    box-shadow: 0 0 0 4px var(--button-ghost-focus-outline);
+}
+
+.btn-ghost:active {
+    background-color: var(--button-ghost-active);
+    color: var(--button-ghost-active-label);
+    border: 1px solid var(--button-ghost-active-border);
+}
+
+.modal-close-btn {
+    float: right;
+    background-color: var(--button-modal-close-enabled);
+    color: var(--button-modal-close-enabled-label);
+    border: 1px solid var(--button-modal-close-enabled-border);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.modal-close-btn:hover {
+    background-color: var(--button-modal-close-hover);
+    color: var(--button-modal-close-hover-label);
+    border: 1px solid var(--button-modal-close-hover-border);
+}
+
+.modal-toggler-icon {
+    margin-right: var(--spacing-02);
+}
+
+.modal-close-btn .btn-icon {
+    font-size: var(--step-2) !important;
+}
+
+.btn-icon {
+    vertical-align: middle;
+}
