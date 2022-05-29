@@ -56,6 +56,7 @@ const App = () => {
             <Route exact path="/" component={Home} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/sign-in" component={SignIn} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>

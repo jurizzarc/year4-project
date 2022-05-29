@@ -1,0 +1,70 @@
+:root {
+    --dashboard-header-height: 3.75rem;
+}
+
+main.dashboard-container {
+    /* margin-left: var(--side-nav-width); */
+    height: 100vh;
+    padding: 0 0 var(--spacing-10) 0;
+    overflow-x: hidden !important;
+}
+
+header.dashboard-header {
+    width: 100%;
+    height: var(--dashboard-header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-bg);
+    padding: var(--spacing-05);
+    position: absolute;
+    z-index: 1;
+    border-bottom: 1px solid var(--subtle-border);
+}
+
+header.dashboard-header svg {
+    width: auto;
+    height: 100%;
+}
+
+div.user-info {
+    display: flex;
+    align-items: center;
+}
+
+div.user-avatar {
+    width: 25px;
+    height: 25px;
+    background-color: var(--accent-text);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: var(--spacing-03);
+}
+
+strong.user-name {
+    font-weight: 600 !important;
+}
+
+section.dashboard-main-content {
+    margin-left: var(--side-nav-width);
+    height: 100vh;
+    padding: calc(var(--dashboard-header-height) + var(--spacing-05)) var(--main-lr-margin) var(--spacing-10) var(--main-lr-margin);
+    overflow-x: hidden !important;
+}
+
+h1.dashboard-heading {
+    font-size: var(--step-1) !important;
+    margin-bottom: var(--spacing-02);
+}
+
+/**
+main.dashboard-content
+    header.dashboard-header
+        h1.dashboard-heading
+        div.user-info
+            div.user-avatar
+            strong.user-name
+    section.user-uploads
+        ItemsListGrid
+    UploadForm
+**/

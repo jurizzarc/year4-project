@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Button from '../elements/Button';
-import Modal from '../elements/Modal';
+
+import Button from "../elements/button/button.component";
+import Modal from "../elements/modal/modal.component";
 
 const AccessibilityMenu = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);

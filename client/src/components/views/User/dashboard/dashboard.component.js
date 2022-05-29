@@ -1,12 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 import UserContext from "../../../../contexts/UserContext";
 
-import SideMenu from "../../../navigation/SideMenu";
-import ItemsListGrid from "../../../elements/ItemsListGrid";
-import UploadForm from "../../../elements/UploadForm";
+import { ReactComponent as Logo } from "../../../../assets/clear-logo-lg.svg";
+
+import SideNav from "../../../navigation/side-nav/side-nav.component";
+import UploadsList from "../../../elements/uploads-list/uploads-list.component";
+// import UploadForm from "../../../elements/UploadForm";
+
+import "./dashboard.styles.css";
+import UploadForm from "../../../elements/upload-form/upload-form.component";
 
 const Dashboard = () => {
   const BASE_API_URL = "http://localhost:4000/uploads";
@@ -32,15 +36,12 @@ const Dashboard = () => {
     getAllUploads();
   }, []);
 
-  // if (token === undefined) return <Redirect to="/sign-in" />;
-
   return (
     <>
-      <SideMenu />
-      <main className="dashboard-content">
+      <SideNav />
+      <main className="dashboard-container">
         <header className="dashboard-header">
-          <h1 className="dashboard-heading">Library</h1>
-
+          <Logo />
           <div className="user-info">
             <div className="user-avatar"></div>
             <strong className="user-name">
@@ -48,8 +49,9 @@ const Dashboard = () => {
             </strong>
           </div>
         </header>
-        <section className="user-uploads">
-          <ItemsListGrid uploads={uploads && uploads} />
+        <section className="dashboard-main-content">
+          <h1 className="dashboard-heading">Library</h1>
+          <UploadsList uploads={uploads && uploads} />
         </section>
         <UploadForm />
       </main>

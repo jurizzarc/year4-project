@@ -1,0 +1,56 @@
+.grid {
+    display: grid;
+    grid-gap: var(--spacing-08);
+    overflow: hidden;
+    margin-top: var(--spacing-10);
+}
+
+@supports (width: min(13.75rem, 100%)) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(13.75rem, 100%), 1fr));
+    }
+}
+
+.card-img {
+    align-items: flex-end;
+    display: flex;
+    height: calc(18.75rem + 1vw);
+}
+
+.card-img a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.card-img img,
+.card-img div.pdf-tn {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    -webkit-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.47);
+    -moz-box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.47);
+    box-shadow: 4px 4px 8px -2px rgba(0, 0, 0, 0.47);
+}
+
+.card-img img:hover,
+.card-img div.pdf-tn:hover {
+    opacity: 0.8;
+}
+
+div.pdf-tn {
+    padding: var(--spacing-03) var(--spacing-06);
+}
+
+div.pdf-tn p {
+    font-size: var(--step--2);
+}
+
+.card-txt {
+    margin-top: var(--spacing-06);
+    font-size: var(--step--1);
+}
+
+.card-txt strong {
+    font-weight: 600;
+    display: block;
+}

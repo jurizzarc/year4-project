@@ -1,0 +1,10 @@
+button#upload-modal-btn {
+    position: fixed;
+    right: var(--main-lr-margin);
+    bottom: var(--main-lr-margin);
+}
+
+.upload-form button {
+    float: left;
+    margin: var(--spacing-08) 0 0 0;
+}

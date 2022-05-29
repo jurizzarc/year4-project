@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { BiMenu, BiX } from "react-icons/bi";
 
-import { ReactComponent as Logo } from "../../assets/clear-logo-lg.svg";
-import Button from "../elements/button/button.component";
+import { ReactComponent as Logo } from "../../../assets/clear-logo-lg.svg";
+import Button from "../../elements/button/button.component";
 
 import "./navbar.styles.css";
 

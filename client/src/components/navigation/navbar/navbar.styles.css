@@ -1,3 +1,13 @@
+nav.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-09);
+    padding: 0 var(--main-lr-margin);
+    font-size: var(--step-0);
+}
+
 .nav-toggler {
     background-color: var(--button-modal-close-enabled);
     color: var(--button-modal-close-enabled-label);

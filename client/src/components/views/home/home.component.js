@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Navbar from "../../navigation/navbar.component";
+import Navbar from "../../navigation/navbar/navbar.component";
 import Button from "../../elements/button/button.component";
 import { ReactComponent as WelcomeImg } from "../../../assets/reading-glasses-bro.svg";
 
