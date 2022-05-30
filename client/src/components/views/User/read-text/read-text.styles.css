@@ -69,14 +69,12 @@
 }
 
 main.text-container {
-    overflow: hidden;
     background-color: var(--article-bg-color);
-    height: 100vh!important;
+    padding: var(--spacing-10) var(--main-lr-margin)!important;
 }
 
 article {
     max-width: 70ch;
-    padding: var(--spacing-10) var(--main-lr-margin)!important;
     margin: 0 auto!important;
     height: 100%;
 }
