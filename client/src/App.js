@@ -7,10 +7,10 @@ import Home from "./components/views/home/home.component";
 import SignUp from "./components/views/authentication/sign-up.component";
 import SignIn from "./components/views/authentication/sign-in.component";
 import Dashboard from "./components/views/user/dashboard/dashboard.component";
-import Read from "./components/views/user/Read/Read";
+import ReadText from "./components/views/user/read-text/read-text.component";
 
-import GlobalStyles from "./theme/GlobalStyles";
-import "./theme/index.css";
+import GlobalStyles from "./styles/global-styles";
+import "./styles/main.styles.css";
 
 const App = () => {
   const BASE_API_URL = "http://localhost:4000/users";
@@ -57,6 +57,11 @@ const App = () => {
             <Route path="/sign-up" component={SignUp} />
             <Route path="/sign-in" component={SignIn} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route
+              exact
+              path="/read/:userUploadId"
+              render={(props) => <ReadText {...props} />}
+            />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>

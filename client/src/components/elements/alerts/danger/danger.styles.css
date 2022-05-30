@@ -1,0 +1,7 @@
+div.danger-alert {
+    border: 1px solid var(--danger-border);
+    background-color: var(--danger-bg);
+    margin-top: var(--spacing-08);
+    border-radius: 4px;
+    padding: var(--spacing-05);
+}

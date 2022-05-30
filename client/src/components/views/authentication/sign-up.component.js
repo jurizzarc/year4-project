@@ -8,7 +8,7 @@ import UserContext from "../../../contexts/UserContext";
 
 import { ReactComponent as Logo } from "../../../assets/clear-logo-lg.svg";
 import Button from "../../elements/button/button.component";
-import Danger from "../../elements/alerts/Danger";
+import Danger from "../../elements/alerts/danger/danger.component";
 
 const SignUp = () => {
   const BASE_API_URL = "http://localhost:4000/users";

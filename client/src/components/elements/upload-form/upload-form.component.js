@@ -9,8 +9,8 @@ import Modal from "../modal/modal.component";
 import "./upload-form.styles.css";
 
 const UploadForm = () => {
-  // const BASE_API_URL = 'http://localhost:4000/uploads';
-  const BASE_API_URL = "https://clear-server.herokuapp.com/uploads";
+  const BASE_API_URL = "http://localhost:4000/uploads";
+  // const BASE_API_URL = "https://clear-server.herokuapp.com/uploads";
   const history = useHistory();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -178,6 +178,6 @@ const UploadForm = () => {
       )}
     </>
   );
-};
+};;
 
 export default UploadForm;

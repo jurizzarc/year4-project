@@ -68,7 +68,7 @@
     --font-size-6: calc(((var(--min-font-size-6) * 1rem) + (var(--max-font-size-6) - var(--min-font-size-6)) * var(--article-fluid-bp))); /* <h1> */
 }
 
-main.reading-container {
+main.text-container {
     overflow: hidden;
     background-color: var(--article-bg-color);
     height: 100vh!important;
@@ -78,7 +78,6 @@ article {
     max-width: 70ch;
     padding: var(--spacing-10) var(--main-lr-margin)!important;
     margin: 0 auto!important;
-    /* font-variation-settings: 'wght' 300; */
     height: 100%;
 }
 
